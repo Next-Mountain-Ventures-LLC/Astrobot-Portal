@@ -2,6 +2,14 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import { handleLogin, handleSignup, handleLogout } from "./routes/auth";
+import { handleGetProjects, handleGetProjectDetail } from "./routes/projects";
+import { handleSubmitChange, handleGetChanges } from "./routes/changes";
+import {
+  handleGetProfile,
+  handleUpdateProfile,
+  handleGetSubscription,
+} from "./routes/account";
 
 export function createServer() {
   const app = express();
@@ -18,6 +26,24 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+
+  // Authentication routes
+  app.post("/api/auth/login", handleLogin);
+  app.post("/api/auth/signup", handleSignup);
+  app.post("/api/auth/logout", handleLogout);
+
+  // Projects routes
+  app.get("/api/projects", handleGetProjects);
+  app.get("/api/projects/:id", handleGetProjectDetail);
+
+  // Changes routes
+  app.post("/api/changes", handleSubmitChange);
+  app.get("/api/changes", handleGetChanges);
+
+  // Account routes
+  app.get("/api/account/profile", handleGetProfile);
+  app.put("/api/account/profile", handleUpdateProfile);
+  app.get("/api/account/subscription", handleGetSubscription);
 
   return app;
 }
