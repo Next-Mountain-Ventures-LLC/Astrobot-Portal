@@ -88,14 +88,14 @@ export default function Dashboard() {
                 <Card className="h-full hover:border-primary transition-colors cursor-pointer overflow-hidden flex flex-col">
                   {/* Website Thumbnail */}
                   {project.websiteUrl && (
-                    <div className="relative h-40 bg-secondary overflow-hidden border-b border-border">
+                    <div className="relative h-40 bg-gradient-to-br from-secondary to-background overflow-hidden border-b border-border">
                       <img
-                        src={`https://microlink.io/?url=${encodeURIComponent(project.websiteUrl)}&screenshot=true&embed=screenshot.url`}
+                        src={getScreenshotUrl(project.websiteUrl)}
                         alt={`${project.name} preview`}
                         className="w-full h-full object-cover"
                         loading="lazy"
                         onError={(e) => {
-                          e.currentTarget.src = `https://via.placeholder.com/400x240?text=${encodeURIComponent(project.name)}`;
+                          e.currentTarget.src = getPlaceholderImage(project.name);
                         }}
                       />
                     </div>
