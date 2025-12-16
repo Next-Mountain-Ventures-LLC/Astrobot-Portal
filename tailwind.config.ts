@@ -5,6 +5,7 @@ export default {
   content: ["./client/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
+    forceColorScheme: "dark",
     container: {
       center: true,
       padding: "2rem",
@@ -56,6 +57,11 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        astro: {
+          dark: "hsl(217 84% 11%)",
+          cyan: "hsl(186 100% 50%)",
+          pink: "hsl(330 81% 60%)",
         },
       },
       borderRadius: {
