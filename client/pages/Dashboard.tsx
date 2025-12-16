@@ -12,6 +12,7 @@ interface Project {
   status: "design" | "development" | "review" | "launched";
   progress: number;
   launchDate?: string;
+  websiteUrl?: string;
 }
 
 // Generate screenshot URL with fallback services
