@@ -29,12 +29,43 @@ export interface AuthResponse {
 /**
  * User Types
  */
+export type UserRole = "admin" | "member" | "viewer";
+
+export type Permission =
+  | "view_projects"
+  | "edit_projects"
+  | "submit_changes"
+  | "manage_team"
+  | "view_reports";
+
 export interface User {
   id: string;
   email: string;
   name: string;
   company?: string;
   createdAt: string;
+  role: UserRole;
+  permissions: Permission[];
+}
+
+export interface TeamMember {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  permissions: Permission[];
+  joinedAt: string;
+  status: "active" | "invited" | "pending";
+}
+
+export interface UserInvite {
+  id: string;
+  email: string;
+  role: UserRole;
+  permissions: Permission[];
+  createdAt: string;
+  expiresAt: string;
+  status: "pending" | "accepted" | "declined";
 }
 
 /**
