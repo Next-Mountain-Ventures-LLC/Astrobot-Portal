@@ -10,3 +10,83 @@
 export interface DemoResponse {
   message: string;
 }
+
+/**
+ * Authentication Types
+ */
+export interface AuthRequest {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  id: string;
+  email: string;
+  name: string;
+  token: string;
+}
+
+/**
+ * User Types
+ */
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  company?: string;
+  createdAt: string;
+}
+
+/**
+ * Project Types
+ */
+export interface Project {
+  id: string;
+  name: string;
+  status: "design" | "development" | "review" | "launched";
+  progress: number;
+  description: string;
+  startDate: string;
+  launchDate?: string;
+  userId: string;
+}
+
+export interface ProjectDetail extends Project {
+  timeline: Array<{
+    phase: string;
+    completed: boolean;
+    date?: string;
+  }>;
+}
+
+/**
+ * Change Request Types
+ */
+export interface ChangeRequest {
+  id: string;
+  projectId: string;
+  title: string;
+  description: string;
+  category: "content" | "design" | "feature" | "bug" | "other";
+  priority: "low" | "medium" | "high";
+  status: "submitted" | "in-progress" | "completed";
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Account Types
+ */
+export interface AccountProfile {
+  id: string;
+  name: string;
+  email: string;
+  company?: string;
+}
+
+export interface Subscription {
+  id: string;
+  plan: string;
+  status: "active" | "cancelled" | "expired";
+  renewalDate: string;
+}
