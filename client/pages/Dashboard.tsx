@@ -60,9 +60,9 @@ export default function Dashboard() {
     } catch (error) {
       console.error("Error fetching projects:", error);
       setProjects([
-        { id: "1", name: "TechStart Ventures", status: "development", progress: 65, launchDate: "2024-02-15" },
-        { id: "2", name: "Digital Design Co", status: "design", progress: 30 },
-        { id: "3", name: "E-Commerce Plus", status: "review", progress: 90, launchDate: "2024-01-20" },
+        { id: "1", name: "TechStart Ventures", status: "development", progress: 65, launchDate: "2024-02-15", websiteUrl: "https://www.stripe.com" },
+        { id: "2", name: "Digital Design Co", status: "design", progress: 30, websiteUrl: "https://www.dribbble.com" },
+        { id: "3", name: "E-Commerce Plus", status: "review", progress: 90, launchDate: "2024-01-20", websiteUrl: "https://www.shopify.com" },
       ]);
     } finally {
       setLoading(false);
