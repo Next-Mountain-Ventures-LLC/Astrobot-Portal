@@ -6,6 +6,32 @@ import { Badge } from "@/components/ui/badge";
 import { Layout } from "@/components/Layout";
 import { ArrowLeft, CheckCircle2, Clock, FileText } from "lucide-react";
 
+// Generate screenshot URL with fallback services
+const getScreenshotUrl = (url: string): string => {
+  try {
+    return `https://shot.screenshotapi.net/screenshot?url=${encodeURIComponent(url)}&width=800&height=400`;
+  } catch {
+    return "";
+  }
+};
+
+// Generate professional placeholder images based on project name
+const getPlaceholderImage = (projectName: string): string => {
+  const colors = [
+    "0066ff-00d4ff",
+    "7c3aed-ec4899",
+    "059669-14b8a6",
+    "ea580c-f97316",
+    "4f46e5-3b82f6",
+  ];
+
+  const colorIndex = projectName.charCodeAt(0) % colors.length;
+  const bgColor = colors[colorIndex];
+  const encoded = encodeURIComponent(projectName);
+
+  return `https://placeholder.com/800x400/${bgColor}?text=${encoded}&fontsize=28&font=Raleway`;
+};
+
 interface Project {
   id: string;
   name: string;
@@ -90,14 +116,14 @@ export default function ProjectDetail() {
         {/* Website Thumbnail */}
         {project.websiteUrl && (
           <Card className="overflow-hidden">
-            <div className="h-64 bg-secondary">
+            <div className="h-64 bg-gradient-to-br from-secondary to-background">
               <img
-                src={`https://microlink.io/?url=${encodeURIComponent(project.websiteUrl)}&screenshot=true&embed=screenshot.url`}
+                src={getScreenshotUrl(project.websiteUrl)}
                 alt={`${project.name} preview`}
                 className="w-full h-full object-cover"
                 loading="lazy"
                 onError={(e) => {
-                  e.currentTarget.src = `https://via.placeholder.com/800x400?text=${encodeURIComponent(project.name)}`;
+                  e.currentTarget.src = getPlaceholderImage(project.name);
                 }}
               />
             </div>
