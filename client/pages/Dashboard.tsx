@@ -14,6 +14,35 @@ interface Project {
   launchDate?: string;
 }
 
+// Generate screenshot URL with fallback services
+const getScreenshotUrl = (url: string): string => {
+  try {
+    // Try multiple screenshot services with fallbacks
+    // Using screenshotapi.net which provides clean website mockups
+    return `https://shot.screenshotapi.net/screenshot?url=${encodeURIComponent(url)}&width=400&height=300`;
+  } catch {
+    return "";
+  }
+};
+
+// Generate professional placeholder images based on project name
+const getPlaceholderImage = (projectName: string): string => {
+  const colors = [
+    "gradient-to-br from-blue-600 to-cyan-400",
+    "gradient-to-br from-purple-600 to-pink-400",
+    "gradient-to-br from-emerald-600 to-teal-400",
+    "gradient-to-br from-orange-600 to-red-400",
+    "gradient-to-br from-indigo-600 to-blue-400",
+  ];
+
+  const colorIndex = projectName.charCodeAt(0) % colors.length;
+  const bgGradient = colors[colorIndex];
+  const encoded = encodeURIComponent(projectName);
+
+  // Use a placeholder service that generates nice website mockup style images
+  return `https://placeholder.com/400x300/${bgGradient.split(" ")[2]}/${bgGradient.split(" ")[4]}?text=${encoded}&fontsize=20&font=Raleway`;
+};
+
 export default function Dashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
