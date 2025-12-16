@@ -85,8 +85,23 @@ export default function Dashboard() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
               <Link key={project.id} to={`/projects/${project.id}`}>
-                <Card className="h-full hover:border-primary transition-colors cursor-pointer">
-                  <div className="p-6 space-y-4">
+                <Card className="h-full hover:border-primary transition-colors cursor-pointer overflow-hidden flex flex-col">
+                  {/* Website Thumbnail */}
+                  {project.websiteUrl && (
+                    <div className="relative h-40 bg-secondary overflow-hidden border-b border-border">
+                      <img
+                        src={`https://microlink.io/?url=${encodeURIComponent(project.websiteUrl)}&screenshot=true&embed=screenshot.url`}
+                        alt={`${project.name} preview`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.src = `https://via.placeholder.com/400x240?text=${encodeURIComponent(project.name)}`;
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  <div className="p-6 space-y-4 flex-1 flex flex-col">
                     <div className="flex items-start justify-between">
                       <h3 className="text-lg font-semibold flex-1">{project.name}</h3>
                       <Badge className={getStatusColor(project.status)}>
@@ -116,7 +131,7 @@ export default function Dashboard() {
 
                     <Button
                       variant="outline"
-                      className="w-full group border-primary/30 hover:border-primary"
+                      className="w-full group border-primary/30 hover:border-primary mt-auto"
                       asChild
                     >
                       <span>
