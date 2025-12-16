@@ -9,6 +9,11 @@ import {
   handleGetProfile,
   handleUpdateProfile,
   handleGetSubscription,
+  handleGetTeamMembers,
+  handleInviteUser,
+  handleGetInvites,
+  handleUpdatePermissions,
+  handleRemoveTeamMember,
 } from "./routes/account";
 
 export function createServer() {
@@ -44,6 +49,13 @@ export function createServer() {
   app.get("/api/account/profile", handleGetProfile);
   app.put("/api/account/profile", handleUpdateProfile);
   app.get("/api/account/subscription", handleGetSubscription);
+
+  // Team routes
+  app.get("/api/team/members", handleGetTeamMembers);
+  app.post("/api/team/invite", handleInviteUser);
+  app.get("/api/team/invites", handleGetInvites);
+  app.put("/api/team/members/:id/permissions", handleUpdatePermissions);
+  app.delete("/api/team/members/:id", handleRemoveTeamMember);
 
   return app;
 }
