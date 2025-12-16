@@ -14,6 +14,7 @@ interface Project {
   description: string;
   startDate: string;
   launchDate?: string;
+  websiteUrl?: string;
   timeline: Array<{
     phase: string;
     completed: boolean;
@@ -85,6 +86,23 @@ export default function ProjectDetail() {
           <ArrowLeft className="w-4 h-4" />
           Back to Dashboard
         </Link>
+
+        {/* Website Thumbnail */}
+        {project.websiteUrl && (
+          <Card className="overflow-hidden">
+            <div className="h-64 bg-secondary">
+              <img
+                src={`https://microlink.io/?url=${encodeURIComponent(project.websiteUrl)}&screenshot=true&embed=screenshot.url`}
+                alt={`${project.name} preview`}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.src = `https://via.placeholder.com/800x400?text=${encodeURIComponent(project.name)}`;
+                }}
+              />
+            </div>
+          </Card>
+        )}
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
