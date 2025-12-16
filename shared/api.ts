@@ -49,6 +49,7 @@ export interface Project {
   startDate: string;
   launchDate?: string;
   userId: string;
+  websiteUrl?: string;
 }
 
 export interface ProjectDetail extends Project {

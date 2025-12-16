@@ -12,6 +12,7 @@ const mockProjects: Project[] = [
     startDate: "2024-01-01",
     launchDate: "2024-02-15",
     userId: "demo@astrobot.design",
+    websiteUrl: "https://www.stripe.com",
   },
   {
     id: "2",
@@ -21,6 +22,7 @@ const mockProjects: Project[] = [
     description: "Portfolio website for a design agency",
     startDate: "2024-01-10",
     userId: "demo@astrobot.design",
+    websiteUrl: "https://www.dribbble.com",
   },
   {
     id: "3",
@@ -31,6 +33,7 @@ const mockProjects: Project[] = [
     startDate: "2023-11-01",
     launchDate: "2024-01-20",
     userId: "demo@astrobot.design",
+    websiteUrl: "https://www.shopify.com",
   },
 ];
 
