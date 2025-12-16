@@ -87,17 +87,9 @@ export default function Dashboard() {
     <Layout>
       <div className="space-y-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h1 className="text-4xl font-bold">Your Projects</h1>
-            <p className="text-muted-foreground mt-2">Manage your website builds and track progress</p>
-          </div>
-          <Link to="/submit-changes">
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Rocket className="w-4 h-4 mr-2" />
-              Submit Changes
-            </Button>
-          </Link>
+        <div>
+          <h1 className="text-4xl font-bold">Your Websites</h1>
+          <p className="text-muted-foreground mt-2">Manage your website builds and track progress</p>
         </div>
 
         {/* Projects Grid */}
@@ -107,7 +99,7 @@ export default function Dashboard() {
           </div>
         ) : projects.length === 0 ? (
           <Card className="p-8 text-center">
-            <p className="text-muted-foreground mb-4">No projects yet</p>
+            <p className="text-muted-foreground mb-4">No websites yet</p>
             <p className="text-sm text-muted-foreground">Contact us to get started with your website build</p>
           </Card>
         ) : (
@@ -158,16 +150,24 @@ export default function Dashboard() {
                       </p>
                     )}
 
-                    <Button
-                      variant="outline"
-                      className="w-full group border-primary/30 hover:border-primary mt-auto"
-                      asChild
-                    >
-                      <span>
-                        View Details
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </Button>
+                    <div className="space-y-2 mt-auto">
+                      <Link to="/submit-changes" className="block">
+                        <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                          <Rocket className="w-4 h-4 mr-2" />
+                          Submit Changes
+                        </Button>
+                      </Link>
+                      <Button
+                        variant="outline"
+                        className="w-full group border-primary/30 hover:border-primary"
+                        asChild
+                      >
+                        <span>
+                          View Details
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </Button>
+                    </div>
                   </div>
                 </Card>
               </Link>
