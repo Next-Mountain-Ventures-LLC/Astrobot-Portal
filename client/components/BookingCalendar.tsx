@@ -69,13 +69,14 @@ export function BookingCalendar({
 
   const availableDates = new Set(
     (response?.dates || [])
-      .filter((d) => d.available)
+      .filter((d) => d.available === true || d.available === undefined)
       .map((d) => d.date)
   );
 
   console.log("[BookingCalendar] Available dates set:", {
     size: availableDates.size,
     dates: Array.from(availableDates),
+    allResponseDates: response?.dates?.map((d) => ({ date: d.date, available: d.available })),
   });
 
   const handlePrevMonth = () => {
