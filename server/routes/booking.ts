@@ -33,6 +33,70 @@ const createAppointmentSchema = z.object({
 });
 
 /**
+ * POST /api/booking/check-availability
+ * Check if appointment type has availability for a given datetime
+ * Uses Acuity's check-times endpoint to validate availability
+ */
+export const handleCheckAvailability: RequestHandler = async (req, res) => {
+  try {
+    const appointmentTypeId = process.env.ACUITY_APPOINTMENT_TYPE_ID;
+    const calendarId = process.env.ACUITY_CALENDAR_ID;
+    const timezone = process.env.ACUITY_TIMEZONE;
+
+    if (!appointmentTypeId || !calendarId || !timezone) {
+      return res.status(500).json({
+        error: "Server configuration error",
+        message: "Acuity configuration incomplete",
+      });
+    }
+
+    // Get current date + 7 days as a test datetime
+    const testDate = new Date();
+    testDate.setDate(testDate.getDate() + 7);
+    const testDateTime = testDate.toISOString();
+
+    console.log("[Booking] Checking availability for appointment type:", {
+      appointmentTypeId,
+      calendarId,
+      timezone,
+      testDateTime,
+    });
+
+    // Call Acuity API to check availability
+    const checkResult = await makeAcuityRequest("/availability/check-times", {
+      method: "POST",
+      body: {
+        datetime: testDateTime,
+        appointmentTypeID: parseInt(appointmentTypeId),
+        calendarID: parseInt(calendarId),
+      },
+    });
+
+    console.log("[Booking] Availability check result:", checkResult);
+
+    res.json({
+      available: checkResult.available,
+      appointmentTypeId,
+      calendarId,
+      timezone,
+      testDateTime,
+      response: checkResult,
+    });
+  } catch (error: any) {
+    console.error("[Booking] Availability check error:", {
+      message: error.message,
+      statusCode: error.statusCode,
+    });
+
+    res.status(error.statusCode || 500).json({
+      error: "Availability check failed",
+      message: error.message || "Could not check availability",
+      details: error.error,
+    });
+  }
+};
+
+/**
  * GET /api/booking/appointment-type-details
  * Fetch appointment type information (name, duration, price)
  */
