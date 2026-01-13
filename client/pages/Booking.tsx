@@ -254,7 +254,7 @@ export default function Booking() {
                 Step {currentStepIndex + 1} of {steps.length}
               </p>
 
-              {step === "select" && selectedDateTime && (
+              {step === "select" && designDateTime && launchDateTime && (
                 <Button
                   onClick={() => setStep("form")}
                   className="bg-accent hover:bg-accent/90 text-accent-foreground"
