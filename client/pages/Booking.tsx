@@ -188,14 +188,27 @@ export default function Booking() {
           )}
 
           {/* Content Area */}
-          <div className="space-y-6">
+          <div className="relative space-y-6 overflow-hidden">
             {/* Date & Time Selection Step */}
-            {step === "select" && (
-              <BookingDualDateTimePicker
-                onDatesSelect={handleDatesSelect}
-                onError={setError}
-              />
-            )}
+            <div
+              className={`transition-all duration-500 transform ${
+                step === "select"
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-full opacity-0 absolute"
+              }`}
+              style={{
+                position: step === "select" ? "relative" : "absolute",
+                pointerEvents: step === "select" ? "auto" : "none",
+                width: "100%",
+              }}
+            >
+              {step === "select" && (
+                <BookingDualDateTimePicker
+                  onDatesSelect={handleDatesSelect}
+                  onError={setError}
+                />
+              )}
+            </div>
 
             {/* Form Step */}
             <div
