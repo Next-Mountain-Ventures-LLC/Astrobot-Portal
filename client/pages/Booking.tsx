@@ -201,55 +201,72 @@ export default function Booking() {
             {step === "form" && designDateTime && launchDateTime && (
               <div className="space-y-4">
                 <Card className="p-6 bg-background border-border">
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     {/* Scheduled Dates Section */}
-                    <div className="space-y-3">
-                      <h3 className="text-sm font-semibold text-foreground">
+                    <div className="space-y-4 text-center">
+                      <h3 className="text-2xl font-bold text-foreground">
                         Your website design and launch
                       </h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {/* Design Meeting Card */}
-                        <div className="flex items-center gap-3 p-3 rounded-lg border border-border bg-primary/5">
-                          <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
-                          <div className="min-w-0">
-                            <p className="text-xs text-muted-foreground">
+                      <div className="flex justify-center gap-8">
+                        {/* Design Meeting Calendar Card */}
+                        <button
+                          onClick={() => setStep("select")}
+                          className="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                        >
+                          <div className="relative w-20 h-24 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
+                            <div className="text-xs font-semibold text-primary uppercase">
                               Design
-                            </p>
-                            <p className="text-sm font-medium text-foreground truncate">
-                              {new Date(designDateTime).toLocaleDateString()}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              {new Date(designDateTime).toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
+                            </div>
+                            <div className="text-3xl font-bold text-foreground">
+                              {new Date(designDateTime).getDate()}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              {new Date(designDateTime).toLocaleDateString("en-US", {
+                                month: "short",
                               })}
-                            </p>
+                            </div>
                           </div>
-                        </div>
+                          <div className="text-xs font-medium text-muted-foreground text-center w-20">
+                            {new Date(designDateTime).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </div>
+                        </button>
 
-                        {/* Launch Date Card */}
-                        <div className="flex items-center gap-3 p-3 rounded-lg border border-border bg-primary/5">
-                          <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
-                          <div className="min-w-0">
-                            <p className="text-xs text-muted-foreground">
+                        {/* Launch Date Calendar Card */}
+                        <button
+                          onClick={() => setStep("select")}
+                          className="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                        >
+                          <div className="relative w-20 h-24 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
+                            <div className="text-xs font-semibold text-primary uppercase">
                               Launch
-                            </p>
-                            <p className="text-sm font-medium text-foreground truncate">
-                              {new Date(launchDateTime).toLocaleDateString()}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              {new Date(launchDateTime).toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
+                            </div>
+                            <div className="text-3xl font-bold text-foreground">
+                              {new Date(launchDateTime).getDate()}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              {new Date(launchDateTime).toLocaleDateString("en-US", {
+                                month: "short",
                               })}
-                            </p>
+                            </div>
                           </div>
-                        </div>
+                          <div className="text-xs font-medium text-muted-foreground text-center w-20">
+                            {new Date(launchDateTime).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </div>
+                        </button>
                       </div>
                     </div>
 
                     {/* Form Section */}
-                    <div className="border-t border-border pt-4">
+                    <div className="border-t border-border pt-6">
+                      <h4 className="text-lg font-semibold text-foreground mb-4">
+                        Your Information
+                      </h4>
                       <BookingForm
                         onSubmit={handleFormSubmit}
                         isLoading={createAppointmentMutation.isPending}
@@ -259,6 +276,29 @@ export default function Booking() {
                   </div>
                 </Card>
               </div>
+            )}
+
+            {/* Integrations Step */}
+            {step === "integrations" && (
+              <Card className="p-8 bg-background border-border">
+                <div className="text-center space-y-4">
+                  <h3 className="text-2xl font-bold text-foreground">
+                    Integrations
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Tell us about your website integrations and requirements.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Coming soon - we're building this section for you!
+                  </p>
+                  <Button
+                    onClick={() => setStep("confirm")}
+                    className="bg-accent hover:bg-accent/90 text-accent-foreground mt-4"
+                  >
+                    Continue to Confirm →
+                  </Button>
+                </div>
+              </Card>
             )}
 
             {/* Confirmation Step */}
