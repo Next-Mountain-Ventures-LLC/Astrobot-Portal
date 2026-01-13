@@ -245,16 +245,16 @@ export default function Booking() {
                         {/* Design Meeting Calendar Card */}
                         <button
                           onClick={() => setStep("select")}
-                          className="w-2/3 mx-auto flex flex-col items-center gap-2 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                          className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                         >
-                          <div className="relative w-14 h-18 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
-                            <div className="text-xs font-semibold text-primary uppercase">
+                          <div className="relative w-28 h-36 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                            <div className="text-sm font-bold text-primary uppercase whitespace-normal">
                               Design
                             </div>
-                            <div className="text-2xl font-bold text-foreground">
+                            <div className="text-4xl font-bold text-foreground">
                               {new Date(designDateTime).getDate()}
                             </div>
-                            <div className="text-xs text-muted-foreground">
+                            <div className="text-sm text-muted-foreground">
                               {new Date(designDateTime).toLocaleDateString("en-US", {
                                 month: "short",
                               })}
@@ -271,16 +271,16 @@ export default function Booking() {
                         {/* Launch Date Calendar Card */}
                         <button
                           onClick={() => setStep("select")}
-                          className="w-2/3 mx-auto flex flex-col items-center gap-2 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                          className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                         >
-                          <div className="relative w-14 h-18 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
-                            <div className="text-xs font-semibold text-primary uppercase">
+                          <div className="relative w-28 h-36 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                            <div className="text-sm font-bold text-primary uppercase whitespace-normal">
                               Launch
                             </div>
-                            <div className="text-2xl font-bold text-foreground">
+                            <div className="text-4xl font-bold text-foreground">
                               {new Date(launchDateTime).getDate()}
                             </div>
-                            <div className="text-xs text-muted-foreground">
+                            <div className="text-sm text-muted-foreground">
                               {new Date(launchDateTime).toLocaleDateString("en-US", {
                                 month: "short",
                               })}
