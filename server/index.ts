@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import { validateAcuityCredentials } from "./lib/acuity-client";
 import { handleDemo } from "./routes/demo";
 import { handleLogin, handleSignup, handleLogout } from "./routes/auth";
 import { handleGetProjects, handleGetProjectDetail } from "./routes/projects";
