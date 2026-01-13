@@ -119,12 +119,15 @@ export default function Booking() {
       <div className="min-h-screen bg-background py-12 px-4">
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Header */}
-          <div className="text-center space-y-2 mb-8">
+          <div className="text-center space-y-4 mb-8">
             <h1 className="text-4xl font-bold text-foreground">
-              Schedule your design and launch meeting
+              🚀 Schedule your launch week
             </h1>
             <p className="text-lg text-muted-foreground">
-              Select your design meeting and launch date
+              Select a time to meet with your designer and a time to have your launch meeting before live
+            </p>
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+              You'll get a text after your first mock-up is made and can work with your designer through the week to make changes.
             </p>
           </div>
 
