@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { BookingDateTimePicker } from "@/components/BookingDateTimePicker";
 import { BookingForm, type BookingFormData } from "@/components/BookingForm";
 import { BookingConfirmation } from "@/components/BookingConfirmation";
+import { BookingDebugLog } from "@/components/BookingDebugLog";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
