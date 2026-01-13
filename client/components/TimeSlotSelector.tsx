@@ -27,18 +27,36 @@ export function TimeSlotSelector({
   } = useQuery({
     queryKey: ["availability-times", selectedDate],
     queryFn: async () => {
-      const res = await fetch(
-        `/api/booking/availability/times?date=${selectedDate}`
-      );
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(
-          errorData.message || "Failed to fetch available times"
-        );
+      try {
+        const url = `/api/booking/availability/times?date=${selectedDate}`;
+        console.log("[TimeSlotSelector] Fetching from URL:", url);
+
+        const res = await fetch(url);
+
+        console.log("[TimeSlotSelector] Fetch response status:", res.status, res.statusText);
+
+        if (!res.ok) {
+          let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
+          try {
+            const errorData = await res.json();
+            errorMessage = errorData.message || errorMessage;
+          } catch {
+            // If response isn't JSON, use generic message
+          }
+          throw new Error(errorMessage);
+        }
+
+        const data = await res.json();
+        console.log("[TimeSlotSelector] Fetch successful, received:", data);
+        return data as AvailabilityTimesResponse;
+      } catch (err: any) {
+        console.error("[TimeSlotSelector] Fetch error:", err);
+        throw err;
       }
-      return (await res.json()) as AvailabilityTimesResponse;
     },
     enabled: !!selectedDate,
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 
   useEffect(() => {
