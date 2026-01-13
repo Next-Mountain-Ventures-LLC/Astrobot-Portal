@@ -75,5 +75,12 @@ export function createServer() {
   app.put("/api/team/members/:id/permissions", handleUpdatePermissions);
   app.delete("/api/team/members/:id", handleRemoveTeamMember);
 
+  // Booking routes (Acuity Scheduling API proxy)
+  app.get("/api/booking/appointment-type-details", handleGetAppointmentTypeDetails);
+  app.get("/api/booking/availability/dates", handleGetAvailabilityDates);
+  app.get("/api/booking/availability/times", handleGetAvailabilityTimes);
+  app.post("/api/booking/appointments", handleCreateAppointment);
+  app.get("/api/booking/appointments/:id", handleGetAppointmentDetails);
+
   return app;
 }
