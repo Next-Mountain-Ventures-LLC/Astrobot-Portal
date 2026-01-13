@@ -195,12 +195,9 @@ export default function Booking() {
             <div className="flex items-center justify-between pt-6 border-t border-border">
               <Button
                 onClick={() => {
-                  if (step === "time") {
-                    setSelectedDate(null);
+                  if (step === "form") {
                     setSelectedDateTime(null);
-                    setStep("date");
-                  } else if (step === "form") {
-                    setStep("time");
+                    setStep("select");
                   }
                 }}
                 variant="outline"
@@ -218,16 +215,7 @@ export default function Booking() {
                 Step {currentStepIndex + 1} of {steps.length}
               </p>
 
-              {step === "date" && selectedDate && (
-                <Button
-                  onClick={() => setStep("time")}
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground"
-                >
-                  Next →
-                </Button>
-              )}
-
-              {step === "time" && selectedDateTime && (
+              {step === "select" && selectedDateTime && (
                 <Button
                   onClick={() => setStep("form")}
                   className="bg-accent hover:bg-accent/90 text-accent-foreground"
