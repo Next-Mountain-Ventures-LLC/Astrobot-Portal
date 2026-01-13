@@ -8,7 +8,7 @@ import { BookingDebugLog } from "@/components/BookingDebugLog";
 import { useApiLog } from "@/hooks/use-api-log";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { AlertCircle, CheckCircle2, Calendar } from "lucide-react";
 import { BookingConfirmationResponse } from "@shared/api";
 
 type Step = "select" | "form" | "confirm";
