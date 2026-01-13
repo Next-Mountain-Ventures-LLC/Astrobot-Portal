@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { AlertCircle, Clock, Loader2 } from "lucide-react";
 import { AvailabilityTimesResponse } from "@shared/api";
+import { useApiLog } from "@/hooks/use-api-log";
 
 interface TimeSlotsProps {
   selectedDate: string;
