@@ -72,6 +72,16 @@ export function TimeSlotSelector({
   const timeSlots = response?.times || [];
   const hasAvailability = timeSlots.length > 0;
 
+  // Debug logging
+  useEffect(() => {
+    if (timeSlots.length > 0) {
+      console.log("[TimeSlotSelector] Loaded time slots:", {
+        count: timeSlots.length,
+        sample: timeSlots.slice(0, 3),
+      });
+    }
+  }, [timeSlots]);
+
   const handleTimeSelect = (datetime: string) => {
     setSelectedTime(datetime);
     onTimeSelect(datetime);
