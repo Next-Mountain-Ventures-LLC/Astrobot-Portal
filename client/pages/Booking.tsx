@@ -121,7 +121,7 @@ export default function Booking() {
           {/* Header */}
           <div className="text-center space-y-2 mb-8">
             <h1 className="text-4xl font-bold text-foreground">
-              Schedule your design and launch
+              Schedule your design and launch meeting
             </h1>
             <p className="text-lg text-muted-foreground">
               Select your design meeting and launch date
