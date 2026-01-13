@@ -58,12 +58,12 @@ export function BookingDualDateTimePicker({
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Left: Design Meeting */}
       <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-foreground">Design meeting</h3>
         <BookingCalendar
           onDateSelect={handleDesignDateSelect}
           selectedDate={designDate || undefined}
           onError={onError}
           disableDatesBeforeThan={null}
+          title="Select Designer Meeting"
         />
         {designDate && (
           <TimeSlotSelector
@@ -76,7 +76,6 @@ export function BookingDualDateTimePicker({
 
       {/* Right: Launch Meeting */}
       <div className="space-y-4">
-        <h3 className="text-xl font-semibold text-foreground">Launch date</h3>
         {!isLaunchDateSelectionEnabled ? (
           <Card className="p-8 bg-card border-border h-full flex items-center justify-center">
             <div className="text-center space-y-2">
@@ -95,6 +94,7 @@ export function BookingDualDateTimePicker({
               selectedDate={launchDate || undefined}
               onError={onError}
               disableDatesBeforeThan={designDateMinusSevenDays}
+              title="Select Launch Meeting"
             />
             {isLaunchDateTimeVisible && (
               <TimeSlotSelector
