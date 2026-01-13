@@ -293,16 +293,31 @@ export const handleGetAvailabilityTimes: RequestHandler = async (req, res) => {
     });
 
     // Handle both array and object responses from Acuity
+    // Acuity returns: { time: "2026-01-14T08:00:00-0600", slotsAvailable: 1 }
     let times: string[] = [];
     if (Array.isArray(availableTimes)) {
-      // Acuity returns array of strings or objects with datetime
-      times = availableTimes.map((item: any) =>
-        typeof item === "string" ? item : item.datetime
-      );
+      times = availableTimes.map((item: any) => {
+        // Item can be a string or object with "time" property
+        if (typeof item === "string") {
+          return item;
+        } else if (item.time) {
+          return item.time;
+        } else if (item.datetime) {
+          return item.datetime;
+        }
+        return null;
+      }).filter((t): t is string => t !== null);
     } else if (typeof availableTimes === "object" && availableTimes.times && Array.isArray(availableTimes.times)) {
-      times = availableTimes.times.map((item: any) =>
-        typeof item === "string" ? item : item.datetime
-      );
+      times = availableTimes.times.map((item: any) => {
+        if (typeof item === "string") {
+          return item;
+        } else if (item.time) {
+          return item.time;
+        } else if (item.datetime) {
+          return item.datetime;
+        }
+        return null;
+      }).filter((t): t is string => t !== null);
     } else if (availableTimes) {
       console.warn("[Booking] Unexpected response format from Acuity:", availableTimes);
       times = [];
@@ -311,6 +326,7 @@ export const handleGetAvailabilityTimes: RequestHandler = async (req, res) => {
     console.log("[Booking] Extracted times:", {
       count: times.length,
       sample: times.slice(0, 3),
+      rawSample: Array.isArray(availableTimes) ? availableTimes.slice(0, 2) : "not array",
     });
 
     const response: AvailabilityTimesResponse = {
