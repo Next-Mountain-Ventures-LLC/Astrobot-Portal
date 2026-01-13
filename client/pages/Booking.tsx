@@ -317,9 +317,9 @@ export default function Booking() {
               <Button
                 onClick={() => {
                   if (step === "form") {
-                    setDesignDateTime(null);
-                    setLaunchDateTime(null);
                     setStep("select");
+                  } else if (step === "integrations") {
+                    setStep("form");
                   }
                 }}
                 variant="outline"
