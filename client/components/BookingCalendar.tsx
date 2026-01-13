@@ -224,18 +224,18 @@ export function BookingCalendar({
             )}
 
             {/* Availability Legend */}
-            <div className="mt-4 text-xs text-muted-foreground space-y-1">
-              <p>
+            <div className="mt-4 text-xs text-muted-foreground space-y-1.5">
+              <p className="flex items-center">
                 <span className="inline-block w-3 h-3 bg-accent rounded mr-2"></span>
-                Selected
+                <span className="text-foreground font-medium">Selected</span>
               </p>
-              <p>
-                <span className="inline-block w-3 h-3 border border-border rounded mr-2"></span>
-                Available
+              <p className="flex items-center">
+                <span className="inline-block w-3 h-3 bg-primary/20 border border-primary/50 rounded mr-2"></span>
+                <span className="text-foreground font-medium">Available for booking</span>
               </p>
-              <p>
-                <span className="inline-block w-3 h-3 bg-background rounded opacity-50 mr-2"></span>
-                Unavailable
+              <p className="flex items-center">
+                <span className="inline-block w-3 h-3 bg-muted rounded opacity-50 mr-2"></span>
+                <span>Fully booked</span>
               </p>
             </div>
           </>
