@@ -104,8 +104,8 @@ export default function Booking() {
   // Step indicators
   const steps: { key: Step; label: string; number: number }[] = [
     { key: "select", label: "Select Date & Time", number: 1 },
-    { key: "form", label: "Your Info", number: 2 },
-    { key: "integrations", label: "Integrations", number: 3 },
+    { key: "integrations", label: "About your website", number: 2 },
+    { key: "form", label: "Your Info", number: 3 },
     { key: "confirm", label: "Confirm", number: 4 },
   ];
 
