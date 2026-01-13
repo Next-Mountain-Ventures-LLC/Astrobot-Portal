@@ -49,6 +49,16 @@ export function BookingCalendar({
     }
   }, [error, onError]);
 
+  // Debug logging to understand data flow
+  useEffect(() => {
+    if (response?.dates) {
+      console.log("[BookingCalendar] Received available dates:", {
+        count: response.dates.length,
+        dates: response.dates.map((d) => d.date),
+      });
+    }
+  }, [response?.dates]);
+
   const availableDates = new Set(
     (response?.dates || [])
       .filter((d) => d.available)
