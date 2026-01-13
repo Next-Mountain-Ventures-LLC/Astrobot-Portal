@@ -243,11 +243,14 @@ export function BookingCalendar({
                 const isSelected = selectedDate === dateString;
                 const isCurrentDay = isToday(day);
                 const isSameMonthDay = isSameMonth(day, currentMonth);
+                const isBeforeConstraintDate =
+                  disableDatesBeforeThan && day < disableDatesBeforeThan;
 
                 // Log some sample dates to help debug
                 if (index < 3) {
                   console.log(`[BookingCalendar] Date cell ${dateString}:`, {
                     isAvailable,
+                    isBeforeConstraintDate,
                     dateInSet: availableDates.has(dateString),
                     allDatesInSet: Array.from(availableDates).slice(0, 5),
                     availableDatesSize: availableDates.size,
@@ -257,20 +260,32 @@ export function BookingCalendar({
                   });
                 }
 
+                const isDisabled =
+                  !isAvailable ||
+                  !isSameMonthDay ||
+                  isBeforeConstraintDate;
+
                 return (
                   <button
                     key={dateString}
                     onClick={() => handleDateSelect(dateString)}
-                    disabled={!isAvailable || !isSameMonthDay}
+                    disabled={isDisabled}
                     className={`aspect-square flex items-center justify-center rounded-md text-sm font-medium transition-all relative ${
                       !isSameMonthDay
                         ? "text-muted-foreground cursor-default opacity-30"
-                        : !isAvailable
+                        : isBeforeConstraintDate
                           ? "text-muted-foreground cursor-not-allowed opacity-30 bg-muted"
-                          : isSelected
-                            ? "bg-accent text-accent-foreground hover:bg-accent/90 cursor-pointer font-bold shadow-md"
-                            : "bg-primary/20 text-foreground border border-primary/50 hover:bg-primary/30 hover:border-primary cursor-pointer font-semibold"
+                          : !isAvailable
+                            ? "text-muted-foreground cursor-not-allowed opacity-30 bg-muted"
+                            : isSelected
+                              ? "bg-accent text-accent-foreground hover:bg-accent/90 cursor-pointer font-bold shadow-md"
+                              : "bg-primary/20 text-foreground border border-primary/50 hover:bg-primary/30 hover:border-primary cursor-pointer font-semibold"
                     }`}
+                    title={
+                      isBeforeConstraintDate
+                        ? "At least 7 days after design meeting required"
+                        : undefined
+                    }
                   >
                     {format(day, "d")}
                     {isCurrentDay && (
