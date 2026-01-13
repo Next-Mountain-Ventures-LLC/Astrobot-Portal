@@ -12,8 +12,7 @@ import { BookingConfirmationResponse } from "@shared/api";
 type Step = "select" | "form" | "confirm";
 
 export default function Booking() {
-  const [step, setStep] = useState<Step>("date");
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [step, setStep] = useState<Step>("select");
   const [selectedDateTime, setSelectedDateTime] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [appointment, setAppointment] =
@@ -48,14 +47,7 @@ export default function Booking() {
     },
   });
 
-  const handleDateSelect = (date: string) => {
-    setSelectedDate(date);
-    setSelectedDateTime(null);
-    setStep("time");
-    setError(null);
-  };
-
-  const handleTimeSelect = (datetime: string) => {
+  const handleDateTimeSelect = (datetime: string) => {
     setSelectedDateTime(datetime);
     setStep("form");
     setError(null);
@@ -63,7 +55,7 @@ export default function Booking() {
 
   const handleFormSubmit = async (formData: BookingFormData) => {
     if (!selectedDateTime) {
-      setError("Please select a time before submitting");
+      setError("Please select a date and time before submitting");
       return;
     }
 
@@ -74,8 +66,7 @@ export default function Booking() {
   };
 
   const handleNewBooking = () => {
-    setStep("date");
-    setSelectedDate(null);
+    setStep("select");
     setSelectedDateTime(null);
     setAppointment(null);
     setError(null);
@@ -87,17 +78,13 @@ export default function Booking() {
 
   // Step indicators
   const steps: { key: Step; label: string; number: number }[] = [
-    { key: "date", label: "Select Date", number: 1 },
-    { key: "time", label: "Select Time", number: 2 },
-    { key: "form", label: "Your Info", number: 3 },
-    { key: "confirm", label: "Confirm", number: 4 },
+    { key: "select", label: "Select Date & Time", number: 1 },
+    { key: "form", label: "Your Info", number: 2 },
+    { key: "confirm", label: "Confirm", number: 3 },
   ];
 
   const currentStepIndex = steps.findIndex((s) => s.key === step);
-  const canGoBack =
-    (step === "time" && selectedDate) ||
-    (step === "form" && selectedDateTime) ||
-    false;
+  const canGoBack = (step === "form" && selectedDateTime) || false;
 
   return (
     <Layout>
