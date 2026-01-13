@@ -11,6 +11,7 @@ interface BookingCalendarProps {
   onDateSelect: (date: string) => void;
   selectedDate?: string;
   onError?: (error: string) => void;
+  disableDatesBeforeThan?: Date | null; // Disable dates before this date (for 7-day constraint)
 }
 
 export function BookingCalendar({
