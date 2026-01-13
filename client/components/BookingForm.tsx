@@ -54,20 +54,7 @@ export function BookingForm({
   const isDisabled = isLoading || isSubmitting;
 
   return (
-    <Card className="p-6 bg-card border-border">
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-lg font-semibold text-foreground mb-2">
-            Your Information
-          </h3>
-          {selectedDateTime && (
-            <p className="text-sm text-muted-foreground">
-              Scheduled for: {new Date(selectedDateTime).toLocaleString()}
-            </p>
-          )}
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-4">
           {submitError && (
             <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-md">
               <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400" />
@@ -176,9 +163,7 @@ export function BookingForm({
           >
             {isDisabled ? "Completing Booking..." : "Complete Booking"}
           </Button>
-        </form>
-      </div>
-    </Card>
+    </form>
   );
 }
 
