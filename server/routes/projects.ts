@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { Project, ProjectDetail } from "@shared/api";
-import { supabase } from "../supabase";
+import { getSupabase } from "../supabase";
 
 // Mock timeline for now - could be extended to database
 const mockTimelines: Record<string, ProjectDetail["timeline"]> = {
@@ -17,6 +17,7 @@ export const handleGetProjects: RequestHandler = async (req, res) => {
     // Get user from auth header (simplified for demo)
     const userId = "550e8400-e29b-41d4-a716-446655440000";
 
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("projects")
       .select("*")
@@ -52,6 +53,7 @@ export const handleGetProjectDetail: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
 
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("projects")
       .select("*")
