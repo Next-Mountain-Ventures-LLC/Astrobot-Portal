@@ -198,29 +198,62 @@ export default function Booking() {
               <div className="space-y-4">
                 <Card className="p-6 bg-background border-border">
                   <div className="space-y-4">
-                    <div className="space-y-2">
-                      <p className="text-sm text-muted-foreground">
-                        Design Meeting
-                      </p>
-                      <p className="text-lg font-semibold text-foreground">
-                        {new Date(designDateTime).toLocaleString()}
-                      </p>
+                    {/* Scheduled Dates Section */}
+                    <div className="space-y-3">
+                      <h3 className="text-sm font-semibold text-foreground">
+                        Your website design and launch
+                      </h3>
+                      <div className="grid grid-cols-2 gap-3">
+                        {/* Design Meeting Card */}
+                        <div className="flex items-center gap-3 p-3 rounded-lg border border-border bg-primary/5">
+                          <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
+                          <div className="min-w-0">
+                            <p className="text-xs text-muted-foreground">
+                              Design
+                            </p>
+                            <p className="text-sm font-medium text-foreground truncate">
+                              {new Date(designDateTime).toLocaleDateString()}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {new Date(designDateTime).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Launch Date Card */}
+                        <div className="flex items-center gap-3 p-3 rounded-lg border border-border bg-primary/5">
+                          <Calendar className="w-5 h-5 text-primary flex-shrink-0" />
+                          <div className="min-w-0">
+                            <p className="text-xs text-muted-foreground">
+                              Launch
+                            </p>
+                            <p className="text-sm font-medium text-foreground truncate">
+                              {new Date(launchDateTime).toLocaleDateString()}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {new Date(launchDateTime).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="border-t border-border pt-4 space-y-2">
-                      <p className="text-sm text-muted-foreground">
-                        Launch Date
-                      </p>
-                      <p className="text-lg font-semibold text-foreground">
-                        {new Date(launchDateTime).toLocaleString()}
-                      </p>
+
+                    {/* Form Section */}
+                    <div className="border-t border-border pt-4">
+                      <BookingForm
+                        onSubmit={handleFormSubmit}
+                        isLoading={createAppointmentMutation.isPending}
+                        selectedDateTime={designDateTime}
+                      />
                     </div>
                   </div>
                 </Card>
-                <BookingForm
-                  onSubmit={handleFormSubmit}
-                  isLoading={createAppointmentMutation.isPending}
-                  selectedDateTime={designDateTime}
-                />
               </div>
             )}
 
