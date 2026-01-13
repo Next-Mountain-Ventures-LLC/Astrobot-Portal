@@ -113,8 +113,8 @@ export default function Booking() {
 
   const currentStepIndex = steps.findIndex((s) => s.key === step);
   const canGoBack =
+    (step === "integrations" && designDateTime && launchDateTime) ||
     (step === "form" && designDateTime && launchDateTime) ||
-    (step === "integrations") ||
     false;
 
   return (
