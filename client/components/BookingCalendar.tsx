@@ -20,6 +20,7 @@ export function BookingCalendar({
   selectedDate,
   onError,
   disableDatesBeforeThan,
+  title,
 }: BookingCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const { logRequest, logResponse, logError } = useApiLog();
