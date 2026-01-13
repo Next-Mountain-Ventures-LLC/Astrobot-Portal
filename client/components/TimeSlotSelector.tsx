@@ -177,14 +177,6 @@ export function TimeSlotSelector({
           </div>
         )}
 
-        {selectedTime && (
-          <div className="mt-4 p-3 bg-primary/10 border border-primary/20 rounded-md">
-            <p className="text-sm text-foreground">
-              <span className="font-semibold">Selected time:</span>{" "}
-              {new Date(selectedTime).toLocaleString()}
-            </p>
-          </div>
-        )}
       </div>
     </Card>
   );
