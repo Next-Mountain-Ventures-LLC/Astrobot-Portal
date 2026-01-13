@@ -226,17 +226,26 @@ export default function Booking() {
                 <Card className="p-6 bg-background border-border">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left: Scheduled Dates Section */}
-                    <div className="lg:col-span-1 space-y-4">
+                    <div className="lg:col-span-1 space-y-6">
                       <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
                         Your schedule
                       </h3>
-                      <div className="space-y-4">
+
+                      {/* Avatar Section */}
+                      <div className="flex justify-center">
+                        <div className="w-20 h-20 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+                          <User className="w-10 h-10 text-primary" />
+                        </div>
+                      </div>
+
+                      {/* Date Cards Container with more spacing */}
+                      <div className="space-y-8">
                         {/* Design Meeting Calendar Card */}
                         <button
                           onClick={() => setStep("select")}
-                          className="w-full flex flex-col items-center gap-2 p-3 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                          className="w-2/3 mx-auto flex flex-col items-center gap-2 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                         >
-                          <div className="relative w-16 h-20 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
+                          <div className="relative w-14 h-18 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
                             <div className="text-xs font-semibold text-primary uppercase">
                               Design
                             </div>
@@ -260,9 +269,9 @@ export default function Booking() {
                         {/* Launch Date Calendar Card */}
                         <button
                           onClick={() => setStep("select")}
-                          className="w-full flex flex-col items-center gap-2 p-3 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                          className="w-2/3 mx-auto flex flex-col items-center gap-2 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                         >
-                          <div className="relative w-16 h-20 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
+                          <div className="relative w-14 h-18 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-2 flex flex-col justify-between transition-all">
                             <div className="text-xs font-semibold text-primary uppercase">
                               Launch
                             </div>
