@@ -30,7 +30,11 @@ function expressPlugin(): Plugin {
     apply: "serve", // Only apply during development (serve mode)
     async configureServer(server) {
       // Lazy load to avoid import errors during config parsing
-      const { createServer } = await import("./server/index.ts");
+      const { createServer, initializeServer } = await import("./server/index.ts");
+
+      // Initialize server first (validate credentials, etc.)
+      await initializeServer();
+
       const app = createServer();
 
       // Add Express app as middleware to Vite dev server
