@@ -295,37 +295,6 @@ export function BookingCalendar({
                 );
               })}
             </div>
-
-            {/* Selected Date Info */}
-            {selectedDate && (
-              <div className="mt-4 p-3 bg-primary/10 border border-primary/20 rounded-md">
-                <p className="text-sm text-foreground">
-                  <span className="font-semibold">Selected date:</span>{" "}
-                  {new Date(selectedDate).toLocaleDateString("en-US", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
-              </div>
-            )}
-
-            {/* Availability Legend */}
-            <div className="mt-4 text-xs text-muted-foreground space-y-1.5">
-              <p className="flex items-center">
-                <span className="inline-block w-3 h-3 bg-accent rounded mr-2"></span>
-                <span className="text-foreground font-medium">Selected</span>
-              </p>
-              <p className="flex items-center">
-                <span className="inline-block w-3 h-3 bg-primary/20 border border-primary/50 rounded mr-2"></span>
-                <span className="text-foreground font-medium">Available for booking</span>
-              </p>
-              <p className="flex items-center">
-                <span className="inline-block w-3 h-3 bg-muted rounded opacity-50 mr-2"></span>
-                <span>Fully booked</span>
-              </p>
-            </div>
           </>
         )}
       </div>
