@@ -259,6 +259,13 @@ export const handleGetAvailabilityTimes: RequestHandler = async (req, res) => {
       });
     }
 
+    console.log("[Booking] Fetching availability times:", {
+      appointmentTypeId,
+      date,
+      timezone,
+      calendarId,
+    });
+
     // Call Acuity API to get available times
     const availableTimes = await makeAcuityRequest("/availability/times", {
       params: {
@@ -269,12 +276,30 @@ export const handleGetAvailabilityTimes: RequestHandler = async (req, res) => {
       },
     });
 
+    console.log("[Booking] Acuity API response:", {
+      isArray: Array.isArray(availableTimes),
+      length: Array.isArray(availableTimes) ? availableTimes.length : 0,
+      sample: Array.isArray(availableTimes) ? availableTimes.slice(0, 2) : availableTimes,
+    });
+
+    // Handle both array and object responses from Acuity
+    let times: string[] = [];
+    if (Array.isArray(availableTimes)) {
+      times = availableTimes;
+    } else if (typeof availableTimes === "object" && availableTimes.times && Array.isArray(availableTimes.times)) {
+      times = availableTimes.times;
+    } else if (availableTimes) {
+      console.warn("[Booking] Unexpected response format from Acuity:", availableTimes);
+      times = [];
+    }
+
     const response: AvailabilityTimesResponse = {
-      times: (availableTimes || []).map((datetime: string) => ({
+      times: times.map((datetime: string) => ({
         datetime,
       })),
     };
 
+    console.log("[Booking] Returning response with", times.length, "available times");
     res.json(response);
   } catch (error: any) {
     console.error("[Booking] Error fetching availability times:", error);
