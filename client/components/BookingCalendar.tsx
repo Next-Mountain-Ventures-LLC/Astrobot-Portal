@@ -105,9 +105,20 @@ export function BookingCalendar({
   console.log("[BookingCalendar] Processing available dates:", {
     responseDatesCount: response?.dates?.length,
     filteredDatesCount: availableDates.size,
-    dates: Array.from(availableDates),
-    allResponseDates: response?.dates,
+    firstFiveDates: Array.from(availableDates).slice(0, 5),
+    allResponseDates: response?.dates?.slice(0, 3),
   });
+
+  // Debug: log the exact structure of response
+  if (response && response.dates && response.dates.length > 0) {
+    console.log("[BookingCalendar] First date object:", {
+      fullObject: response.dates[0],
+      keys: Object.keys(response.dates[0]),
+      dateValue: response.dates[0].date,
+      availableValue: response.dates[0].available,
+      availableType: typeof response.dates[0].available,
+    });
+  }
 
   const handlePrevMonth = () => {
     setCurrentMonth((prev) => addMonths(prev, -1));
