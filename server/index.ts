@@ -16,6 +16,13 @@ import {
   handleUpdatePermissions,
   handleRemoveTeamMember,
 } from "./routes/account";
+import {
+  handleGetAppointmentTypeDetails,
+  handleGetAvailabilityDates,
+  handleGetAvailabilityTimes,
+  handleCreateAppointment,
+  handleGetAppointmentDetails,
+} from "./routes/booking";
 
 export async function initializeServer() {
   // Validate Acuity credentials on startup
