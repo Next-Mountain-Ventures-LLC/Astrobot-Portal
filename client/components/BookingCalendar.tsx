@@ -216,13 +216,6 @@ export function BookingCalendar({
         {/* Day Headers */}
         {!isLoading && !error && (
           <>
-            {/* Available Dates Count */}
-            <div className="mb-4 p-3 bg-primary/10 border border-primary/30 rounded-lg">
-              <p className="text-sm font-medium text-foreground">
-                ✓ <span className="text-primary">{availableDates.size} dates available</span> in {format(currentMonth, "MMMM yyyy")}
-              </p>
-            </div>
-
             <div className="grid grid-cols-7 gap-1 mb-2">
               {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
                 <div
