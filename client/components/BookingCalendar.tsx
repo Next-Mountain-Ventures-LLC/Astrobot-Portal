@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { AlertCircle, Calendar, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { AvailabilityDatesResponse } from "@shared/api";
 import { format, addMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isToday, parse } from "date-fns";
+import { useApiLog } from "@/hooks/use-api-log";
 
 interface BookingCalendarProps {
   onDateSelect: (date: string) => void;
