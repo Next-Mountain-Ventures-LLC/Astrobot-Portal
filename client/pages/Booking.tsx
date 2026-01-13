@@ -232,6 +232,9 @@ export default function Booking() {
               )}
             </div>
           )}
+
+          {/* Debug Log */}
+          <BookingDebugLog />
         </div>
       </div>
     </Layout>
