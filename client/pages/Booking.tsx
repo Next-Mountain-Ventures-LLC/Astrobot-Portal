@@ -361,77 +361,218 @@ export default function Booking() {
                       </p>
                     </div>
 
-                    {/* Features Grid */}
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {/* Menu */}
-                        <button className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-all">
-                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                          </div>
-                          <span className="text-sm font-medium text-foreground">Menu</span>
-                        </button>
+                    {/* Features Carousel */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold text-foreground">
+                        Website Features
+                      </h4>
+                      <div className="overflow-x-auto pb-4">
+                        <div className="flex gap-4 min-w-max px-1">
+                          {/* Menu */}
+                          <button
+                            onClick={() => toggleFeature("menu")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedFeatures.has("menu")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedFeatures.has("menu")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedFeatures.has("menu") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Menu</span>
+                            {selectedFeatures.has("menu") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
 
-                        {/* Scheduling */}
-                        <button className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-all">
-                            <Calendar className="w-6 h-6 text-primary" />
-                          </div>
-                          <span className="text-sm font-medium text-foreground">Scheduling</span>
-                        </button>
+                          {/* Blog */}
+                          <button
+                            onClick={() => toggleFeature("blog")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedFeatures.has("blog")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedFeatures.has("blog")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedFeatures.has("blog") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Blog</span>
+                            {selectedFeatures.has("blog") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
 
-                        {/* Google Local */}
-                        <button className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-all">
-                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                          </div>
-                          <span className="text-sm font-medium text-foreground">Google Local</span>
-                        </button>
+                          {/* Contact Form */}
+                          <button
+                            onClick={() => toggleFeature("contact")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedFeatures.has("contact")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedFeatures.has("contact")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedFeatures.has("contact") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Contact</span>
+                            {selectedFeatures.has("contact") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
 
-                        {/* Social Profiles */}
-                        <button className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-all">
-                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                          </div>
-                          <span className="text-sm font-medium text-foreground">Social Profiles</span>
-                        </button>
+                    {/* Integrations Carousel */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold text-foreground">
+                        Integrations
+                      </h4>
+                      <div className="overflow-x-auto pb-4">
+                        <div className="flex gap-4 min-w-max px-1">
+                          {/* E-commerce */}
+                          <button
+                            onClick={() => toggleIntegration("ecommerce")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedIntegrations.has("ecommerce")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedIntegrations.has("ecommerce")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedIntegrations.has("ecommerce") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">E-commerce</span>
+                            {selectedIntegrations.has("ecommerce") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
 
-                        {/* Blog */}
-                        <button className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-all">
-                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                            </svg>
-                          </div>
-                          <span className="text-sm font-medium text-foreground">Blog</span>
-                        </button>
+                          {/* Scheduling */}
+                          <button
+                            onClick={() => toggleIntegration("scheduling")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedIntegrations.has("scheduling")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedIntegrations.has("scheduling")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <Calendar className={`w-6 h-6 ${selectedIntegrations.has("scheduling") ? "text-accent" : "text-primary"}`} />
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Scheduling</span>
+                            {selectedIntegrations.has("scheduling") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
 
-                        {/* E-commerce */}
-                        <button className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-all">
-                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                            </svg>
-                          </div>
-                          <span className="text-sm font-medium text-foreground">E-commerce</span>
-                        </button>
+                          {/* Google Local */}
+                          <button
+                            onClick={() => toggleIntegration("googlelocal")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedIntegrations.has("googlelocal")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedIntegrations.has("googlelocal")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedIntegrations.has("googlelocal") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Google Local</span>
+                            {selectedIntegrations.has("googlelocal") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
 
-                        {/* Contact Form */}
-                        <button className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all group cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-all">
-                            <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                          </div>
-                          <span className="text-sm font-medium text-foreground">Contact Form</span>
-                        </button>
+                          {/* Social Profiles */}
+                          <button
+                            onClick={() => toggleIntegration("social")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedIntegrations.has("social")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedIntegrations.has("social")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedIntegrations.has("social") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Social</span>
+                            {selectedIntegrations.has("social") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
 
