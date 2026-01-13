@@ -122,3 +122,78 @@ export interface Subscription {
   status: "active" | "cancelled" | "expired";
   renewalDate: string;
 }
+
+/**
+ * Acuity Scheduling Types (Booking Page)
+ */
+
+export interface AcuityAppointmentType {
+  id: number;
+  name: string;
+  duration: number; // minutes
+  price?: number;
+  description?: string;
+  type?: string; // "service" | "class" | "series"
+}
+
+export interface AvailabilityDate {
+  date: string; // YYYY-MM-DD format
+  available: boolean;
+}
+
+export interface TimeSlot {
+  datetime: string; // ISO 8601 format with timezone
+}
+
+export interface BookingRequest {
+  datetime: string; // ISO 8601 format
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  timezone: string; // IANA timezone identifier
+  notes?: string;
+}
+
+export interface AcuityAppointment {
+  id: number;
+  datetime: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  appointmentTypeID: number;
+  calendarID: number;
+  timezone: string;
+  notes?: string;
+  confirmationEmail?: string;
+  status?: string;
+}
+
+/**
+ * Booking API Response Types
+ */
+
+export interface AvailabilityDatesResponse {
+  dates: AvailabilityDate[];
+}
+
+export interface AvailabilityTimesResponse {
+  times: TimeSlot[];
+}
+
+export interface BookingConfirmationResponse {
+  appointmentId: number;
+  datetime: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
+export interface ApiErrorResponse {
+  error: string;
+  message: string;
+  statusCode?: number;
+}
