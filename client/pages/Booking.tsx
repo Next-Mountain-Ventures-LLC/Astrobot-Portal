@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2, Calendar } from "lucide-react";
 import { BookingConfirmationResponse } from "@shared/api";
 
-type Step = "select" | "form" | "confirm";
+type Step = "select" | "form" | "integrations" | "confirm";
 
 export default function Booking() {
   const [step, setStep] = useState<Step>("select");
