@@ -71,27 +71,30 @@ export default function Booking() {
     },
   });
 
-  const handleDateTimeSelect = (datetime: string) => {
-    setSelectedDateTime(datetime);
+  const handleDatesSelect = (designDT: string, launchDT: string) => {
+    setDesignDateTime(designDT);
+    setLaunchDateTime(launchDT);
     setStep("form");
     setError(null);
   };
 
   const handleFormSubmit = async (formData: BookingFormData) => {
-    if (!selectedDateTime) {
-      setError("Please select a date and time before submitting");
+    if (!designDateTime || !launchDateTime) {
+      setError("Please select both design and launch dates/times before submitting");
       return;
     }
 
+    // For now, book the design meeting; you may need to handle both separately
     createAppointmentMutation.mutate({
       ...formData,
-      datetime: selectedDateTime,
+      datetime: designDateTime,
     });
   };
 
   const handleNewBooking = () => {
     setStep("select");
-    setSelectedDateTime(null);
+    setDesignDateTime(null);
+    setLaunchDateTime(null);
     setAppointment(null);
     setError(null);
   };
