@@ -238,6 +238,17 @@ export function BookingCalendar({
                 const isCurrentDay = isToday(day);
                 const isSameMonthDay = isSameMonth(day, currentMonth);
 
+                // Log some sample dates to help debug
+                if (index < 5) {
+                  console.log(`[BookingCalendar] Date cell ${dateString}:`, {
+                    isAvailable,
+                    isSelected,
+                    isCurrentDay,
+                    isSameMonthDay,
+                    availableDatesSize: availableDates.size,
+                  });
+                }
+
                 return (
                   <button
                     key={dateString}
