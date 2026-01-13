@@ -198,17 +198,27 @@ export const handleGetAvailabilityDates: RequestHandler = async (req, res) => {
     // Handle both array and object responses from Acuity
     let dates: string[] = [];
     if (Array.isArray(availableDates)) {
-      dates = availableDates;
+      // Acuity returns array of objects like [{ date: "2026-01-14" }, ...]
+      dates = availableDates.map((item: any) =>
+        typeof item === "string" ? item : item.date
+      );
     } else if (typeof availableDates === "object" && availableDates.dates && Array.isArray(availableDates.dates)) {
-      dates = availableDates.dates;
+      dates = availableDates.dates.map((item: any) =>
+        typeof item === "string" ? item : item.date
+      );
     } else if (availableDates) {
       console.warn("[Booking] Unexpected response format from Acuity:", availableDates);
       dates = [];
     }
 
+    console.log("[Booking] Extracted dates:", {
+      count: dates.length,
+      sample: dates.slice(0, 3),
+    });
+
     const response: AvailabilityDatesResponse = {
-      dates: dates.map((date: string) => ({
-        date,
+      dates: dates.map((dateString: string) => ({
+        date: dateString,
         available: true,
       })),
     };
