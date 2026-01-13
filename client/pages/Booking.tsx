@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
-import { BookingCalendar } from "@/components/BookingCalendar";
-import { TimeSlotSelector } from "@/components/TimeSlotSelector";
+import { BookingDateTimePicker } from "@/components/BookingDateTimePicker";
 import { BookingForm, type BookingFormData } from "@/components/BookingForm";
 import { BookingConfirmation } from "@/components/BookingConfirmation";
 import { Card } from "@/components/ui/card";
@@ -10,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { BookingConfirmationResponse } from "@shared/api";
 
-type Step = "date" | "time" | "form" | "confirm";
+type Step = "select" | "form" | "confirm";
 
 export default function Booking() {
   const [step, setStep] = useState<Step>("date");
