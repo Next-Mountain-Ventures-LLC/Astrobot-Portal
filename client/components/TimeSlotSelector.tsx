@@ -125,12 +125,27 @@ export function TimeSlotSelector({
         {!isLoading && !error && hasAvailability && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
             {timeSlots.map((slot) => {
-              const time = new Date(slot.datetime);
-              const timeString = time.toLocaleTimeString("en-US", {
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true,
-              });
+              // Parse the datetime - Acuity may return ISO strings or formatted times
+              let timeString = "Invalid time";
+              try {
+                const time = new Date(slot.datetime);
+                // Check if the date is valid
+                if (!isNaN(time.getTime())) {
+                  timeString = time.toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true,
+                  });
+                } else {
+                  console.warn("[TimeSlotSelector] Invalid datetime:", slot.datetime);
+                  // Try parsing as HH:MM format if ISO format fails
+                  if (typeof slot.datetime === "string" && slot.datetime.includes(":")) {
+                    timeString = slot.datetime.split("+")[0]; // Remove timezone if present
+                  }
+                }
+              } catch (e) {
+                console.error("[TimeSlotSelector] Error parsing time:", slot.datetime, e);
+              }
 
               const isSelected = selectedTime === slot.datetime;
 
