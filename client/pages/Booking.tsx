@@ -132,13 +132,19 @@ export default function Booking() {
           <div className="flex items-center justify-center gap-2 flex-wrap">
             {steps.map((s, idx) => (
               <div key={s.key} className="flex items-center gap-2">
-                <div
+                <button
+                  onClick={() => {
+                    if (idx < currentStepIndex) {
+                      setStep(s.key);
+                    }
+                  }}
+                  disabled={idx > currentStepIndex}
                   className={`flex items-center justify-center w-10 h-10 rounded-full font-semibold transition-colors ${
                     step === s.key
-                      ? "bg-accent text-accent-foreground"
+                      ? "bg-accent text-accent-foreground cursor-default"
                       : idx < currentStepIndex
-                        ? "bg-green-500 text-white"
-                        : "bg-border text-muted-foreground"
+                        ? "bg-primary text-white cursor-pointer hover:bg-primary/90"
+                        : "bg-border text-muted-foreground cursor-not-allowed"
                   }`}
                 >
                   {idx < currentStepIndex ? (
@@ -146,7 +152,7 @@ export default function Booking() {
                   ) : (
                     s.number
                   )}
-                </div>
+                </button>
                 <span
                   className={`text-sm font-medium ${
                     step === s.key
@@ -161,7 +167,7 @@ export default function Booking() {
                 {idx < steps.length - 1 && (
                   <div
                     className={`w-8 h-0.5 mx-1 ${
-                      idx < currentStepIndex ? "bg-green-500" : "bg-border"
+                      idx < currentStepIndex ? "bg-primary" : "bg-border"
                     }`}
                   />
                 )}
