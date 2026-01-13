@@ -107,12 +107,15 @@ export default function Booking() {
   const steps: { key: Step; label: string; number: number }[] = [
     { key: "select", label: "Select Date & Time", number: 1 },
     { key: "form", label: "Your Info", number: 2 },
-    { key: "confirm", label: "Confirm", number: 3 },
+    { key: "integrations", label: "Integrations", number: 3 },
+    { key: "confirm", label: "Confirm", number: 4 },
   ];
 
   const currentStepIndex = steps.findIndex((s) => s.key === step);
   const canGoBack =
-    (step === "form" && designDateTime && launchDateTime) || false;
+    (step === "form" && designDateTime && launchDateTime) ||
+    (step === "integrations") ||
+    false;
 
   return (
     <Layout>
