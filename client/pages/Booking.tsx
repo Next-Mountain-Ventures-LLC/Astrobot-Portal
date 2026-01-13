@@ -84,11 +84,9 @@ export default function Booking() {
       return;
     }
 
-    // For now, book the design meeting; you may need to handle both separately
-    createAppointmentMutation.mutate({
-      ...formData,
-      datetime: designDateTime,
-    });
+    // Save form data and move to integrations step
+    setStep("integrations");
+    setError(null);
   };
 
   const handleNewBooking = () => {
