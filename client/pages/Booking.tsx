@@ -234,7 +234,8 @@ export default function Booking() {
               <Button
                 onClick={() => {
                   if (step === "form") {
-                    setSelectedDateTime(null);
+                    setDesignDateTime(null);
+                    setLaunchDateTime(null);
                     setStep("select");
                   }
                 }}
