@@ -361,15 +361,6 @@ export default function Booking() {
                 Step {currentStepIndex + 1} of {steps.length}
               </p>
 
-              {step === "select" && designDateTime && launchDateTime && (
-                <Button
-                  onClick={() => setStep("form")}
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground"
-                >
-                  Next →
-                </Button>
-              )}
-
               {step === "form" && (
                 <div className="text-sm text-muted-foreground">
                   Complete the form above
