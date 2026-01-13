@@ -19,6 +19,7 @@ export function BookingCalendar({
   onError,
 }: BookingCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const { logRequest, logResponse, logError } = useApiLog();
 
   const monthString = format(currentMonth, "yyyy-MM");
 
@@ -31,30 +32,32 @@ export function BookingCalendar({
   } = useQuery({
     queryKey: ["availability-dates", monthString],
     queryFn: async () => {
+      const startTime = performance.now();
+      const url = `/api/booking/availability/dates?month=${monthString}`;
+      const logId = logRequest("GET", url);
+
       try {
-        const url = `/api/booking/availability/dates?month=${monthString}`;
-        console.log("[BookingCalendar] Fetching from URL:", url);
-
         const res = await fetch(url);
-
-        console.log("[BookingCalendar] Fetch response status:", res.status, res.statusText);
+        const duration = Math.round(performance.now() - startTime);
 
         if (!res.ok) {
           let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
           try {
             const errorData = await res.json();
             errorMessage = errorData.message || errorMessage;
+            logError(logId, errorMessage, duration);
           } catch {
-            // If response isn't JSON, use generic message
+            logError(logId, errorMessage, duration);
           }
           throw new Error(errorMessage);
         }
 
         const data = await res.json();
-        console.log("[BookingCalendar] Fetch successful, received:", data);
+        logResponse(logId, res.status, res.statusText, data, duration);
         return data as AvailabilityDatesResponse;
       } catch (err: any) {
-        console.error("[BookingCalendar] Fetch error:", err);
+        const duration = Math.round(performance.now() - startTime);
+        logError(logId, err.message || "Failed to fetch", duration);
         throw err;
       }
     },
