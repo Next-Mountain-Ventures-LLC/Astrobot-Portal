@@ -152,17 +152,15 @@ export function BookingCalendar({
     <Card className="p-6 bg-card border-border">
       <div className="space-y-4">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold text-foreground">
-              Select Date
-            </h3>
-          </div>
+        <div className="flex items-center justify-center gap-2">
+          <Calendar className="w-5 h-5 text-primary" />
+          <h3 className="text-lg font-semibold text-foreground text-center">
+            {title || "Select Date"}
+          </h3>
         </div>
 
         {/* Month Navigation */}
-        <div className="flex items-center justify-between bg-background rounded-lg p-3 border border-border">
+        <div className="flex items-center justify-between bg-background rounded-lg px-2 py-1.5 border border-border">
           <Button
             variant="ghost"
             size="sm"
