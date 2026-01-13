@@ -20,7 +20,33 @@ export default function Booking() {
   const [error, setError] = useState<string | null>(null);
   const [appointment, setAppointment] =
     useState<BookingConfirmationResponse | null>(null);
+  const [selectedFeatures, setSelectedFeatures] = useState<Set<string>>(
+    new Set()
+  );
+  const [selectedIntegrations, setSelectedIntegrations] = useState<Set<string>>(
+    new Set()
+  );
   const { logRequest, logResponse, logError } = useApiLog();
+
+  const toggleFeature = (feature: string) => {
+    const newSet = new Set(selectedFeatures);
+    if (newSet.has(feature)) {
+      newSet.delete(feature);
+    } else {
+      newSet.add(feature);
+    }
+    setSelectedFeatures(newSet);
+  };
+
+  const toggleIntegration = (integration: string) => {
+    const newSet = new Set(selectedIntegrations);
+    if (newSet.has(integration)) {
+      newSet.delete(integration);
+    } else {
+      newSet.add(integration);
+    }
+    setSelectedIntegrations(newSet);
+  };
 
   // Mutation for creating appointment
   const createAppointmentMutation = useMutation({
