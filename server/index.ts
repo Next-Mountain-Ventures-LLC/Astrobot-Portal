@@ -43,10 +43,23 @@ export function createServer() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Example API routes
+  // Health check and debug routes
   app.get("/api/ping", (_req, res) => {
     const ping = process.env.PING_MESSAGE ?? "ping";
     res.json({ message: ping });
+  });
+
+  app.get("/api/health", (_req, res) => {
+    res.json({
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      acuityConfigured: !!(
+        process.env.ACUITY_USER_ID &&
+        process.env.ACUITY_API_KEY &&
+        process.env.ACUITY_CALENDAR_ID &&
+        process.env.ACUITY_APPOINTMENT_TYPE_ID
+      ),
+    });
   });
 
   app.get("/api/demo", handleDemo);
