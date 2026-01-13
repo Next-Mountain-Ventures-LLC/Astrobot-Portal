@@ -23,6 +23,8 @@ export function BookingCalendar({
 
   const monthString = format(currentMonth, "yyyy-MM");
 
+  console.log("[BookingCalendar] Current month:", { monthString, currentMonth });
+
   // Fetch available dates for the current month
   const {
     data: response,
@@ -32,6 +34,7 @@ export function BookingCalendar({
   } = useQuery({
     queryKey: ["availability-dates", monthString],
     queryFn: async () => {
+      console.log("[BookingCalendar] Starting fetch for month:", monthString);
       const startTime = performance.now();
       const url = `/api/booking/availability/dates?month=${monthString}`;
       const logId = logRequest("GET", url);
@@ -39,6 +42,8 @@ export function BookingCalendar({
       try {
         const res = await fetch(url);
         const duration = Math.round(performance.now() - startTime);
+
+        console.log("[BookingCalendar] Fetch completed:", { status: res.status, duration });
 
         if (!res.ok) {
           let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
@@ -53,10 +58,12 @@ export function BookingCalendar({
         }
 
         const data = await res.json();
+        console.log("[BookingCalendar] Response data:", data);
         logResponse(logId, res.status, res.statusText, data, duration);
         return data as AvailabilityDatesResponse;
       } catch (err: any) {
         const duration = Math.round(performance.now() - startTime);
+        console.error("[BookingCalendar] Fetch error:", err);
         logError(logId, err.message || "Failed to fetch", duration);
         throw err;
       }
