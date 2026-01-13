@@ -77,6 +77,7 @@ export function createServer() {
   app.delete("/api/team/members/:id", handleRemoveTeamMember);
 
   // Booking routes (Acuity Scheduling API proxy)
+  app.post("/api/booking/check-availability", handleCheckAvailability);
   app.get("/api/booking/appointment-type-details", handleGetAppointmentTypeDetails);
   app.get("/api/booking/availability/dates", handleGetAvailabilityDates);
   app.get("/api/booking/availability/times", handleGetAvailabilityTimes);
