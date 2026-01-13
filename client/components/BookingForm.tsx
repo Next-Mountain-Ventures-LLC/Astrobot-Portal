@@ -21,13 +21,11 @@ type BookingFormData = z.infer<typeof bookingFormSchema>;
 interface BookingFormProps {
   onSubmit: (data: BookingFormData) => Promise<void>;
   isLoading?: boolean;
-  selectedDateTime?: string;
 }
 
 export function BookingForm({
   onSubmit,
   isLoading = false,
-  selectedDateTime,
 }: BookingFormProps) {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
