@@ -172,6 +172,13 @@ export const handleGetAvailabilityDates: RequestHandler = async (req, res) => {
       });
     }
 
+    console.log("[Booking] Fetching availability dates:", {
+      appointmentTypeId,
+      month,
+      timezone,
+      calendarId,
+    });
+
     // Call Acuity API to get available dates
     const availableDates = await makeAcuityRequest("/availability/dates", {
       params: {
@@ -182,13 +189,31 @@ export const handleGetAvailabilityDates: RequestHandler = async (req, res) => {
       },
     });
 
+    console.log("[Booking] Acuity API response:", {
+      isArray: Array.isArray(availableDates),
+      length: Array.isArray(availableDates) ? availableDates.length : 0,
+      sample: Array.isArray(availableDates) ? availableDates.slice(0, 2) : availableDates,
+    });
+
+    // Handle both array and object responses from Acuity
+    let dates: string[] = [];
+    if (Array.isArray(availableDates)) {
+      dates = availableDates;
+    } else if (typeof availableDates === "object" && availableDates.dates && Array.isArray(availableDates.dates)) {
+      dates = availableDates.dates;
+    } else if (availableDates) {
+      console.warn("[Booking] Unexpected response format from Acuity:", availableDates);
+      dates = [];
+    }
+
     const response: AvailabilityDatesResponse = {
-      dates: (availableDates || []).map((date: string) => ({
+      dates: dates.map((date: string) => ({
         date,
         available: true,
       })),
     };
 
+    console.log("[Booking] Returning response with", dates.length, "available dates");
     res.json(response);
   } catch (error: any) {
     console.error("[Booking] Error fetching availability dates:", error);
