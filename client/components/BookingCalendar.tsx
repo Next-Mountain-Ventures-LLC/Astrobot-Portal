@@ -30,17 +30,35 @@ export function BookingCalendar({
   } = useQuery({
     queryKey: ["availability-dates", monthString],
     queryFn: async () => {
-      const res = await fetch(
-        `/api/booking/availability/dates?month=${monthString}`
-      );
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(
-          errorData.message || "Failed to fetch available dates"
-        );
+      try {
+        const url = `/api/booking/availability/dates?month=${monthString}`;
+        console.log("[BookingCalendar] Fetching from URL:", url);
+
+        const res = await fetch(url);
+
+        console.log("[BookingCalendar] Fetch response status:", res.status, res.statusText);
+
+        if (!res.ok) {
+          let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
+          try {
+            const errorData = await res.json();
+            errorMessage = errorData.message || errorMessage;
+          } catch {
+            // If response isn't JSON, use generic message
+          }
+          throw new Error(errorMessage);
+        }
+
+        const data = await res.json();
+        console.log("[BookingCalendar] Fetch successful, received:", data);
+        return data as AvailabilityDatesResponse;
+      } catch (err: any) {
+        console.error("[BookingCalendar] Fetch error:", err);
+        throw err;
       }
-      return (await res.json()) as AvailabilityDatesResponse;
     },
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 
   useEffect(() => {
