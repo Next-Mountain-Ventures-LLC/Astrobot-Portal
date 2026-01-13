@@ -15,6 +15,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import SubmitChanges from "./pages/SubmitChanges";
 import AccountSettings from "./pages/AccountSettings";
 import Support from "./pages/Support";
+import Booking from "./pages/Booking";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
