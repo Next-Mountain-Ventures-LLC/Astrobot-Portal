@@ -17,6 +17,16 @@ import {
   handleRemoveTeamMember,
 } from "./routes/account";
 
+export async function initializeServer() {
+  // Validate Acuity credentials on startup
+  const credentialsValid = await validateAcuityCredentials();
+  if (!credentialsValid) {
+    console.warn(
+      "[WARNING] Acuity credentials are not valid. Booking features may not work."
+    );
+  }
+}
+
 export function createServer() {
   const app = express();
 
