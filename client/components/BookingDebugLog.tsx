@@ -114,50 +114,48 @@ export function BookingDebugLog() {
                     {selectedLogId === log.id && (
                       <div className="mt-2 space-y-2 pt-2 border-t border-slate-700">
                         {log.requestBody && (
-                          <details className="text-xs">
-                            <summary className="cursor-pointer text-cyan-400 hover:text-cyan-300">
-                              Request Body
-                            </summary>
-                            <pre className="mt-1 p-2 bg-slate-800 rounded overflow-x-auto text-slate-300">
+                          <div className="text-xs">
+                            <div className="cursor-pointer text-cyan-400 hover:text-cyan-300 font-medium mb-1">
+                              📨 Request Body
+                            </div>
+                            <pre className="p-2 bg-slate-800 rounded overflow-x-auto text-slate-300 text-xs max-h-40 overflow-y-auto">
                               {JSON.stringify(log.requestBody, null, 2)}
                             </pre>
-                          </details>
+                          </div>
                         )}
 
                         {log.responseBody && (
-                          <details className="text-xs">
-                            <summary className="cursor-pointer text-cyan-400 hover:text-cyan-300">
-                              Response Body
-                            </summary>
-                            <div className="mt-1 p-2 bg-slate-800 rounded overflow-x-auto">
-                              <pre className="text-slate-300">
-                                {JSON.stringify(log.responseBody, null, 2)}
-                              </pre>
-                              <Button
-                                onClick={() =>
-                                  copyToClipboard(
-                                    JSON.stringify(log.responseBody, null, 2)
-                                  )
-                                }
-                                variant="ghost"
-                                size="sm"
-                                className="mt-2 text-xs text-slate-400 hover:text-cyan-400"
-                              >
-                                <Copy className="w-3 h-3 mr-1" />
-                                Copy
-                              </Button>
+                          <div className="text-xs">
+                            <div className="cursor-pointer text-cyan-400 hover:text-cyan-300 font-medium mb-1">
+                              📥 Response Body
                             </div>
-                          </details>
+                            <pre className="p-2 bg-slate-800 rounded overflow-x-auto text-slate-300 text-xs max-h-40 overflow-y-auto">
+                              {JSON.stringify(log.responseBody, null, 2)}
+                            </pre>
+                            <Button
+                              onClick={() =>
+                                copyToClipboard(
+                                  JSON.stringify(log.responseBody, null, 2)
+                                )
+                              }
+                              variant="ghost"
+                              size="sm"
+                              className="mt-2 text-xs text-slate-400 hover:text-cyan-400"
+                            >
+                              <Copy className="w-3 h-3 mr-1" />
+                              Copy
+                            </Button>
+                          </div>
                         )}
 
                         {log.error && (
                           <div className="text-xs p-2 bg-red-950 border border-red-800 rounded text-red-300">
-                            <span className="font-bold">Error:</span> {log.error}
+                            <span className="font-bold">❌ Error:</span> {log.error}
                           </div>
                         )}
 
                         <div className="text-xs text-slate-500">
-                          {new Date(log.timestamp).toLocaleTimeString()}
+                          🕐 {new Date(log.timestamp).toLocaleTimeString()}
                         </div>
                       </div>
                     )}
