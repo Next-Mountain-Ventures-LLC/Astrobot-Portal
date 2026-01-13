@@ -340,6 +340,7 @@ export default function Booking() {
               <Button
                 onClick={() => {
                   if (step === "form") {
+                    // Go back without clearing dates - allows user to edit dates while preserving other selection
                     setStep("select");
                   } else if (step === "integrations") {
                     setStep("form");
