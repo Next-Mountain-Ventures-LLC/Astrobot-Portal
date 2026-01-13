@@ -181,29 +181,39 @@ export default function Booking() {
           <div className="space-y-6">
             {/* Date & Time Selection Step */}
             {step === "select" && (
-              <BookingDateTimePicker
-                onDateTimeSelect={handleDateTimeSelect}
+              <BookingDualDateTimePicker
+                onDatesSelect={handleDatesSelect}
                 onError={setError}
               />
             )}
 
             {/* Form Step */}
-            {step === "form" && selectedDateTime && (
+            {step === "form" && designDateTime && launchDateTime && (
               <div className="space-y-4">
                 <Card className="p-6 bg-background border-border">
-                  <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">
-                      Selected Date & Time
-                    </p>
-                    <p className="text-lg font-semibold text-foreground">
-                      {new Date(selectedDateTime).toLocaleString()}
-                    </p>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <p className="text-sm text-muted-foreground">
+                        Design Meeting
+                      </p>
+                      <p className="text-lg font-semibold text-foreground">
+                        {new Date(designDateTime).toLocaleString()}
+                      </p>
+                    </div>
+                    <div className="border-t border-border pt-4 space-y-2">
+                      <p className="text-sm text-muted-foreground">
+                        Launch Date
+                      </p>
+                      <p className="text-lg font-semibold text-foreground">
+                        {new Date(launchDateTime).toLocaleString()}
+                      </p>
+                    </div>
                   </div>
                 </Card>
                 <BookingForm
                   onSubmit={handleFormSubmit}
                   isLoading={createAppointmentMutation.isPending}
-                  selectedDateTime={selectedDateTime}
+                  selectedDateTime={designDateTime}
                 />
               </div>
             )}
