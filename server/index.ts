@@ -17,6 +17,7 @@ import {
   handleRemoveTeamMember,
 } from "./routes/account";
 import {
+  handleCheckAvailability,
   handleGetAppointmentTypeDetails,
   handleGetAvailabilityDates,
   handleGetAvailabilityTimes,
