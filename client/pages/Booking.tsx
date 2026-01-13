@@ -293,7 +293,6 @@ export default function Booking() {
                       <BookingForm
                         onSubmit={handleFormSubmit}
                         isLoading={createAppointmentMutation.isPending}
-                        selectedDateTime={designDateTime}
                       />
                     </div>
                   </div>
