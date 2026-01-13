@@ -295,17 +295,27 @@ export const handleGetAvailabilityTimes: RequestHandler = async (req, res) => {
     // Handle both array and object responses from Acuity
     let times: string[] = [];
     if (Array.isArray(availableTimes)) {
-      times = availableTimes;
+      // Acuity returns array of strings or objects with datetime
+      times = availableTimes.map((item: any) =>
+        typeof item === "string" ? item : item.datetime
+      );
     } else if (typeof availableTimes === "object" && availableTimes.times && Array.isArray(availableTimes.times)) {
-      times = availableTimes.times;
+      times = availableTimes.times.map((item: any) =>
+        typeof item === "string" ? item : item.datetime
+      );
     } else if (availableTimes) {
       console.warn("[Booking] Unexpected response format from Acuity:", availableTimes);
       times = [];
     }
 
+    console.log("[Booking] Extracted times:", {
+      count: times.length,
+      sample: times.slice(0, 3),
+    });
+
     const response: AvailabilityTimesResponse = {
-      times: times.map((datetime: string) => ({
-        datetime,
+      times: times.map((datetimeString: string) => ({
+        datetime: datetimeString,
       })),
     };
 
