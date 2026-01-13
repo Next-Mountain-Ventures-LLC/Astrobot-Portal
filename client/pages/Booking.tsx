@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
-import { BookingDateTimePicker } from "@/components/BookingDateTimePicker";
+import { BookingDualDateTimePicker } from "@/components/BookingDualDateTimePicker";
 import { BookingForm, type BookingFormData } from "@/components/BookingForm";
 import { BookingConfirmation } from "@/components/BookingConfirmation";
 import { BookingDebugLog } from "@/components/BookingDebugLog";
