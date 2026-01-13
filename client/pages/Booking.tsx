@@ -74,7 +74,7 @@ export default function Booking() {
   const handleDatesSelect = (designDT: string, launchDT: string) => {
     setDesignDateTime(designDT);
     setLaunchDateTime(launchDT);
-    setStep("form");
+    setStep("integrations");
     setError(null);
   };
 
@@ -84,9 +84,11 @@ export default function Booking() {
       return;
     }
 
-    // Save form data and move to integrations step
-    setStep("integrations");
-    setError(null);
+    // Book the design meeting
+    createAppointmentMutation.mutate({
+      ...formData,
+      datetime: designDateTime,
+    });
   };
 
   const handleNewBooking = () => {
