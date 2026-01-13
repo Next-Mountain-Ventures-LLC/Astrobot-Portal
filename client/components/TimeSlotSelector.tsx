@@ -18,6 +18,7 @@ export function TimeSlotSelector({
   onError,
 }: TimeSlotsProps) {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const { logRequest, logResponse, logError } = useApiLog();
 
   // Fetch available times for selected date
   const {
@@ -28,30 +29,32 @@ export function TimeSlotSelector({
   } = useQuery({
     queryKey: ["availability-times", selectedDate],
     queryFn: async () => {
+      const startTime = performance.now();
+      const url = `/api/booking/availability/times?date=${selectedDate}`;
+      const logId = logRequest("GET", url);
+
       try {
-        const url = `/api/booking/availability/times?date=${selectedDate}`;
-        console.log("[TimeSlotSelector] Fetching from URL:", url);
-
         const res = await fetch(url);
-
-        console.log("[TimeSlotSelector] Fetch response status:", res.status, res.statusText);
+        const duration = Math.round(performance.now() - startTime);
 
         if (!res.ok) {
           let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
           try {
             const errorData = await res.json();
             errorMessage = errorData.message || errorMessage;
+            logError(logId, errorMessage, duration);
           } catch {
-            // If response isn't JSON, use generic message
+            logError(logId, errorMessage, duration);
           }
           throw new Error(errorMessage);
         }
 
         const data = await res.json();
-        console.log("[TimeSlotSelector] Fetch successful, received:", data);
+        logResponse(logId, res.status, res.statusText, data, duration);
         return data as AvailabilityTimesResponse;
       } catch (err: any) {
-        console.error("[TimeSlotSelector] Fetch error:", err);
+        const duration = Math.round(performance.now() - startTime);
+        logError(logId, err.message || "Failed to fetch", duration);
         throw err;
       }
     },
