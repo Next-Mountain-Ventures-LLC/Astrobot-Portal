@@ -15,7 +15,8 @@ type Step = "select" | "form" | "confirm";
 
 export default function Booking() {
   const [step, setStep] = useState<Step>("select");
-  const [selectedDateTime, setSelectedDateTime] = useState<string | null>(null);
+  const [designDateTime, setDesignDateTime] = useState<string | null>(null);
+  const [launchDateTime, setLaunchDateTime] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [appointment, setAppointment] =
     useState<BookingConfirmationResponse | null>(null);
