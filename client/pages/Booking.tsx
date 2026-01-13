@@ -349,11 +349,10 @@ export default function Booking() {
             <div className="flex items-center justify-between pt-6 border-t border-border">
               <Button
                 onClick={() => {
-                  if (step === "form") {
-                    // Go back without clearing dates - allows user to edit dates while preserving other selection
+                  if (step === "integrations") {
                     setStep("select");
-                  } else if (step === "integrations") {
-                    setStep("form");
+                  } else if (step === "form") {
+                    setStep("integrations");
                   }
                 }}
                 variant="outline"
