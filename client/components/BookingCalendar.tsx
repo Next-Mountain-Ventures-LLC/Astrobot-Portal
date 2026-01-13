@@ -151,6 +151,13 @@ export function BookingCalendar({
         {/* Day Headers */}
         {!isLoading && !error && (
           <>
+            {/* Available Dates Count */}
+            <div className="mb-4 p-3 bg-primary/10 border border-primary/30 rounded-lg">
+              <p className="text-sm font-medium text-foreground">
+                ✓ <span className="text-primary">{availableDates.size} dates available</span> in {format(currentMonth, "MMMM yyyy")}
+              </p>
+            </div>
+
             <div className="grid grid-cols-7 gap-1 mb-2">
               {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
                 <div
@@ -182,19 +189,19 @@ export function BookingCalendar({
                     key={dateString}
                     onClick={() => handleDateSelect(dateString)}
                     disabled={!isAvailable || !isSameMonthDay}
-                    className={`aspect-square flex items-center justify-center rounded-md text-sm font-medium transition-colors relative ${
+                    className={`aspect-square flex items-center justify-center rounded-md text-sm font-medium transition-all relative ${
                       !isSameMonthDay
-                        ? "text-muted-foreground cursor-default"
+                        ? "text-muted-foreground cursor-default opacity-30"
                         : !isAvailable
-                          ? "text-muted-foreground cursor-not-allowed opacity-50"
+                          ? "text-muted-foreground cursor-not-allowed opacity-30 bg-muted"
                           : isSelected
-                            ? "bg-accent text-accent-foreground hover:bg-accent/90 cursor-pointer"
-                            : "border border-border text-foreground hover:border-primary hover:bg-primary/10 cursor-pointer"
+                            ? "bg-accent text-accent-foreground hover:bg-accent/90 cursor-pointer font-bold shadow-md"
+                            : "bg-primary/20 text-foreground border border-primary/50 hover:bg-primary/30 hover:border-primary cursor-pointer font-semibold"
                     }`}
                   >
                     {format(day, "d")}
                     {isCurrentDay && (
-                      <div className="absolute bottom-1 w-1 h-1 bg-primary rounded-full" />
+                      <div className="absolute bottom-1 w-1 h-1 bg-accent rounded-full" />
                     )}
                   </button>
                 );
