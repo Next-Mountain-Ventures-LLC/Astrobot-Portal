@@ -151,28 +151,12 @@ export default function Booking() {
 
           {/* Content Area */}
           <div className="space-y-6">
-            {/* Date Selection Step */}
-            {step === "date" && (
-              <BookingCalendar
-                onDateSelect={handleDateSelect}
+            {/* Date & Time Selection Step */}
+            {step === "select" && (
+              <BookingDateTimePicker
+                onDateTimeSelect={handleDateTimeSelect}
                 onError={setError}
               />
-            )}
-
-            {/* Time Selection Step */}
-            {step === "time" && selectedDate && (
-              <div className="space-y-4">
-                <BookingCalendar
-                  selectedDate={selectedDate}
-                  onDateSelect={handleDateSelect}
-                  onError={setError}
-                />
-                <TimeSlotSelector
-                  selectedDate={selectedDate}
-                  onTimeSelect={handleTimeSelect}
-                  onError={setError}
-                />
-              </div>
             )}
 
             {/* Form Step */}
