@@ -239,13 +239,15 @@ export function BookingCalendar({
                 const isSameMonthDay = isSameMonth(day, currentMonth);
 
                 // Log some sample dates to help debug
-                if (index < 5) {
+                if (index < 3) {
                   console.log(`[BookingCalendar] Date cell ${dateString}:`, {
                     isAvailable,
+                    dateInSet: availableDates.has(dateString),
+                    allDatesInSet: Array.from(availableDates).slice(0, 5),
+                    availableDatesSize: availableDates.size,
                     isSelected,
                     isCurrentDay,
                     isSameMonthDay,
-                    availableDatesSize: availableDates.size,
                   });
                 }
 
