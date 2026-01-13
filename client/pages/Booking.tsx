@@ -19,25 +19,46 @@ export default function Booking() {
   const [error, setError] = useState<string | null>(null);
   const [appointment, setAppointment] =
     useState<BookingConfirmationResponse | null>(null);
+  const { logRequest, logResponse, logError } = useApiLog();
 
   // Mutation for creating appointment
   const createAppointmentMutation = useMutation({
     mutationFn: async (data: BookingFormData & { datetime: string }) => {
-      const res = await fetch("/api/booking/appointments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...data,
-          timezone: "America/Chicago",
-        }),
+      const startTime = performance.now();
+      const logId = logRequest("POST", "/api/booking/appointments", {
+        ...data,
+        timezone: "America/Chicago",
       });
 
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to create appointment");
-      }
+      try {
+        const res = await fetch("/api/booking/appointments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...data,
+            timezone: "America/Chicago",
+          }),
+        });
 
-      return (await res.json()) as BookingConfirmationResponse;
+        const duration = Math.round(performance.now() - startTime);
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          const errorMessage = errorData.message || "Failed to create appointment";
+          logError(logId, errorMessage, duration);
+          throw new Error(errorMessage);
+        }
+
+        const responseData = (await res.json()) as BookingConfirmationResponse;
+        logResponse(logId, res.status, res.statusText, responseData, duration);
+        return responseData;
+      } catch (err: any) {
+        const duration = Math.round(performance.now() - startTime);
+        if (!error) {
+          logError(logId, err.message || "Failed to create appointment", duration);
+        }
+        throw err;
+      }
     },
     onSuccess: (data) => {
       setAppointment(data);
