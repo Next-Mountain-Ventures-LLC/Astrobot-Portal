@@ -51,19 +51,32 @@ export function BookingCalendar({
 
   // Debug logging to understand data flow
   useEffect(() => {
+    console.log("[BookingCalendar] Query state:", {
+      isLoading,
+      hasError: !!error,
+      responseExists: !!response,
+      datesCount: response?.dates?.length,
+      rawResponse: response,
+    });
+
     if (response?.dates) {
       console.log("[BookingCalendar] Received available dates:", {
         count: response.dates.length,
-        dates: response.dates.map((d) => d.date),
+        datesList: response.dates.map((d) => `${d.date} (available: ${d.available})`),
       });
     }
-  }, [response?.dates]);
+  }, [response, isLoading, error]);
 
   const availableDates = new Set(
     (response?.dates || [])
       .filter((d) => d.available)
       .map((d) => d.date)
   );
+
+  console.log("[BookingCalendar] Available dates set:", {
+    size: availableDates.size,
+    dates: Array.from(availableDates),
+  });
 
   const handlePrevMonth = () => {
     setCurrentMonth((prev) => addMonths(prev, -1));
