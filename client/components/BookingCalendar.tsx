@@ -102,10 +102,11 @@ export function BookingCalendar({
       .map((d) => d.date)
   );
 
-  console.log("[BookingCalendar] Available dates set:", {
-    size: availableDates.size,
+  console.log("[BookingCalendar] Processing available dates:", {
+    responseDatesCount: response?.dates?.length,
+    filteredDatesCount: availableDates.size,
     dates: Array.from(availableDates),
-    allResponseDates: response?.dates?.map((d) => ({ date: d.date, available: d.available })),
+    allResponseDates: response?.dates,
   });
 
   const handlePrevMonth = () => {
