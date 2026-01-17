@@ -53,69 +53,73 @@ export function BookingDebugLog() {
             ) : (
               <div className="max-h-96 overflow-y-auto space-y-2">
                 {logs.map((log) => (
-                  <button
+                  <div
                     key={log.id}
-                    onClick={() =>
-                      setSelectedLogId(
-                        selectedLogId === log.id ? null : log.id
-                      )
-                    }
-                    className="w-full text-left p-2 rounded bg-slate-900 border border-slate-700 hover:border-cyan-600 transition-colors cursor-pointer text-xs"
+                    className="rounded bg-slate-900 border border-slate-700 overflow-hidden"
                   >
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2 flex-1 min-w-0">
-                        <span
-                          className={`font-bold whitespace-nowrap ${
-                            log.method === "GET"
-                              ? "text-blue-400"
-                              : "text-green-400"
-                          }`}
-                        >
-                          {log.method}
-                        </span>
-                        <span className="text-slate-400 truncate">
-                          {log.url.replace(/^.*\/api\//, "")}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-2 whitespace-nowrap flex-shrink-0">
-                        {log.completed ? (
-                          <>
-                            {log.error ? (
-                              <span className="text-red-400 font-bold">
-                                ERROR
-                              </span>
-                            ) : (
-                              <span
-                                className={`font-bold ${
-                                  log.status && log.status < 300
-                                    ? "text-green-400"
-                                    : "text-yellow-400"
-                                }`}
-                              >
-                                {log.status}
-                              </span>
-                            )}
-                            {log.duration && (
-                              <span className="text-slate-500">
-                                {log.duration}ms
-                              </span>
-                            )}
-                          </>
-                        ) : (
-                          <span className="text-yellow-400 animate-pulse">
-                            ...
+                    <button
+                      onClick={() =>
+                        setSelectedLogId(
+                          selectedLogId === log.id ? null : log.id
+                        )
+                      }
+                      className="w-full text-left p-2 hover:bg-slate-800 transition-colors cursor-pointer text-xs"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <span
+                            className={`font-bold whitespace-nowrap ${
+                              log.method === "GET"
+                                ? "text-blue-400"
+                                : "text-green-400"
+                            }`}
+                          >
+                            {log.method}
                           </span>
-                        )}
+                          <span className="text-slate-400 truncate">
+                            {log.url.replace(/^.*\/api\//, "")}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2 whitespace-nowrap flex-shrink-0">
+                          {log.completed ? (
+                            <>
+                              {log.error ? (
+                                <span className="text-red-400 font-bold">
+                                  ERROR
+                                </span>
+                              ) : (
+                                <span
+                                  className={`font-bold ${
+                                    log.status && log.status < 300
+                                      ? "text-green-400"
+                                      : "text-yellow-400"
+                                  }`}
+                                >
+                                  {log.status}
+                                </span>
+                              )}
+                              {log.duration && (
+                                <span className="text-slate-500">
+                                  {log.duration}ms
+                                </span>
+                              )}
+                            </>
+                          ) : (
+                            <span className="text-yellow-400 animate-pulse">
+                              ...
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
+                    </button>
 
                     {/* Details */}
                     {selectedLogId === log.id && (
-                      <div className="mt-2 space-y-2 pt-2 border-t border-slate-700">
+                      <div className="mt-2 space-y-2 p-2 border-t border-slate-700">
                         {log.requestBody && (
                           <div className="text-xs">
-                            <div className="cursor-pointer text-cyan-400 hover:text-cyan-300 font-medium mb-1">
+                            <div className="text-cyan-400 font-medium mb-1">
                               📨 Request Body
                             </div>
                             <pre className="p-2 bg-slate-800 rounded overflow-x-auto text-slate-300 text-xs max-h-40 overflow-y-auto">
@@ -125,26 +129,24 @@ export function BookingDebugLog() {
                         )}
 
                         {log.responseBody && (
-                          <div className="text-xs">
-                            <div className="cursor-pointer text-cyan-400 hover:text-cyan-300 font-medium mb-1">
+                          <div className="text-xs space-y-1">
+                            <div className="text-cyan-400 font-medium">
                               📥 Response Body
                             </div>
                             <pre className="p-2 bg-slate-800 rounded overflow-x-auto text-slate-300 text-xs max-h-40 overflow-y-auto">
                               {JSON.stringify(log.responseBody, null, 2)}
                             </pre>
-                            <Button
+                            <button
                               onClick={() =>
                                 copyToClipboard(
                                   JSON.stringify(log.responseBody, null, 2)
                                 )
                               }
-                              variant="ghost"
-                              size="sm"
-                              className="mt-2 text-xs text-slate-400 hover:text-cyan-400"
+                              className="text-xs text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-1 mt-1"
                             >
-                              <Copy className="w-3 h-3 mr-1" />
+                              <Copy className="w-3 h-3" />
                               Copy
-                            </Button>
+                            </button>
                           </div>
                         )}
 
@@ -159,7 +161,7 @@ export function BookingDebugLog() {
                         </div>
                       </div>
                     )}
-                  </button>
+                  </div>
                 ))}
               </div>
             )}
