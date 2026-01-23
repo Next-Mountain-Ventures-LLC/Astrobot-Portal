@@ -47,6 +47,7 @@ const getPlaceholderImage = (projectName: string): string => {
 export default function Dashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProjects();
