@@ -26,8 +26,6 @@ import {
   handleGetAppointmentDetails,
 } from "./routes/booking";
 
-import { initializeSupabase } from "./supabase";
-
 export async function initializeServer() {
   // Initialize Supabase client
   await initializeSupabase();
