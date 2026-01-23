@@ -100,6 +100,10 @@ export default function Dashboard() {
     }
   };
 
+  const handleProjectCardClick = (projectId: string) => {
+    navigate(`/projects/${projectId}`);
+  };
+
   return (
     <Layout>
       <div className="space-y-8">
