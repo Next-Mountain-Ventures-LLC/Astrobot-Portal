@@ -84,11 +84,31 @@ export interface Project {
 }
 
 export interface ProjectDetail extends Project {
+  domain?: string; // Current domain (e.g., "example.com")
+  sslStatus?: "active" | "pending" | "expired" | "none";
+  uptime?: number; // Percentage (0-100)
+  pageLoadTime?: number; // Milliseconds
+  hostingRegion?: string; // e.g., "US-East-1"
   timeline: Array<{
     phase: string;
     completed: boolean;
     date?: string;
   }>;
+}
+
+/**
+ * Website Management Types
+ */
+export interface DomainChangeRequest {
+  newDomain: string;
+  reason: string;
+  notes?: string;
+}
+
+export interface SupportTicket {
+  subject: string;
+  message: string;
+  category?: "billing" | "technical" | "general" | "domain" | "performance";
 }
 
 /**
