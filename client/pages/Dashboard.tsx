@@ -68,17 +68,17 @@ export default function Dashboard() {
         console.error("Invalid projects data, using fallback:", data);
         // Use fallback mock data
         setProjects([
-          { id: "1", name: "TechStart Ventures", status: "development", progress: 65, launchDate: "2024-02-15", websiteUrl: "https://www.stripe.com" },
-          { id: "2", name: "Digital Design Co", status: "design", progress: 30, websiteUrl: "https://www.dribbble.com" },
-          { id: "3", name: "E-Commerce Plus", status: "review", progress: 90, launchDate: "2024-01-20", websiteUrl: "https://www.shopify.com" },
+          { id: "1", name: "Astrobot", status: "development", progress: 65, launchDate: "2024-02-15", websiteUrl: "https://astrobot.design" },
+          { id: "2", name: "Search SERPA", status: "design", progress: 30, websiteUrl: "https://searchserpa.com" },
+          { id: "3", name: "Climb Coach", status: "review", progress: 90, launchDate: "2024-01-20", websiteUrl: "https://climb.coach" },
         ]);
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
       setProjects([
-        { id: "1", name: "TechStart Ventures", status: "development", progress: 65, launchDate: "2024-02-15", websiteUrl: "https://www.stripe.com" },
-        { id: "2", name: "Digital Design Co", status: "design", progress: 30, websiteUrl: "https://www.dribbble.com" },
-        { id: "3", name: "E-Commerce Plus", status: "review", progress: 90, launchDate: "2024-01-20", websiteUrl: "https://www.shopify.com" },
+        { id: "1", name: "Astrobot", status: "development", progress: 65, launchDate: "2024-02-15", websiteUrl: "https://astrobot.design" },
+        { id: "2", name: "Search SERPA", status: "design", progress: 30, websiteUrl: "https://searchserpa.com" },
+        { id: "3", name: "Climb Coach", status: "review", progress: 90, launchDate: "2024-01-20", websiteUrl: "https://climb.coach" },
       ]);
     } finally {
       setLoading(false);
