@@ -189,12 +189,13 @@ export default function ProjectDetail() {
 
         {/* Actions */}
         <div className="flex gap-4">
-          <Link to="/submit-changes" className="flex-1">
-            <Button className="w-full bg-accent hover:bg-accent/90">
-              <FileText className="w-4 h-4 mr-2" />
-              Submit Changes
-            </Button>
-          </Link>
+          <Button
+            className="flex-1 bg-accent hover:bg-accent/90"
+            onClick={() => navigate("/submit-changes")}
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Submit Changes
+          </Button>
           <Button variant="outline" className="flex-1">
             Download Files
           </Button>
