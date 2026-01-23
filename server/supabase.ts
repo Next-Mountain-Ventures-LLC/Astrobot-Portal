@@ -20,19 +20,15 @@ export function getSupabase() {
     } catch (error) {
       console.error("Failed to initialize Supabase client:", error);
       // Return a mock client for dev server to continue
-      const mockError = { message: "Supabase not available" };
-      const mockResult = Promise.resolve({ data: null, error: mockError });
-
-      const createChain = () => ({
-        eq: (column: any, value: any) => createChain(),
-        single: () => mockResult,
+      // Create a chainable query builder that supports method chaining
+      const createQueryBuilder = () => ({
+        select: (columns?: any) => createQueryBuilder(),
+        eq: (column: any, value: any) => createQueryBuilder(),
+        single: () => Promise.resolve({ data: null, error: { message: "Supabase not available" } }),
       });
 
       supabaseClient = {
-        from: (table: any) => ({
-          select: (columns?: any) => createChain(),
-          eq: (column: any, value: any) => createChain(),
-        }),
+        from: (table: any) => createQueryBuilder(),
       };
     }
   }
