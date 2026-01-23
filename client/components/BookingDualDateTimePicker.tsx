@@ -29,6 +29,13 @@ export function BookingDualDateTimePicker({
     }
   }, [designDate]);
 
+  // Calculate which month the launch calendar should default to
+  // If the 7-day constraint date is in a different month, auto-advance to that month
+  const launchCalendarInitialMonth = useMemo(() => {
+    if (!designDateMinusSevenDays) return undefined;
+    return startOfMonth(designDateMinusSevenDays);
+  }, [designDateMinusSevenDays]);
+
   const handleDesignDateSelect = (date: string) => {
     setDesignDate(date);
     setDesignDateTime(null); // Reset time when date changes
