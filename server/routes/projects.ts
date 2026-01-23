@@ -75,6 +75,15 @@ export const handleGetProjectDetail: RequestHandler = async (req, res) => {
       return;
     }
 
+    // Mock domain data - in production, this would come from hosting provider
+    const mockDomainData: Record<string, { domain: string; sslStatus: "active" | "pending" | "expired" | "none"; uptime: number; pageLoadTime: number; hostingRegion: string }> = {
+      "1": { domain: "astrobot.design", sslStatus: "active", uptime: 99.8, pageLoadTime: 1240, hostingRegion: "US-East-1" },
+      "2": { domain: "searchserpa.com", sslStatus: "pending", uptime: 99.5, pageLoadTime: 1850, hostingRegion: "US-West-1" },
+      "3": { domain: "climb.coach", sslStatus: "active", uptime: 99.9, pageLoadTime: 950, hostingRegion: "EU-West-1" },
+    };
+
+    const domainData = mockDomainData[id] || { domain: "example.com", sslStatus: "active" as const, uptime: 99.9, pageLoadTime: 1200, hostingRegion: "US-East-1" };
+
     const project: ProjectDetail = {
       id: data.id,
       name: data.name,
@@ -85,6 +94,11 @@ export const handleGetProjectDetail: RequestHandler = async (req, res) => {
       launchDate: data.launch_date,
       userId: data.user_id,
       websiteUrl: data.website_url,
+      domain: domainData.domain,
+      sslStatus: domainData.sslStatus,
+      uptime: domainData.uptime,
+      pageLoadTime: domainData.pageLoadTime,
+      hostingRegion: domainData.hostingRegion,
       timeline: mockTimelines[id] || [],
     };
 
