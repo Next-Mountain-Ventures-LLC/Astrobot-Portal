@@ -4,7 +4,7 @@ import cors from "cors";
 import { validateAcuityCredentials } from "./lib/acuity-client";
 import { handleDemo } from "./routes/demo";
 import { handleLogin, handleSignup, handleLogout } from "./routes/auth";
-import { handleGetProjects, handleGetProjectDetail } from "./routes/projects";
+import { handleGetProjects, handleGetProjectDetail, handleDomainChangeRequest, handleSupportTicket } from "./routes/projects";
 import { handleSubmitChange, handleGetChanges } from "./routes/changes";
 import {
   handleGetProfile,
