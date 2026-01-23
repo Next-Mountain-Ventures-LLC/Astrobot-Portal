@@ -18,9 +18,9 @@ interface Project {
 // Generate screenshot URL with fallback services
 const getScreenshotUrl = (url: string): string => {
   try {
-    // Try multiple screenshot services with fallbacks
-    // Using screenshotapi.net which provides clean website mockups
-    return `https://shot.screenshotapi.net/screenshot?url=${encodeURIComponent(url)}&width=400&height=300`;
+    // Use thum.io for reliable website screenshots
+    // thum.io is a stable, widely-used screenshot service
+    return `https://image.thum.io/get/width/400/height/300/${encodeURIComponent(url)}`;
   } catch {
     return "";
   }
