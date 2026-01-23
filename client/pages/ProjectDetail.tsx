@@ -9,7 +9,9 @@ import { ArrowLeft, CheckCircle2, Clock, FileText } from "lucide-react";
 // Generate screenshot URL with fallback services
 const getScreenshotUrl = (url: string): string => {
   try {
-    return `https://shot.screenshotapi.net/screenshot?url=${encodeURIComponent(url)}&width=800&height=400`;
+    // Use thum.io for reliable website screenshots
+    // thum.io is a stable, widely-used screenshot service
+    return `https://image.thum.io/get/width/800/height/400/${encodeURIComponent(url)}`;
   } catch {
     return "";
   }
