@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { BookingCalendar } from "@/components/BookingCalendar";
 import { TimeSlotSelector } from "@/components/TimeSlotSelector";
 import { Card } from "@/components/ui/card";
-import { addDays, parseISO } from "date-fns";
+import { addDays, parseISO, startOfMonth } from "date-fns";
 
 interface BookingDualDateTimePickerProps {
   onDatesSelect: (designDateTime: string, launchDateTime: string) => void;
