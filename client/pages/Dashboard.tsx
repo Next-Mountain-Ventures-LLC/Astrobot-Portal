@@ -126,8 +126,11 @@ export default function Dashboard() {
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
-              <Link key={project.id} to={`/projects/${project.id}`}>
-                <Card className="h-full hover:border-primary transition-colors cursor-pointer overflow-hidden flex flex-col">
+              <div key={project.id}>
+                <Card
+                  onClick={() => handleProjectCardClick(project.id)}
+                  className="h-full hover:border-primary transition-colors cursor-pointer overflow-hidden flex flex-col"
+                >
                   {/* Website Thumbnail */}
                   {project.websiteUrl && (
                     <div className="relative h-40 bg-gradient-to-br from-secondary to-background overflow-hidden border-b border-border">
@@ -191,7 +194,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </Card>
-              </Link>
+              </div>
             ))}
           </div>
         )}
