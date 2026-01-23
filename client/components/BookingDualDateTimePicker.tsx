@@ -102,6 +102,7 @@ export function BookingDualDateTimePicker({
               onError={onError}
               disableDatesBeforeThan={designDateMinusSevenDays}
               title="Select Launch Meeting"
+              initialMonth={launchCalendarInitialMonth}
             />
             {isLaunchDateTimeVisible && (
               <TimeSlotSelector
