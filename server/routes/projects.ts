@@ -108,3 +108,84 @@ export const handleGetProjectDetail: RequestHandler = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const handleDomainChangeRequest: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { newDomain, reason, notes } = req.body as DomainChangeRequest;
+
+    // Validate input
+    if (!newDomain || !reason) {
+      return res.status(400).json({
+        error: "Invalid request",
+        message: "newDomain and reason are required",
+      });
+    }
+
+    // Basic domain validation (regex for domain format)
+    const domainRegex = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
+    if (!domainRegex.test(newDomain)) {
+      return res.status(400).json({
+        error: "Invalid domain",
+        message: "Please enter a valid domain name (e.g., example.com)",
+      });
+    }
+
+    // Log the domain change request (in production, this would create a task in your task management system)
+    console.log("[Domain Change Request]", {
+      projectId: id,
+      newDomain,
+      reason,
+      notes,
+      timestamp: new Date().toISOString(),
+    });
+
+    // Send success response
+    res.status(201).json({
+      message: "Domain change request submitted successfully",
+      requestId: `DCR-${Date.now()}`,
+      status: "pending",
+      newDomain,
+      estimatedProcessingTime: "1-2 business days",
+    });
+  } catch (error) {
+    console.error("Domain change request error:", error);
+    res.status(500).json({ error: "Failed to submit domain change request" });
+  }
+};
+
+export const handleSupportTicket: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { subject, message, category } = req.body as SupportTicket;
+
+    // Validate input
+    if (!subject || !message) {
+      return res.status(400).json({
+        error: "Invalid request",
+        message: "subject and message are required",
+      });
+    }
+
+    // Log the support ticket (in production, this would create a ticket in your support system)
+    console.log("[Support Ticket Created]", {
+      projectId: id,
+      subject,
+      message,
+      category: category || "general",
+      timestamp: new Date().toISOString(),
+    });
+
+    // Send success response
+    res.status(201).json({
+      message: "Support ticket created successfully",
+      ticketId: `TICKET-${Date.now()}`,
+      status: "open",
+      subject,
+      estimatedResponseTime: "2-4 hours",
+    });
+  } catch (error) {
+    console.error("Support ticket error:", error);
+    res.status(500).json({ error: "Failed to create support ticket" });
+  }
+};
