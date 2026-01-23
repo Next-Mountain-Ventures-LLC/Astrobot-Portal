@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { Project, ProjectDetail } from "@shared/api";
+import { Project, ProjectDetail, DomainChangeRequest, SupportTicket } from "@shared/api";
 import { getSupabase } from "../supabase";
 
 // Mock timeline for now - could be extended to database
