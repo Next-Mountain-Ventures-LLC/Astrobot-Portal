@@ -4,7 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Layout } from "@/components/Layout";
-import { ArrowLeft, CheckCircle2, Clock, FileText } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Clock, FileText, ExternalLink } from "lucide-react";
+import { DomainSection } from "@/components/DomainSection";
+import { DomainChangeModal } from "@/components/DomainChangeModal";
+import { SSLStatus } from "@/components/SSLStatus";
+import { HostingPerformance } from "@/components/HostingPerformance";
+import { EditableSettings } from "@/components/EditableSettings";
+import { SupportContact } from "@/components/SupportContact";
+import { ProjectDetail as ProjectDetailType } from "@shared/api";
 
 // Generate screenshot URL with fallback services
 const getScreenshotUrl = (url: string): string => {
@@ -33,22 +40,6 @@ const getPlaceholderImage = (projectName: string): string => {
 
   return `https://placeholder.com/800x400/${bgColor}?text=${encoded}&fontsize=28&font=Raleway`;
 };
-
-interface Project {
-  id: string;
-  name: string;
-  status: "design" | "development" | "review" | "launched";
-  progress: number;
-  description: string;
-  startDate: string;
-  launchDate?: string;
-  websiteUrl?: string;
-  timeline: Array<{
-    phase: string;
-    completed: boolean;
-    date?: string;
-  }>;
-}
 
 export default function ProjectDetail() {
   const { id } = useParams();
