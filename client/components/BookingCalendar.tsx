@@ -22,9 +22,17 @@ export function BookingCalendar({
   onError,
   disableDatesBeforeThan,
   title,
+  initialMonth,
 }: BookingCalendarProps) {
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [currentMonth, setCurrentMonth] = useState<Date>(initialMonth || new Date());
   const { logRequest, logResponse, logError } = useApiLog();
+
+  // Auto-advance calendar to initialMonth when it changes (e.g., when 7-day constraint spans months)
+  useEffect(() => {
+    if (initialMonth) {
+      setCurrentMonth(initialMonth);
+    }
+  }, [initialMonth]);
 
   const monthString = format(currentMonth, "yyyy-MM");
 
