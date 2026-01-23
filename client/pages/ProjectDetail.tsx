@@ -44,8 +44,9 @@ const getPlaceholderImage = (projectName: string): string => {
 export default function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<ProjectDetailType | null>(null);
   const [loading, setLoading] = useState(true);
+  const [domainChangeModalOpen, setDomainChangeModalOpen] = useState(false);
 
   useEffect(() => {
     fetchProjectDetail();
@@ -66,6 +67,13 @@ export default function ProjectDetail() {
         description: "A modern, fast website built with Astro framework",
         startDate: "2024-01-01",
         launchDate: "2024-02-15",
+        domain: "example.com",
+        sslStatus: "active",
+        uptime: 99.9,
+        pageLoadTime: 1200,
+        hostingRegion: "US-East-1",
+        userId: "550e8400-e29b-41d4-a716-446655440000",
+        websiteUrl: "https://example.com",
         timeline: [
           { phase: "Design Phase", completed: true, date: "2024-01-15" },
           { phase: "Development", completed: true, date: "2024-02-01" },
