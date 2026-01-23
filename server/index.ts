@@ -72,6 +72,8 @@ export function createServer() {
   // Projects routes
   app.get("/api/projects", handleGetProjects);
   app.get("/api/projects/:id", handleGetProjectDetail);
+  app.post("/api/projects/:id/domain-change-request", handleDomainChangeRequest);
+  app.post("/api/projects/:id/support-ticket", handleSupportTicket);
 
   // Changes routes
   app.post("/api/changes", handleSubmitChange);
