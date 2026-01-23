@@ -20,13 +20,18 @@ export function getSupabase() {
     } catch (error) {
       console.error("Failed to initialize Supabase client:", error);
       // Return a mock client for dev server to continue
+      const mockError = { message: "Supabase not available" };
+      const mockResult = { data: null, error: mockError };
+
+      const createChain = () => ({
+        eq: () => createChain(),
+        single: () => Promise.resolve(mockResult),
+      });
+
       supabaseClient = {
         from: () => ({
-          select: () => ({
-            eq: () => Promise.resolve({ data: null, error: { message: "Supabase not available" } }),
-            single: () => Promise.resolve({ data: null, error: { message: "Supabase not available" } }),
-          }),
-          eq: () => Promise.resolve({ data: null, error: { message: "Supabase not available" } }),
+          select: () => createChain(),
+          eq: () => createChain(),
         }),
       };
     }
