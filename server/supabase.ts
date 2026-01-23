@@ -24,6 +24,7 @@ export async function initializeSupabase() {
 }
 
 function createMockSupabaseClient() {
+  console.log("[Supabase] Using mock client for development");
   // Create a chainable query builder that supports method chaining
   const createQueryBuilder = () => ({
     select: (columns?: any) => createQueryBuilder(),
