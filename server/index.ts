@@ -25,7 +25,12 @@ import {
   handleGetAppointmentDetails,
 } from "./routes/booking";
 
+import { initializeSupabase } from "./supabase";
+
 export async function initializeServer() {
+  // Initialize Supabase client
+  await initializeSupabase();
+
   // Validate Acuity credentials on startup
   const credentialsValid = await validateAcuityCredentials();
   if (!credentialsValid) {
