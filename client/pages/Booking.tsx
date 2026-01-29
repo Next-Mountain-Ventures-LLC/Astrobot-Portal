@@ -293,10 +293,11 @@ export default function Booking() {
       return;
     }
 
-    // Book the design meeting
+    // Book both appointments with gathered information
     createAppointmentMutation.mutate({
       ...formData,
       datetime: designDateTime,
+      launchDateTime: launchDateTime,
     });
   };
 
