@@ -12,6 +12,7 @@ import {
   BookingConfirmationResponse,
   AcuityAppointmentType,
 } from "@shared/api";
+import Stripe from "stripe";
 
 // Validation schemas
 const getAvailabilityDatesSchema = z.object({
