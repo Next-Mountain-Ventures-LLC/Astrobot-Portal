@@ -21,11 +21,13 @@ type BookingFormData = z.infer<typeof bookingFormSchema>;
 interface BookingFormProps {
   onSubmit: (data: BookingFormData) => Promise<void>;
   isLoading?: boolean;
+  initialValues?: Partial<BookingFormData>;
 }
 
 export function BookingForm({
   onSubmit,
   isLoading = false,
+  initialValues,
 }: BookingFormProps) {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -35,6 +37,7 @@ export function BookingForm({
     formState: { errors, isSubmitting },
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingFormSchema),
+    defaultValues: initialValues,
   });
 
   const onSubmitHandler = async (data: BookingFormData) => {
