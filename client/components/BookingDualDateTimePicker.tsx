@@ -43,6 +43,10 @@ export function BookingDualDateTimePicker({
 
   const handleDesignTimeSelect = (datetime: string) => {
     setDesignDateTime(datetime);
+    // Check if both times are now selected (launch time might already be set)
+    if (launchDateTime) {
+      onDatesSelect(datetime, launchDateTime);
+    }
   };
 
   const handleLaunchDateSelect = (date: string) => {
@@ -53,7 +57,8 @@ export function BookingDualDateTimePicker({
   const handleLaunchTimeSelect = (datetime: string) => {
     setLaunchDateTime(datetime);
     // Only trigger callback when both dates and times are selected
-    if (designDateTime && datetime) {
+    // Check if design time is already selected
+    if (designDateTime) {
       onDatesSelect(designDateTime, datetime);
     }
   };
