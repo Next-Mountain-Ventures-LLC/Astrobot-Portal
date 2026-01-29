@@ -137,17 +137,15 @@ export default function Booking() {
   // Step indicators
   const steps: { key: Step; label: string; number: number }[] = [
     { key: "select", label: "Select Date & Time", number: 1 },
-    { key: "integrations", label: "Current Integrations", number: 2 },
-    { key: "features", label: "Select Features", number: 3 },
-    { key: "form", label: "Your Info", number: 4 },
-    { key: "confirm", label: "Confirm", number: 5 },
+    { key: "website", label: "About Your Website", number: 2 },
+    { key: "confirm", label: "Confirm Details", number: 3 },
+    { key: "success", label: "Complete", number: 4 },
   ];
 
   const currentStepIndex = steps.findIndex((s) => s.key === step);
   const canGoBack =
-    (step === "integrations" && designDateTime && launchDateTime) ||
-    (step === "features" && designDateTime && launchDateTime) ||
-    (step === "form" && designDateTime && launchDateTime) ||
+    (step === "website" && designDateTime && launchDateTime) ||
+    (step === "confirm" && designDateTime && launchDateTime) ||
     false;
 
   return (
