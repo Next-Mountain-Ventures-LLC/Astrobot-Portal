@@ -720,12 +720,28 @@ export default function Booking() {
                       <div className="space-y-8">
                         <div className="text-center space-y-3">
                           <h2 className="text-3xl font-bold text-foreground">
-                            About your brand
+                            {getPage2Subtitle().includes("current") ? "About your current website" : "About your brand"}
                           </h2>
                           <p className="text-muted-foreground max-w-md mx-auto">
                             Tell us about any of the integrations you're currently using
                           </p>
                         </div>
+
+                        {/* Conditional Domain Input */}
+                        {(isWebsiteRedesign || hasOwnDomain || knowsDesiredDomain) && (
+                          <div className="max-w-md mx-auto">
+                            <label className="block text-sm font-medium text-foreground mb-2">
+                              {getDomainLabel()}
+                            </label>
+                            <input
+                              type="text"
+                              value={domain}
+                              onChange={(e) => setDomain(e.target.value)}
+                              placeholder={getDomainPlaceholder()}
+                              className="w-full px-4 py-2 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                            />
+                          </div>
+                        )}
 
                         <div className="space-y-4">
                           <div className="pb-4">
