@@ -864,15 +864,20 @@ export default function Booking() {
               <Button
                 onClick={() => {
                   if (step === "website") {
-                    setStep("select");
+                    if (websitePage !== "page1") {
+                      handleWebsitePageBack();
+                    } else {
+                      setStep("select");
+                    }
                   } else if (step === "confirm") {
                     setStep("website");
+                    setWebsitePage("page3");
                   }
                 }}
                 variant="outline"
-                disabled={!canGoBack}
+                disabled={!canGoBack && step !== "website"}
                 className={
-                  !canGoBack
+                  !canGoBack && step !== "website"
                     ? "opacity-50 cursor-not-allowed"
                     : "border-border text-foreground hover:bg-background"
                 }
@@ -881,7 +886,7 @@ export default function Booking() {
               </Button>
 
               <p className="text-sm text-muted-foreground">
-                Step {currentStepIndex + 1} of {steps.length}
+                {step === "website" ? `Question ${["page1", "page2", "page3"].indexOf(websitePage) + 1} of 3` : `Step ${currentStepIndex + 1} of ${steps.length}`}
               </p>
 
               {step === "confirm" && (
