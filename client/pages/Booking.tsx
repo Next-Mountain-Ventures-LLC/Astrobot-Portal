@@ -428,9 +428,15 @@ export default function Booking() {
                           <h4 className="text-lg font-semibold text-foreground mb-6">
                             Confirm Your Details
                           </h4>
+                          {isLoadingStripeSession && (
+                            <div className="p-3 mb-4 bg-primary/10 border border-primary/30 rounded-md">
+                              <p className="text-sm text-primary">Loading your information...</p>
+                            </div>
+                          )}
                           <BookingForm
                             onSubmit={handleFormSubmit}
                             isLoading={createAppointmentMutation.isPending}
+                            initialValues={stripeSessionData || undefined}
                           />
                         </div>
                       </div>
