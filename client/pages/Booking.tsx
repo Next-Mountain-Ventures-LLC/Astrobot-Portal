@@ -565,7 +565,7 @@ export default function Booking() {
                               {/* E-commerce */}
                               <button
                                 onClick={() => toggleCurrentIntegration("ecommerce")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("ecommerce")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -593,7 +593,7 @@ export default function Booking() {
                               {/* Scheduling */}
                               <button
                                 onClick={() => toggleCurrentIntegration("scheduling")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("scheduling")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -647,7 +647,7 @@ export default function Booking() {
                               {/* Food Delivery Service */}
                               <button
                                 onClick={() => toggleCurrentIntegration("fooddelivery")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("fooddelivery")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -675,7 +675,7 @@ export default function Booking() {
                               {/* Payment Solutions */}
                               <button
                                 onClick={() => toggleCurrentIntegration("payments")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("payments")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -731,7 +731,7 @@ export default function Booking() {
                               {/* Email Newsletter */}
                               <button
                                 onClick={() => toggleCurrentIntegration("email")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("email")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -759,7 +759,7 @@ export default function Booking() {
                               {/* Inventory Management */}
                               <button
                                 onClick={() => toggleCurrentIntegration("inventory")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("inventory")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -787,7 +787,7 @@ export default function Booking() {
                               {/* Reservations */}
                               <button
                                 onClick={() => toggleCurrentIntegration("reservations")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("reservations")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -815,7 +815,7 @@ export default function Booking() {
                               {/* Social Media */}
                               <button
                                 onClick={() => toggleCurrentIntegration("social")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("social")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -863,7 +863,7 @@ export default function Booking() {
                               {/* Advanced Analytics */}
                               <button
                                 onClick={() => toggleAddon("analytics")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedAddons.has("analytics")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -891,7 +891,7 @@ export default function Booking() {
                               {/* Email Marketing */}
                               <button
                                 onClick={() => toggleAddon("email")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedAddons.has("email")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -919,7 +919,7 @@ export default function Booking() {
                               {/* Live Chat */}
                               <button
                                 onClick={() => toggleAddon("livechat")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedAddons.has("livechat")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -947,7 +947,7 @@ export default function Booking() {
                               {/* Premium Support */}
                               <button
                                 onClick={() => toggleAddon("support")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedAddons.has("support")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
