@@ -243,19 +243,19 @@ export default function Booking() {
               )}
             </div>
 
-            {/* Form Step */}
+            {/* Confirm Step */}
             <div
               className={`transition-all duration-500 transform ${
-                step === "form"
+                step === "confirm"
                   ? "translate-x-0 opacity-100"
                   : "translate-x-full opacity-0 absolute"
               }`}
               style={{
-                position: step === "form" ? "relative" : "absolute",
-                pointerEvents: step === "form" ? "auto" : "none",
+                position: step === "confirm" ? "relative" : "absolute",
+                pointerEvents: step === "confirm" ? "auto" : "none",
               }}
             >
-              {step === "form" && designDateTime && launchDateTime && (
+              {step === "confirm" && designDateTime && launchDateTime && (
                 <Card className="p-6 bg-background border-border">
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left: Scheduled Dates Section */}
@@ -330,7 +330,7 @@ export default function Booking() {
                     {/* Right: Form Section */}
                     <div className="lg:col-span-2">
                       <h4 className="text-lg font-semibold text-foreground mb-6">
-                        Your Information
+                        Confirm Your Details
                       </h4>
                       <BookingForm
                         onSubmit={handleFormSubmit}
