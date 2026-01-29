@@ -595,8 +595,8 @@ export default function Booking() {
               )}
             </div>
 
-            {/* Confirmation Step */}
-            {step === "confirm" && appointment && (
+            {/* Success Step */}
+            {step === "success" && appointment && (
               <BookingConfirmation
                 appointment={appointment}
                 onNewBooking={handleNewBooking}
