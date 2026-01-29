@@ -24,6 +24,7 @@ import {
   handleGetAvailabilityTimes,
   handleCreateAppointment,
   handleGetAppointmentDetails,
+  handleGetStripeSession,
 } from "./routes/booking";
 
 export async function initializeServer() {
