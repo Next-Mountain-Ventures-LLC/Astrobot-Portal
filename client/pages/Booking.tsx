@@ -378,7 +378,7 @@ export default function Booking() {
               )}
             </div>
 
-            {/* Website Step - Combined Integrations & Features */}
+            {/* Website Step - Multi-page Form */}
             <div
               className={`transition-all duration-500 transform ${
                 step === "website"
@@ -393,237 +393,454 @@ export default function Booking() {
               {step === "website" && (
                 <Card className="p-8 bg-background border-border">
                   <div className="space-y-8">
-                    <div className="text-center space-y-3">
-                      <h2 className="text-3xl font-bold text-foreground">
-                        About Your Website
-                      </h2>
-                      <p className="text-muted-foreground max-w-md mx-auto">
-                        Please show this out real quickly for your design. Select your current integrations and desired features.
-                      </p>
-                    </div>
+                    {/* Page 1: Initial Questions */}
+                    {websitePage === "page1" && (
+                      <div className="space-y-8">
+                        <div className="text-center space-y-3">
+                          <h2 className="text-3xl font-bold text-foreground">
+                            A few questions before booking your designer.
+                          </h2>
+                          <p className="text-muted-foreground max-w-2xl mx-auto">
+                            Let's set up your one-on-one appointment with your web designer. Are you excited? We are! Tell us about the website we are about to build together!
+                          </p>
+                        </div>
 
-                    {/* Integrations Section */}
-                    <div className="space-y-4">
-                      <h4 className="text-sm font-semibold text-foreground text-center">
-                        Current Integrations
-                      </h4>
-                      <div className="overflow-x-auto pb-4">
-                        <div className="flex gap-4 min-w-max px-1 justify-center">
-                          {/* E-commerce */}
-                          <button
-                            onClick={() => toggleIntegration("ecommerce")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedIntegrations.has("ecommerce")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedIntegrations.has("ecommerce")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedIntegrations.has("ecommerce") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">E-commerce</span>
-                            {selectedIntegrations.has("ecommerce") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
+                        <div className="space-y-4">
+                          <div className="grid grid-cols-1 gap-3">
+                            {/* Brand New Website */}
+                            <button
+                              onClick={() => toggleQuestion("brand-new")}
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
+                                selectedQuestions.has("brand-new")
+                                  ? "border-accent bg-accent/10"
+                                  : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                              }`}
+                            >
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">Brand New Website!</span>
+                              {selectedQuestions.has("brand-new") && (
+                                <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                </div>
+                              )}
+                            </button>
 
-                          {/* Scheduling */}
-                          <button
-                            onClick={() => toggleIntegration("scheduling")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedIntegrations.has("scheduling")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedIntegrations.has("scheduling")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <Calendar className={`w-6 h-6 ${selectedIntegrations.has("scheduling") ? "text-accent" : "text-primary"}`} />
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Scheduling</span>
-                            {selectedIntegrations.has("scheduling") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
+                            {/* Website Redesign */}
+                            <button
+                              onClick={() => toggleQuestion("redesign")}
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
+                                selectedQuestions.has("redesign")
+                                  ? "border-accent bg-accent/10"
+                                  : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                              }`}
+                            >
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">Website Redesign.</span>
+                              {selectedQuestions.has("redesign") && (
+                                <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                </div>
+                              )}
+                            </button>
 
-                          {/* Google Local */}
-                          <button
-                            onClick={() => toggleIntegration("googlelocal")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedIntegrations.has("googlelocal")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedIntegrations.has("googlelocal")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedIntegrations.has("googlelocal") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Google Local</span>
-                            {selectedIntegrations.has("googlelocal") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
+                            {/* I own the domain */}
+                            <button
+                              onClick={() => toggleQuestion("own-domain")}
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
+                                selectedQuestions.has("own-domain")
+                                  ? "border-accent bg-accent/10"
+                                  : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                              }`}
+                            >
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">I own the domain.</span>
+                              {selectedQuestions.has("own-domain") && (
+                                <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                </div>
+                              )}
+                            </button>
 
-                          {/* Social Profiles */}
-                          <button
-                            onClick={() => toggleIntegration("social")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedIntegrations.has("social")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedIntegrations.has("social")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedIntegrations.has("social") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Social</span>
-                            {selectedIntegrations.has("social") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
+                            {/* I know the domain I want */}
+                            <button
+                              onClick={() => toggleQuestion("know-domain")}
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
+                                selectedQuestions.has("know-domain")
+                                  ? "border-accent bg-accent/10"
+                                  : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                              }`}
+                            >
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">I know the domain I want.</span>
+                              {selectedQuestions.has("know-domain") && (
+                                <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                </div>
+                              )}
+                            </button>
+
+                            {/* SEO Services */}
+                            <button
+                              onClick={() => toggleQuestion("seo")}
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
+                                selectedQuestions.has("seo")
+                                  ? "border-accent bg-accent/10"
+                                  : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                              }`}
+                            >
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">I need Search Engine Optimization Services</span>
+                              {selectedQuestions.has("seo") && (
+                                <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                </div>
+                              )}
+                            </button>
+
+                            {/* Traffic source */}
+                            <button
+                              onClick={() => toggleQuestion("traffic")}
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
+                                selectedQuestions.has("traffic")
+                                  ? "border-accent bg-accent/10"
+                                  : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                              }`}
+                            >
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">I already know where my traffic will be coming from.</span>
+                              {selectedQuestions.has("traffic") && (
+                                <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                </div>
+                              )}
+                            </button>
+
+                            {/* No idea but have an idea */}
+                            <button
+                              onClick={() => toggleQuestion("no-idea")}
+                              className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
+                                selectedQuestions.has("no-idea")
+                                  ? "border-accent bg-accent/10"
+                                  : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                              }`}
+                            >
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">I don't know anything but I have an idea!</span>
+                              {selectedQuestions.has("no-idea") && (
+                                <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                </div>
+                              )}
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
 
-                    {/* Features Section */}
-                    <div className="space-y-4">
-                      <h4 className="text-sm font-semibold text-foreground text-center">
-                        Website Features
-                      </h4>
-                      <div className="overflow-x-auto pb-4">
-                        <div className="flex gap-4 min-w-max px-1 justify-center">
-                          {/* Menu */}
-                          <button
-                            onClick={() => toggleFeature("menu")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedFeatures.has("menu")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedFeatures.has("menu")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedFeatures.has("menu") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Menu</span>
-                            {selectedFeatures.has("menu") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
+                    {/* Page 2: Current Integrations */}
+                    {websitePage === "page2" && (
+                      <div className="space-y-8">
+                        <div className="text-center space-y-3">
+                          <h2 className="text-3xl font-bold text-foreground">
+                            About Your Brand
+                          </h2>
+                          <p className="text-muted-foreground max-w-md mx-auto">
+                            Tell us the integrations you're currently using
+                          </p>
+                        </div>
 
-                          {/* Blog */}
-                          <button
-                            onClick={() => toggleFeature("blog")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedFeatures.has("blog")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedFeatures.has("blog")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedFeatures.has("blog") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Blog</span>
-                            {selectedFeatures.has("blog") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
+                        <div className="space-y-4">
+                          <div className="overflow-x-auto pb-4">
+                            <div className="flex gap-4 min-w-max px-1 justify-center">
+                              {/* E-commerce */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("ecommerce")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("ecommerce")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("ecommerce")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("ecommerce") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">E-commerce</span>
+                                {selectedCurrentIntegrations.has("ecommerce") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
 
-                          {/* Contact Form */}
-                          <button
-                            onClick={() => toggleFeature("contact")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedFeatures.has("contact")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedFeatures.has("contact")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedFeatures.has("contact") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                              </svg>
+                              {/* Scheduling */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("scheduling")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("scheduling")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("scheduling")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <Calendar className={`w-6 h-6 ${selectedCurrentIntegrations.has("scheduling") ? "text-accent" : "text-primary"}`} />
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Scheduling</span>
+                                {selectedCurrentIntegrations.has("scheduling") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Food Menu */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("foodmenu")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("foodmenu")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("foodmenu")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("foodmenu") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Food Menu</span>
+                                {selectedCurrentIntegrations.has("foodmenu") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Blog */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("blog")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("blog")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("blog")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("blog") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Blog</span>
+                                {selectedCurrentIntegrations.has("blog") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Social Media */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("social")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("social")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("social")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("social") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Social Media</span>
+                                {selectedCurrentIntegrations.has("social") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
                             </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Contact</span>
-                            {selectedFeatures.has("contact") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* Page 3: Add-ons */}
+                    {websitePage === "page3" && (
+                      <div className="space-y-8">
+                        <div className="text-center space-y-3">
+                          <h2 className="text-3xl font-bold text-foreground">
+                            Add-ons
+                          </h2>
+                          <p className="text-muted-foreground max-w-md mx-auto">
+                            Select any additional services you'd like to include
+                          </p>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div className="overflow-x-auto pb-4">
+                            <div className="flex gap-4 min-w-max px-1 justify-center">
+                              {/* Advanced Analytics */}
+                              <button
+                                onClick={() => toggleAddon("analytics")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedAddons.has("analytics")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedAddons.has("analytics")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedAddons.has("analytics") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Analytics</span>
+                                {selectedAddons.has("analytics") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Email Marketing */}
+                              <button
+                                onClick={() => toggleAddon("email")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedAddons.has("email")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedAddons.has("email")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedAddons.has("email") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Email Marketing</span>
+                                {selectedAddons.has("email") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Live Chat */}
+                              <button
+                                onClick={() => toggleAddon("livechat")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedAddons.has("livechat")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedAddons.has("livechat")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedAddons.has("livechat") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Live Chat</span>
+                                {selectedAddons.has("livechat") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Premium Support */}
+                              <button
+                                onClick={() => toggleAddon("support")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedAddons.has("support")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedAddons.has("support")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedAddons.has("support") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Premium Support</span>
+                                {selectedAddons.has("support") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Continue Button */}
                     <div className="pt-4 border-t border-border">
                       <Button
-                        onClick={handleWebsiteSelect}
+                        onClick={handleWebsitePageContinue}
                         className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                       >
-                        Continue to Confirm →
+                        {websitePage === "page3" ? "Continue to Confirm →" : "Continue →"}
                       </Button>
                     </div>
                   </div>
