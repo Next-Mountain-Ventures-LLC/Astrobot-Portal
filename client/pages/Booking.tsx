@@ -560,8 +560,8 @@ export default function Booking() {
                         </div>
 
                         <div className="space-y-4">
-                          <div className="overflow-x-auto pb-4">
-                            <div className="flex gap-4 min-w-max px-1 justify-start">
+                          <div className="pb-4">
+                            <div className="grid grid-cols-5 gap-4 max-w-4xl mx-auto">
                               {/* E-commerce */}
                               <button
                                 onClick={() => toggleCurrentIntegration("ecommerce")}
@@ -619,7 +619,7 @@ export default function Booking() {
                               {/* Food Menu */}
                               <button
                                 onClick={() => toggleCurrentIntegration("foodmenu")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("foodmenu")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -631,7 +631,7 @@ export default function Booking() {
                                     : "bg-primary/10"
                                 }`}>
                                   <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("foodmenu") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 8h12M6 15h12M6 11.5h12M8 5h8a2 2 0 012 2v10a2 2 0 01-2 2H8a2 2 0 01-2-2V7a2 2 0 012-2z" />
                                   </svg>
                                 </div>
                                 <span className="text-xs font-medium text-foreground whitespace-nowrap">Food Menu</span>
@@ -703,7 +703,7 @@ export default function Booking() {
                               {/* CRM */}
                               <button
                                 onClick={() => toggleCurrentIntegration("crm")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
                                   selectedCurrentIntegrations.has("crm")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -715,7 +715,7 @@ export default function Booking() {
                                     : "bg-primary/10"
                                 }`}>
                                   <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("crm") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 12H9m6 0a6 6 0 11-12 0 6 6 0 0112 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 10a3 3 0 11-6 0 3 3 0 016 0zM6 20v-2a9 9 0 0118 0v2" />
                                   </svg>
                                 </div>
                                 <span className="text-xs font-medium text-foreground whitespace-nowrap">CRM</span>
