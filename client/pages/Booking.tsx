@@ -192,6 +192,7 @@ export default function Booking() {
       };
 
       const designLogId = logRequest("POST", "/api/booking/appointments", designAppointmentData);
+      let launchLogId: string | null = null;
 
       try {
         const designRes = await fetch("/api/booking/appointments", {
@@ -223,7 +224,7 @@ export default function Booking() {
           notes: "Launch week meeting - prepared for go-live discussion",
         };
 
-        const launchLogId = logRequest("POST", "/api/booking/appointments", launchAppointmentData);
+        launchLogId = logRequest("POST", "/api/booking/appointments", launchAppointmentData);
 
         const launchRes = await fetch("/api/booking/appointments", {
           method: "POST",
@@ -247,7 +248,11 @@ export default function Booking() {
         return designAppointment;
       } catch (err: any) {
         const duration = Math.round(performance.now() - startTime);
-        logError(designLogId || launchLogId, err.message || "Failed to create appointments", duration);
+        if (launchLogId) {
+          logError(launchLogId, err.message || "Failed to create appointments", duration);
+        } else {
+          logError(designLogId, err.message || "Failed to create appointments", duration);
+        }
         throw err;
       }
     },
