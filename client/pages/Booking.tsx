@@ -606,16 +606,14 @@ export default function Booking() {
           </div>
 
           {/* Navigation Buttons */}
-          {step !== "confirm" && (
+          {step !== "success" && (
             <div className="flex items-center justify-between pt-6 border-t border-border">
               <Button
                 onClick={() => {
-                  if (step === "integrations") {
+                  if (step === "website") {
                     setStep("select");
-                  } else if (step === "features") {
-                    setStep("integrations");
-                  } else if (step === "form") {
-                    setStep("features");
+                  } else if (step === "confirm") {
+                    setStep("website");
                   }
                 }}
                 variant="outline"
@@ -633,7 +631,7 @@ export default function Booking() {
                 Step {currentStepIndex + 1} of {steps.length}
               </p>
 
-              {step === "form" && (
+              {step === "confirm" && (
                 <div className="text-sm text-muted-foreground">
                   Complete the form above
                 </div>
