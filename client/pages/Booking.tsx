@@ -48,6 +48,41 @@ export default function Booking() {
 
   const { logRequest, logResponse, logError } = useApiLog();
 
+  // Fetch Stripe session data when reaching confirm step
+  useEffect(() => {
+    if (step === "confirm" && !stripeSessionData) {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get("session_id");
+
+      if (sessionId && sessionId.startsWith("cs_")) {
+        setIsLoadingStripeSession(true);
+        console.log("[Booking] Fetching Stripe session data:", sessionId);
+
+        fetch(`/api/booking/stripe-session/${sessionId}`)
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`Failed to retrieve session: ${res.statusText}`);
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log("[Booking] Successfully retrieved Stripe session data:", {
+              email: data.email,
+              firstName: data.firstName,
+              lastName: data.lastName,
+            });
+            setStripeSessionData(data);
+            setIsLoadingStripeSession(false);
+          })
+          .catch((error) => {
+            console.error("[Booking] Error fetching Stripe session:", error);
+            setIsLoadingStripeSession(false);
+            // Don't set error state - let user continue manually
+          });
+      }
+    }
+  }, [step, stripeSessionData]);
+
   const toggleQuestion = (question: string) => {
     const newSet = new Set(selectedQuestions);
     if (newSet.has(question)) {
