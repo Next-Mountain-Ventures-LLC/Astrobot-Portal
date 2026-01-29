@@ -1000,7 +1000,7 @@ export default function Booking() {
           </div>
 
           {/* Navigation Buttons */}
-          {step !== "success" && (
+          {!appointment && (
             <div className="flex items-center justify-between pt-6 border-t border-border">
               <Button
                 onClick={() => {
