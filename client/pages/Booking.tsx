@@ -290,89 +290,109 @@ export default function Booking() {
               }}
             >
               {step === "confirm" && designDateTime && launchDateTime && (
-                <Card className="p-6 bg-background border-border">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Left: Scheduled Dates Section */}
-                    <div className="lg:col-span-1 space-y-6">
-                      <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                        Your schedule
-                      </h3>
+                <>
+                  {appointment ? (
+                    <BookingConfirmation
+                      appointment={appointment}
+                      onNewBooking={handleNewBooking}
+                      onClose={handleClose}
+                    />
+                  ) : (
+                    <Card className="p-6 bg-background border-border">
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        {/* Left: Designer Profile & Schedule Section */}
+                        <div className="lg:col-span-1 space-y-6">
+                          {/* Designer Profile Card */}
+                          <div className="flex flex-col items-center space-y-4 p-4 rounded-lg bg-primary/5 border border-primary/20">
+                            <div className="w-28 h-28 rounded-2xl overflow-hidden border-4 border-accent flex-shrink-0">
+                              <img
+                                src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1c2ef5aa27404395a1e9349fa8a03536?format=webp&width=800&height=1200"
+                                alt="Joshua Ford"
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div className="text-center">
+                              <h4 className="font-semibold text-foreground">Joshua Ford</h4>
+                              <p className="text-sm text-muted-foreground">Lead Designer at Astro Bot</p>
+                            </div>
+                          </div>
 
-                      {/* Avatar Section */}
-                      <div className="flex justify-center">
-                        <div className="w-20 h-20 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
-                          <User className="w-10 h-10 text-primary" />
+                          <div className="border-t border-border pt-6">
+                            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">
+                              Your schedule
+                            </h3>
+
+                            {/* Date Cards Container with more spacing */}
+                            <div className="space-y-8">
+                              {/* Design Meeting Calendar Card */}
+                              <button
+                                onClick={() => setStep("select")}
+                                className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                              >
+                                <div className="relative w-24 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                                  <div className="text-xs font-bold text-primary uppercase whitespace-normal">
+                                    Design
+                                  </div>
+                                  <div className="text-3xl font-bold text-foreground">
+                                    {new Date(designDateTime).getDate()}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {new Date(designDateTime).toLocaleDateString("en-US", {
+                                      month: "short",
+                                    })}
+                                  </div>
+                                </div>
+                                <div className="text-xs font-medium text-muted-foreground text-center">
+                                  {new Date(designDateTime).toLocaleTimeString([], {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  })}
+                                </div>
+                              </button>
+
+                              {/* Launch Date Calendar Card */}
+                              <button
+                                onClick={() => setStep("select")}
+                                className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                              >
+                                <div className="relative w-24 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                                  <div className="text-xs font-bold text-primary uppercase whitespace-normal">
+                                    Launch
+                                  </div>
+                                  <div className="text-3xl font-bold text-foreground">
+                                    {new Date(launchDateTime).getDate()}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {new Date(launchDateTime).toLocaleDateString("en-US", {
+                                      month: "short",
+                                    })}
+                                  </div>
+                                </div>
+                                <div className="text-xs font-medium text-muted-foreground text-center">
+                                  {new Date(launchDateTime).toLocaleTimeString([], {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                  })}
+                                </div>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Right: Form Section */}
+                        <div className="lg:col-span-2">
+                          <h4 className="text-lg font-semibold text-foreground mb-6">
+                            Confirm Your Details
+                          </h4>
+                          <BookingForm
+                            onSubmit={handleFormSubmit}
+                            isLoading={createAppointmentMutation.isPending}
+                          />
                         </div>
                       </div>
-
-                      {/* Date Cards Container with more spacing */}
-                      <div className="space-y-8">
-                        {/* Design Meeting Calendar Card */}
-                        <button
-                          onClick={() => setStep("select")}
-                          className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
-                        >
-                          <div className="relative w-28 h-36 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
-                            <div className="text-sm font-bold text-primary uppercase whitespace-normal">
-                              Design
-                            </div>
-                            <div className="text-4xl font-bold text-foreground">
-                              {new Date(designDateTime).getDate()}
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              {new Date(designDateTime).toLocaleDateString("en-US", {
-                                month: "short",
-                              })}
-                            </div>
-                          </div>
-                          <div className="text-xs font-medium text-muted-foreground text-center">
-                            {new Date(designDateTime).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </div>
-                        </button>
-
-                        {/* Launch Date Calendar Card */}
-                        <button
-                          onClick={() => setStep("select")}
-                          className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
-                        >
-                          <div className="relative w-28 h-36 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
-                            <div className="text-sm font-bold text-primary uppercase whitespace-normal">
-                              Launch
-                            </div>
-                            <div className="text-4xl font-bold text-foreground">
-                              {new Date(launchDateTime).getDate()}
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              {new Date(launchDateTime).toLocaleDateString("en-US", {
-                                month: "short",
-                              })}
-                            </div>
-                          </div>
-                          <div className="text-xs font-medium text-muted-foreground text-center">
-                            {new Date(launchDateTime).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Right: Form Section */}
-                    <div className="lg:col-span-2">
-                      <h4 className="text-lg font-semibold text-foreground mb-6">
-                        Confirm Your Details
-                      </h4>
-                      <BookingForm
-                        onSubmit={handleFormSubmit}
-                        isLoading={createAppointmentMutation.isPending}
-                      />
-                    </div>
-                  </div>
-                </Card>
+                    </Card>
+                  )}
+                </>
               )}
             </div>
 
