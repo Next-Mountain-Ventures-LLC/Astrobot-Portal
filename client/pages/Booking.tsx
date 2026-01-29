@@ -51,6 +51,46 @@ export default function Booking() {
 
   const { logRequest, logResponse, logError } = useApiLog();
 
+  // Helper: Check if "Website Redesign" is selected
+  const isWebsiteRedesign = selectedQuestions.has("redesign");
+
+  // Helper: Check if domain ownership is mentioned
+  const hasOwnDomain = selectedQuestions.has("own-domain");
+  const knowsDesiredDomain = selectedQuestions.has("know-domain");
+
+  // Helper: Determine Page 2 subtitle
+  const getPage2Subtitle = () => {
+    if (isWebsiteRedesign) {
+      return "Tell us about your current website";
+    }
+    return "Tell us about your brand";
+  };
+
+  // Helper: Determine domain input placeholder
+  const getDomainPlaceholder = () => {
+    if (isWebsiteRedesign) {
+      return "example.com";
+    }
+    if (hasOwnDomain) {
+      return "Insert your domain here";
+    }
+    if (knowsDesiredDomain) {
+      return "Enter domain that you would like us to check for";
+    }
+    return "";
+  };
+
+  // Helper: Determine domain label
+  const getDomainLabel = () => {
+    if (isWebsiteRedesign) {
+      return "Domain of current website";
+    }
+    if (hasOwnDomain || knowsDesiredDomain) {
+      return "Desired domain for your website";
+    }
+    return "";
+  };
+
   // Fetch Stripe session data when reaching confirm step
   useEffect(() => {
     if (step === "confirm" && !stripeSessionData) {
