@@ -46,6 +46,9 @@ export default function Booking() {
   } | null>(null);
   const [isLoadingStripeSession, setIsLoadingStripeSession] = useState(false);
 
+  // Domain input for website redesign or domain selection
+  const [domain, setDomain] = useState<string>("");
+
   const { logRequest, logResponse, logError } = useApiLog();
 
   // Fetch Stripe session data when reaching confirm step
