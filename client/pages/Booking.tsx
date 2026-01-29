@@ -158,40 +158,96 @@ export default function Booking() {
 
   // Mutation for creating appointment
   const createAppointmentMutation = useMutation({
-    mutationFn: async (data: BookingFormData & { datetime: string }) => {
+    mutationFn: async (data: BookingFormData & { datetime: string; launchDateTime: string }) => {
       const startTime = performance.now();
-      const logId = logRequest("POST", "/api/booking/appointments", {
+
+      // Build notes from gathered information
+      const selectedQuestionsArray = Array.from(selectedQuestions);
+      const selectedIntegrationsArray = Array.from(selectedCurrentIntegrations);
+      const selectedAddonsArray = Array.from(selectedAddons);
+
+      const notesContent = [
+        "=== BOOKING INFORMATION ===",
+        "",
+        "--- Design Preferences ---",
+        ...selectedQuestionsArray.map((q) => `• ${q}`),
+        "",
+        "--- Current Integrations ---",
+        ...selectedIntegrationsArray.map((i) => `• ${i}`),
+        "",
+        "--- Selected Add-ons ---",
+        ...selectedAddonsArray.map((a) => `• ${a}`),
+        ...(domain ? ["", `--- Domain Information ---`, `Domain: ${domain}`] : []),
+        "",
+        "--- Additional Notes ---",
+        data.notes || "No additional notes",
+      ].join("\n");
+
+      // Create design meeting appointment
+      const designAppointmentData = {
         ...data,
+        datetime: data.datetime,
         timezone: "America/Chicago",
-      });
+        notes: notesContent,
+      };
+
+      const designLogId = logRequest("POST", "/api/booking/appointments", designAppointmentData);
 
       try {
-        const res = await fetch("/api/booking/appointments", {
+        const designRes = await fetch("/api/booking/appointments", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...data,
-            timezone: "America/Chicago",
-          }),
+          body: JSON.stringify(designAppointmentData),
         });
 
-        const duration = Math.round(performance.now() - startTime);
+        const designDuration = Math.round(performance.now() - startTime);
 
-        if (!res.ok) {
-          const errorData = await res.json();
-          const errorMessage = errorData.message || "Failed to create appointment";
-          logError(logId, errorMessage, duration);
+        if (!designRes.ok) {
+          const errorData = await designRes.json();
+          const errorMessage = errorData.message || "Failed to create design appointment";
+          logError(designLogId, errorMessage, designDuration);
           throw new Error(errorMessage);
         }
 
-        const responseData = (await res.json()) as BookingConfirmationResponse;
-        logResponse(logId, res.status, res.statusText, responseData, duration);
-        return responseData;
+        const designAppointment = (await designRes.json()) as BookingConfirmationResponse;
+        logResponse(designLogId, designRes.status, designRes.statusText, designAppointment, designDuration);
+
+        // Create launch meeting appointment
+        const launchAppointmentData = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          datetime: data.launchDateTime,
+          timezone: "America/Chicago",
+          notes: "Launch week meeting - prepared for go-live discussion",
+        };
+
+        const launchLogId = logRequest("POST", "/api/booking/appointments", launchAppointmentData);
+
+        const launchRes = await fetch("/api/booking/appointments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(launchAppointmentData),
+        });
+
+        const launchDuration = Math.round(performance.now() - startTime);
+
+        if (!launchRes.ok) {
+          const errorData = await launchRes.json();
+          const errorMessage = errorData.message || "Failed to create launch appointment";
+          logError(launchLogId, errorMessage, launchDuration);
+          throw new Error(errorMessage);
+        }
+
+        const launchAppointment = (await launchRes.json()) as BookingConfirmationResponse;
+        logResponse(launchLogId, launchRes.status, launchRes.statusText, launchAppointment, launchDuration);
+
+        // Return the design appointment as the main response
+        return designAppointment;
       } catch (err: any) {
         const duration = Math.round(performance.now() - startTime);
-        if (!error) {
-          logError(logId, err.message || "Failed to create appointment", duration);
-        }
+        logError(designLogId || launchLogId, err.message || "Failed to create appointments", duration);
         throw err;
       }
     },
