@@ -175,7 +175,6 @@ export default function Booking() {
     { key: "select", label: "Select Date & Time", number: 1 },
     { key: "website", label: "About Your Website", number: 2 },
     { key: "confirm", label: "Confirm Details", number: 3 },
-    { key: "success", label: "Complete", number: 4 },
   ];
 
   const currentStepIndex = steps.findIndex((s) => s.key === step);
