@@ -37,6 +37,15 @@ export default function Booking() {
     new Set()
   );
 
+  // Stripe session data for auto-filling form
+  const [stripeSessionData, setStripeSessionData] = useState<{
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+  } | null>(null);
+  const [isLoadingStripeSession, setIsLoadingStripeSession] = useState(false);
+
   const { logRequest, logResponse, logError } = useApiLog();
 
   const toggleQuestion = (question: string) => {
