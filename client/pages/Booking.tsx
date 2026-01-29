@@ -89,7 +89,7 @@ export default function Booking() {
     },
     onSuccess: (data) => {
       setAppointment(data);
-      setStep("confirm");
+      setStep("success");
       setError(null);
     },
     onError: (error: any) => {
