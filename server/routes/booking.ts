@@ -502,3 +502,93 @@ export const handleGetAppointmentDetails: RequestHandler = async (req, res) => {
     });
   }
 };
+
+/**
+ * GET /api/booking/stripe-session/:sessionId
+ * Retrieve Stripe checkout session details and customer information
+ * This endpoint uses the Stripe secret key to safely retrieve session data
+ */
+export const handleGetStripeSession: RequestHandler = async (req, res) => {
+  try {
+    const { sessionId } = req.params;
+    const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+    if (!stripeSecretKey) {
+      console.error("[Booking] Stripe secret key not configured");
+      return res.status(500).json({
+        error: "Server configuration error",
+        message: "Stripe is not properly configured",
+      });
+    }
+
+    if (!sessionId || typeof sessionId !== "string" || !sessionId.startsWith("cs_")) {
+      return res.status(400).json({
+        error: "Invalid request",
+        message: "Invalid Stripe session ID format",
+      });
+    }
+
+    console.log("[Booking] Retrieving Stripe session:", sessionId);
+
+    const stripe = new Stripe(stripeSecretKey);
+
+    // Retrieve the checkout session with customer details
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ["customer"],
+    });
+
+    if (!session) {
+      return res.status(404).json({
+        error: "Session not found",
+        message: "The Stripe checkout session could not be found",
+      });
+    }
+
+    // Extract customer details from the session
+    const customerDetails = session.customer_details;
+    const customer = session.customer;
+
+    // Build response with customer information
+    const responseData = {
+      sessionId: session.id,
+      status: session.payment_status,
+      firstName: customerDetails?.name ? customerDetails.name.split(" ")[0] : "",
+      lastName: customerDetails?.name ? customerDetails.name.split(" ").slice(1).join(" ") : "",
+      email: customerDetails?.email || session.customer_email || "",
+      phone: customerDetails?.phone || "",
+      // Additional metadata if stored in the session
+      metadata: session.metadata || {},
+    };
+
+    console.log("[Booking] Successfully retrieved Stripe session:", {
+      sessionId: session.id,
+      status: session.payment_status,
+    });
+
+    res.json(responseData);
+  } catch (error: any) {
+    console.error("[Booking] Error retrieving Stripe session:", {
+      message: error.message,
+      statusCode: error.statusCode,
+    });
+
+    if (error.type === "StripeInvalidRequestError") {
+      return res.status(404).json({
+        error: "Stripe session not found",
+        message: "The requested Stripe session ID is invalid or expired",
+      });
+    }
+
+    if (error.type === "StripeAuthenticationError") {
+      return res.status(401).json({
+        error: "Authentication failed",
+        message: "Unable to authenticate with Stripe API",
+      });
+    }
+
+    res.status(error.statusCode || 500).json({
+      error: "Failed to retrieve Stripe session",
+      message: error.message || "An error occurred while retrieving session details",
+    });
+  }
+};
