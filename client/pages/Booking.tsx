@@ -104,6 +104,16 @@ export default function Booking() {
     setError(null);
   };
 
+  const handleIntegrationsSelect = () => {
+    setStep("features");
+    setError(null);
+  };
+
+  const handleFeaturesSelect = () => {
+    setStep("form");
+    setError(null);
+  };
+
   const handleFormSubmit = async (formData: BookingFormData) => {
     if (!designDateTime || !launchDateTime) {
       setError("Please select both design and launch dates/times before submitting");
