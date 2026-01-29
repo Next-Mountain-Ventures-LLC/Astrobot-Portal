@@ -654,8 +654,10 @@ export default function Booking() {
                 onClick={() => {
                   if (step === "integrations") {
                     setStep("select");
-                  } else if (step === "form") {
+                  } else if (step === "features") {
                     setStep("integrations");
+                  } else if (step === "form") {
+                    setStep("features");
                   }
                 }}
                 variant="outline"
