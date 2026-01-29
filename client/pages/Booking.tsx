@@ -364,116 +364,22 @@ export default function Booking() {
               {step === "integrations" && (
                 <Card className="p-8 bg-background border-border">
                   <div className="space-y-8">
-                    <div>
-                      <h3 className="text-2xl font-bold text-foreground mb-2">
-                        About your website
-                      </h3>
-                      <p className="text-muted-foreground">
-                        Tell us what features and integrations your website might need
+                    <div className="text-center space-y-3">
+                      <h2 className="text-3xl font-bold text-foreground">
+                        About Your Website
+                      </h2>
+                      <p className="text-muted-foreground max-w-md mx-auto">
+                        Please show us your current integrations so we can work with your existing tools.
                       </p>
                     </div>
 
-                    {/* Features Carousel */}
-                    <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-foreground">
-                        Website Features
-                      </h4>
-                      <div className="overflow-x-auto pb-4">
-                        <div className="flex gap-4 min-w-max px-1">
-                          {/* Menu */}
-                          <button
-                            onClick={() => toggleFeature("menu")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedFeatures.has("menu")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedFeatures.has("menu")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedFeatures.has("menu") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Menu</span>
-                            {selectedFeatures.has("menu") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
-
-                          {/* Blog */}
-                          <button
-                            onClick={() => toggleFeature("blog")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedFeatures.has("blog")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedFeatures.has("blog")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedFeatures.has("blog") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Blog</span>
-                            {selectedFeatures.has("blog") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
-
-                          {/* Contact Form */}
-                          <button
-                            onClick={() => toggleFeature("contact")}
-                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                              selectedFeatures.has("contact")
-                                ? "border-accent bg-accent/10"
-                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                            }`}
-                          >
-                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                              selectedFeatures.has("contact")
-                                ? "bg-accent/20"
-                                : "bg-primary/10"
-                            }`}>
-                              <svg className={`w-6 h-6 ${selectedFeatures.has("contact") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                              </svg>
-                            </div>
-                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Contact</span>
-                            {selectedFeatures.has("contact") && (
-                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
                     {/* Integrations Carousel */}
-                    <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-foreground">
-                        Integrations
+                    <div className="space-y-4">
+                      <h4 className="text-sm font-semibold text-foreground text-center">
+                        Current Integrations
                       </h4>
                       <div className="overflow-x-auto pb-4">
-                        <div className="flex gap-4 min-w-max px-1">
+                        <div className="flex gap-4 min-w-max px-1 justify-center">
                           {/* E-commerce */}
                           <button
                             onClick={() => toggleIntegration("ecommerce")}
@@ -591,7 +497,136 @@ export default function Booking() {
                     {/* Continue Button */}
                     <div className="pt-4 border-t border-border">
                       <Button
-                        onClick={() => setStep("form")}
+                        onClick={handleIntegrationsSelect}
+                        className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+                      >
+                        Continue to Features →
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              )}
+            </div>
+
+            {/* Features Step */}
+            <div
+              className={`transition-all duration-500 transform ${
+                step === "features"
+                  ? "translate-x-0 opacity-100"
+                  : "translate-x-full opacity-0 absolute"
+              }`}
+              style={{
+                position: step === "features" ? "relative" : "absolute",
+                pointerEvents: step === "features" ? "auto" : "none",
+              }}
+            >
+              {step === "features" && (
+                <Card className="p-8 bg-background border-border">
+                  <div className="space-y-8">
+                    <div className="text-center space-y-3">
+                      <h2 className="text-3xl font-bold text-foreground">
+                        Website Features
+                      </h2>
+                      <p className="text-muted-foreground max-w-md mx-auto">
+                        Select the features you'd like on your website.
+                      </p>
+                    </div>
+
+                    {/* Features Carousel */}
+                    <div className="space-y-4">
+                      <div className="overflow-x-auto pb-4">
+                        <div className="flex gap-4 min-w-max px-1 justify-center">
+                          {/* Menu */}
+                          <button
+                            onClick={() => toggleFeature("menu")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedFeatures.has("menu")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedFeatures.has("menu")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedFeatures.has("menu") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Menu</span>
+                            {selectedFeatures.has("menu") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
+
+                          {/* Blog */}
+                          <button
+                            onClick={() => toggleFeature("blog")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedFeatures.has("blog")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedFeatures.has("blog")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedFeatures.has("blog") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Blog</span>
+                            {selectedFeatures.has("blog") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
+
+                          {/* Contact Form */}
+                          <button
+                            onClick={() => toggleFeature("contact")}
+                            className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                              selectedFeatures.has("contact")
+                                ? "border-accent bg-accent/10"
+                                : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                            }`}
+                          >
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                              selectedFeatures.has("contact")
+                                ? "bg-accent/20"
+                                : "bg-primary/10"
+                            }`}>
+                              <svg className={`w-6 h-6 ${selectedFeatures.has("contact") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                            </div>
+                            <span className="text-xs font-medium text-foreground whitespace-nowrap">Contact</span>
+                            {selectedFeatures.has("contact") && (
+                              <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              </div>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Continue Button */}
+                    <div className="pt-4 border-t border-border">
+                      <Button
+                        onClick={handleFeaturesSelect}
                         className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                       >
                         Continue to Your Info →
