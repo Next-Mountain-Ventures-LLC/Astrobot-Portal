@@ -989,14 +989,6 @@ export default function Booking() {
               )}
             </div>
 
-            {/* Success Step */}
-            {step === "success" && appointment && (
-              <BookingConfirmation
-                appointment={appointment}
-                onNewBooking={handleNewBooking}
-                onClose={handleClose}
-              />
-            )}
           </div>
 
           {/* Navigation Buttons */}
