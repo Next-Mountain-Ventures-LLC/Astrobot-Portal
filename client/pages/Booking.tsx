@@ -398,10 +398,13 @@ export default function Booking() {
                       <div className="space-y-8">
                         <div className="text-center space-y-3">
                           <h2 className="text-3xl font-bold text-foreground">
-                            A few questions before booking your designer.
+                            A few questions from your designer.
                           </h2>
                           <p className="text-muted-foreground max-w-2xl mx-auto">
-                            Let's set up your one-on-one appointment with your web designer. Are you excited? We are! Tell us about the website we are about to build together!
+                            Your designer has a few questions about what you are building together. Are you excited? We are!
+                          </p>
+                          <p className="text-muted-foreground max-w-2xl mx-auto">
+                            Tell us about the website we're about to build together <span className="text-sm">(select all that apply)</span>
                           </p>
                         </div>
 
