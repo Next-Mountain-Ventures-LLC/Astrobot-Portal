@@ -13,39 +13,60 @@ import { BookingConfirmationResponse } from "@shared/api";
 
 type Step = "select" | "website" | "confirm" | "success";
 
+type WebsitePage = "page1" | "page2" | "page3";
+
 export default function Booking() {
   const [step, setStep] = useState<Step>("select");
+  const [websitePage, setWebsitePage] = useState<WebsitePage>("page1");
   const [designDateTime, setDesignDateTime] = useState<string | null>(null);
   const [launchDateTime, setLaunchDateTime] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [appointment, setAppointment] =
     useState<BookingConfirmationResponse | null>(null);
-  const [selectedFeatures, setSelectedFeatures] = useState<Set<string>>(
+
+  // Page 1: Initial Questions
+  const [selectedQuestions, setSelectedQuestions] = useState<Set<string>>(
     new Set()
   );
-  const [selectedIntegrations, setSelectedIntegrations] = useState<Set<string>>(
+  // Page 2: Current Integrations
+  const [selectedCurrentIntegrations, setSelectedCurrentIntegrations] = useState<Set<string>>(
     new Set()
   );
+  // Page 3: Add-ons
+  const [selectedAddons, setSelectedAddons] = useState<Set<string>>(
+    new Set()
+  );
+
   const { logRequest, logResponse, logError } = useApiLog();
 
-  const toggleFeature = (feature: string) => {
-    const newSet = new Set(selectedFeatures);
-    if (newSet.has(feature)) {
-      newSet.delete(feature);
+  const toggleQuestion = (question: string) => {
+    const newSet = new Set(selectedQuestions);
+    if (newSet.has(question)) {
+      newSet.delete(question);
     } else {
-      newSet.add(feature);
+      newSet.add(question);
     }
-    setSelectedFeatures(newSet);
+    setSelectedQuestions(newSet);
   };
 
-  const toggleIntegration = (integration: string) => {
-    const newSet = new Set(selectedIntegrations);
+  const toggleCurrentIntegration = (integration: string) => {
+    const newSet = new Set(selectedCurrentIntegrations);
     if (newSet.has(integration)) {
       newSet.delete(integration);
     } else {
       newSet.add(integration);
     }
-    setSelectedIntegrations(newSet);
+    setSelectedCurrentIntegrations(newSet);
+  };
+
+  const toggleAddon = (addon: string) => {
+    const newSet = new Set(selectedAddons);
+    if (newSet.has(addon)) {
+      newSet.delete(addon);
+    } else {
+      newSet.add(addon);
+    }
+    setSelectedAddons(newSet);
   };
 
   // Mutation for creating appointment
