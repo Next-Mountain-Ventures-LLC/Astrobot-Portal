@@ -103,6 +103,7 @@ export function createServer() {
   app.get("/api/booking/availability/times", handleGetAvailabilityTimes);
   app.post("/api/booking/appointments", handleCreateAppointment);
   app.get("/api/booking/appointments/:id", handleGetAppointmentDetails);
+  app.get("/api/booking/stripe-session/:sessionId", handleGetStripeSession);
 
   return app;
 }
