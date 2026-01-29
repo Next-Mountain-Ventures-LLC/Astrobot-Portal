@@ -342,19 +342,19 @@ export default function Booking() {
               )}
             </div>
 
-            {/* Integrations Step */}
+            {/* Website Step - Combined Integrations & Features */}
             <div
               className={`transition-all duration-500 transform ${
-                step === "integrations"
+                step === "website"
                   ? "translate-x-0 opacity-100"
                   : "translate-x-full opacity-0 absolute"
               }`}
               style={{
-                position: step === "integrations" ? "relative" : "absolute",
-                pointerEvents: step === "integrations" ? "auto" : "none",
+                position: step === "website" ? "relative" : "absolute",
+                pointerEvents: step === "website" ? "auto" : "none",
               }}
             >
-              {step === "integrations" && (
+              {step === "website" && (
                 <Card className="p-8 bg-background border-border">
                   <div className="space-y-8">
                     <div className="text-center space-y-3">
@@ -362,11 +362,11 @@ export default function Booking() {
                         About Your Website
                       </h2>
                       <p className="text-muted-foreground max-w-md mx-auto">
-                        Please show us your current integrations so we can work with your existing tools.
+                        Please show this out real quickly for your design. Select your current integrations and desired features.
                       </p>
                     </div>
 
-                    {/* Integrations Carousel */}
+                    {/* Integrations Section */}
                     <div className="space-y-4">
                       <h4 className="text-sm font-semibold text-foreground text-center">
                         Current Integrations
@@ -487,46 +487,11 @@ export default function Booking() {
                       </div>
                     </div>
 
-                    {/* Continue Button */}
-                    <div className="pt-4 border-t border-border">
-                      <Button
-                        onClick={handleIntegrationsSelect}
-                        className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-                      >
-                        Continue to Features →
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              )}
-            </div>
-
-            {/* Features Step */}
-            <div
-              className={`transition-all duration-500 transform ${
-                step === "features"
-                  ? "translate-x-0 opacity-100"
-                  : "translate-x-full opacity-0 absolute"
-              }`}
-              style={{
-                position: step === "features" ? "relative" : "absolute",
-                pointerEvents: step === "features" ? "auto" : "none",
-              }}
-            >
-              {step === "features" && (
-                <Card className="p-8 bg-background border-border">
-                  <div className="space-y-8">
-                    <div className="text-center space-y-3">
-                      <h2 className="text-3xl font-bold text-foreground">
-                        Website Features
-                      </h2>
-                      <p className="text-muted-foreground max-w-md mx-auto">
-                        Select the features you'd like on your website.
-                      </p>
-                    </div>
-
-                    {/* Features Carousel */}
+                    {/* Features Section */}
                     <div className="space-y-4">
+                      <h4 className="text-sm font-semibold text-foreground text-center">
+                        Website Features
+                      </h4>
                       <div className="overflow-x-auto pb-4">
                         <div className="flex gap-4 min-w-max px-1 justify-center">
                           {/* Menu */}
@@ -619,10 +584,10 @@ export default function Booking() {
                     {/* Continue Button */}
                     <div className="pt-4 border-t border-border">
                       <Button
-                        onClick={handleFeaturesSelect}
+                        onClick={handleWebsiteSelect}
                         className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                       >
-                        Continue to Your Info →
+                        Continue to Confirm →
                       </Button>
                     </div>
                   </div>
