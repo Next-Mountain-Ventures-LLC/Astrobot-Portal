@@ -122,12 +122,27 @@ export default function Booking() {
     setDesignDateTime(designDT);
     setLaunchDateTime(launchDT);
     setStep("website");
+    setWebsitePage("page1");
     setError(null);
   };
 
-  const handleWebsiteSelect = () => {
-    setStep("confirm");
+  const handleWebsitePageContinue = () => {
+    if (websitePage === "page1") {
+      setWebsitePage("page2");
+    } else if (websitePage === "page2") {
+      setWebsitePage("page3");
+    } else if (websitePage === "page3") {
+      setStep("confirm");
+    }
     setError(null);
+  };
+
+  const handleWebsitePageBack = () => {
+    if (websitePage === "page2") {
+      setWebsitePage("page1");
+    } else if (websitePage === "page3") {
+      setWebsitePage("page2");
+    }
   };
 
   const handleFormSubmit = async (formData: BookingFormData) => {
