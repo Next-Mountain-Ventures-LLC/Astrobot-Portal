@@ -552,16 +552,16 @@ export default function Booking() {
                       <div className="space-y-8">
                         <div className="text-center space-y-3">
                           <h2 className="text-3xl font-bold text-foreground">
-                            About Your Brand
+                            About your brand
                           </h2>
                           <p className="text-muted-foreground max-w-md mx-auto">
-                            Tell us the integrations you're currently using
+                            Tell us about any of the integrations you're currently using
                           </p>
                         </div>
 
                         <div className="space-y-4">
                           <div className="overflow-x-auto pb-4">
-                            <div className="flex gap-4 min-w-max px-1 justify-center">
+                            <div className="flex gap-4 min-w-max px-1 justify-start">
                               {/* E-commerce */}
                               <button
                                 onClick={() => toggleCurrentIntegration("ecommerce")}
@@ -631,7 +631,7 @@ export default function Booking() {
                                     : "bg-primary/10"
                                 }`}>
                                   <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("foodmenu") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                   </svg>
                                 </div>
                                 <span className="text-xs font-medium text-foreground whitespace-nowrap">Food Menu</span>
@@ -644,26 +644,166 @@ export default function Booking() {
                                 )}
                               </button>
 
-                              {/* Blog */}
+                              {/* Food Delivery Service */}
                               <button
-                                onClick={() => toggleCurrentIntegration("blog")}
+                                onClick={() => toggleCurrentIntegration("fooddelivery")}
                                 className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
-                                  selectedCurrentIntegrations.has("blog")
+                                  selectedCurrentIntegrations.has("fooddelivery")
                                     ? "border-accent bg-accent/10"
                                     : "border-primary/20 hover:border-primary hover:bg-primary/5"
                                 }`}
                               >
                                 <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                                  selectedCurrentIntegrations.has("blog")
+                                  selectedCurrentIntegrations.has("fooddelivery")
                                     ? "bg-accent/20"
                                     : "bg-primary/10"
                                 }`}>
-                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("blog") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("fooddelivery") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                   </svg>
                                 </div>
-                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Blog</span>
-                                {selectedCurrentIntegrations.has("blog") && (
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Food Delivery</span>
+                                {selectedCurrentIntegrations.has("fooddelivery") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Payment Solutions */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("payments")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("payments")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("payments")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("payments") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Payments</span>
+                                {selectedCurrentIntegrations.has("payments") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* CRM */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("crm")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("crm")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("crm")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("crm") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 12H9m6 0a6 6 0 11-12 0 6 6 0 0112 0z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">CRM</span>
+                                {selectedCurrentIntegrations.has("crm") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Email Newsletter */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("email")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("email")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("email")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("email") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Email Newsletter</span>
+                                {selectedCurrentIntegrations.has("email") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Inventory Management */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("inventory")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("inventory")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("inventory")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("inventory") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m0 0v10l8 4" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Inventory</span>
+                                {selectedCurrentIntegrations.has("inventory") && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                    </svg>
+                                  </div>
+                                )}
+                              </button>
+
+                              {/* Reservations */}
+                              <button
+                                onClick={() => toggleCurrentIntegration("reservations")}
+                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all flex-shrink-0 relative ${
+                                  selectedCurrentIntegrations.has("reservations")
+                                    ? "border-accent bg-accent/10"
+                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                }`}
+                              >
+                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                  selectedCurrentIntegrations.has("reservations")
+                                    ? "bg-accent/20"
+                                    : "bg-primary/10"
+                                }`}>
+                                  <svg className={`w-6 h-6 ${selectedCurrentIntegrations.has("reservations") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Reservations</span>
+                                {selectedCurrentIntegrations.has("reservations") && (
                                   <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
                                     <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
