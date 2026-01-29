@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, CheckCircle2, Calendar, User } from "lucide-react";
 import { BookingConfirmationResponse } from "@shared/api";
 
-type Step = "select" | "website" | "confirm" | "success";
+type Step = "select" | "website" | "confirm";
 
 type WebsitePage = "page1" | "page2" | "page3";
 
