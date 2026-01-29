@@ -24,7 +24,7 @@ const getAvailabilityTimesSchema = z.object({
 });
 
 const createAppointmentSchema = z.object({
-  datetime: z.string().datetime("Invalid datetime format"),
+  datetime: z.string().min(1, "Datetime is required").regex(/^\d{4}-\d{2}-\d{2}T/, "Invalid datetime format - must be ISO 8601"),
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email address"),
