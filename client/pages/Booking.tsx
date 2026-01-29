@@ -304,7 +304,7 @@ export default function Booking() {
                         <div className="lg:col-span-1 space-y-6">
                           {/* Designer Profile Card */}
                           <div className="flex flex-col items-center space-y-4 p-4 rounded-lg bg-primary/5 border border-primary/20">
-                            <div className="w-28 h-28 rounded-2xl overflow-hidden border-4 border-accent flex-shrink-0">
+                            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-accent flex-shrink-0 flex items-center justify-center">
                               <img
                                 src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1c2ef5aa27404395a1e9349fa8a03536?format=webp&width=800&height=1200"
                                 alt="Joshua Ford"
