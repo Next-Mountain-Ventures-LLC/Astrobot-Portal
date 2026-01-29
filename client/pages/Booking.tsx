@@ -100,17 +100,12 @@ export default function Booking() {
   const handleDatesSelect = (designDT: string, launchDT: string) => {
     setDesignDateTime(designDT);
     setLaunchDateTime(launchDT);
-    setStep("integrations");
+    setStep("website");
     setError(null);
   };
 
-  const handleIntegrationsSelect = () => {
-    setStep("features");
-    setError(null);
-  };
-
-  const handleFeaturesSelect = () => {
-    setStep("form");
+  const handleWebsiteSelect = () => {
+    setStep("confirm");
     setError(null);
   };
 
