@@ -4,7 +4,6 @@ import { Layout } from "@/components/Layout";
 import { BookingDualDateTimePicker } from "@/components/BookingDualDateTimePicker";
 import { BookingForm, type BookingFormData } from "@/components/BookingForm";
 import { BookingConfirmation } from "@/components/BookingConfirmation";
-import { BookingDebugLog } from "@/components/BookingDebugLog";
 import { useApiLog } from "@/hooks/use-api-log";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -482,8 +481,8 @@ export default function Booking() {
                         {/* Left: Designer Profile & Schedule Section */}
                         <div className="lg:col-span-1 space-y-6">
                           {/* Designer Profile Card */}
-                          <div className="flex flex-col items-center space-y-4 p-4 rounded-lg bg-primary/5 border border-primary/20">
-                            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-accent flex-shrink-0 flex items-center justify-center">
+                          <div className="flex flex-col items-center space-y-4 p-4 rounded-lg bg-primary/10 border border-primary/40">
+                            <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-primary flex-shrink-0 flex items-center justify-center">
                               <img
                                 src="https://cdn.builder.io/api/v1/image/assets%2F5193f7a05d654f0c98a0a70f48ef2387%2F1c2ef5aa27404395a1e9349fa8a03536?format=webp&width=800&height=1200"
                                 alt="Joshua Ford"
@@ -506,9 +505,9 @@ export default function Booking() {
                               {/* Design Meeting Calendar Card */}
                               <button
                                 onClick={() => setStep("select")}
-                                className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                                className="w-full flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                               >
-                                <div className="relative w-24 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                                <div className="relative w-full h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
                                   <div className="text-xs font-bold text-primary uppercase whitespace-normal">
                                     Design
                                   </div>
@@ -532,9 +531,9 @@ export default function Booking() {
                               {/* Launch Date Calendar Card */}
                               <button
                                 onClick={() => setStep("select")}
-                                className="w-2/3 mx-auto flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
+                                className="w-full flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                               >
-                                <div className="relative w-24 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                                <div className="relative w-full h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
                                   <div className="text-xs font-bold text-primary uppercase whitespace-normal">
                                     Launch
                                   </div>
@@ -1251,8 +1250,6 @@ export default function Booking() {
             </div>
           )}
 
-          {/* Debug Log */}
-          <BookingDebugLog />
         </div>
       </div>
     </Layout>
