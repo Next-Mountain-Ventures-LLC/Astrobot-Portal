@@ -1,11 +1,11 @@
 [build]
-  command = "npm run build:client"
+  command = "npm run build"
   functions = "netlify/functions"
   publish = "dist/spa"
 
 
 [functions]
-  external_node_modules = ["express", "@supabase/supabase-js", "zod", "stripe"]
+  external_node_modules = ["express", "@supabase/supabase-js", "zod", "stripe", "serverless-http", "cors", "dotenv"]
   node_bundler = "esbuild"
   
 [[redirects]]
