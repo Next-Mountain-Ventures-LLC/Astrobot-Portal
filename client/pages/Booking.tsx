@@ -136,6 +136,28 @@ export default function Booking() {
     setSelectedQuestions(newSet);
   };
 
+  // Toggle website type (mutually exclusive: brand-new OR redesign)
+  const toggleWebsiteType = (type: "brand-new" | "redesign") => {
+    const newSet = new Set(selectedQuestions);
+    // Remove both first
+    newSet.delete("brand-new");
+    newSet.delete("redesign");
+    // Then add the selected one
+    newSet.add(type);
+    setSelectedQuestions(newSet);
+  };
+
+  // Toggle domain ownership (mutually exclusive: own-domain OR know-domain)
+  const toggleDomainOwnership = (type: "own-domain" | "know-domain") => {
+    const newSet = new Set(selectedQuestions);
+    // Remove both first
+    newSet.delete("own-domain");
+    newSet.delete("know-domain");
+    // Then add the selected one
+    newSet.add(type);
+    setSelectedQuestions(newSet);
+  };
+
   const toggleCurrentIntegration = (integration: string) => {
     const newSet = new Set(selectedCurrentIntegrations);
     if (newSet.has(integration)) {
@@ -585,7 +607,7 @@ export default function Booking() {
                           <div className="grid grid-cols-1 gap-3">
                             {/* Brand New Website */}
                             <button
-                              onClick={() => toggleQuestion("brand-new")}
+                              onClick={() => toggleWebsiteType("brand-new")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("brand-new")
                                   ? "border-accent bg-accent/10"
@@ -604,7 +626,7 @@ export default function Booking() {
 
                             {/* Website Redesign */}
                             <button
-                              onClick={() => toggleQuestion("redesign")}
+                              onClick={() => toggleWebsiteType("redesign")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("redesign")
                                   ? "border-accent bg-accent/10"
@@ -621,16 +643,16 @@ export default function Booking() {
                               )}
                             </button>
 
-                            {/* I own the domain */}
+                            {/* I own the domain already */}
                             <button
-                              onClick={() => toggleQuestion("own-domain")}
+                              onClick={() => toggleDomainOwnership("own-domain")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("own-domain")
                                   ? "border-accent bg-accent/10"
                                   : "border-primary/20 hover:border-primary hover:bg-primary/5"
                               }`}
                             >
-                              <span className="text-sm font-medium text-foreground flex-1 text-left">I own the domain.</span>
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">I own the domain already.</span>
                               {selectedQuestions.has("own-domain") && (
                                 <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
                                   <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -642,7 +664,7 @@ export default function Booking() {
 
                             {/* I know the domain I want */}
                             <button
-                              onClick={() => toggleQuestion("know-domain")}
+                              onClick={() => toggleDomainOwnership("know-domain")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("know-domain")
                                   ? "border-accent bg-accent/10"
