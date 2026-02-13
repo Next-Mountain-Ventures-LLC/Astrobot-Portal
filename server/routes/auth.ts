@@ -44,11 +44,13 @@ async function authenticateWithSupabase(email: string, password: string) {
 
 export const handleLogin: RequestHandler = async (req, res) => {
   try {
+    console.log("[Auth] Login request received. Body:", JSON.stringify(req.body), "Headers:", JSON.stringify(req.headers));
     const { email, password } = req.body as AuthRequest;
 
     // Validate input
     if (!email || !password) {
-      res.status(400).json({ error: "Email and password required" });
+      console.error("[Auth] Missing credentials. Email:", email, "Password:", password ? "***" : "undefined");
+      res.status(400).json({ error: "Email and password required", received: { email: !!email, password: !!password } });
       return;
     }
 
