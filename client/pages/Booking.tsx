@@ -136,25 +136,33 @@ export default function Booking() {
     setSelectedQuestions(newSet);
   };
 
-  // Toggle website type (mutually exclusive: brand-new OR redesign)
+  // Toggle website type (mutually exclusive: brand-new OR redesign, but can also be unselected)
   const toggleWebsiteType = (type: "brand-new" | "redesign") => {
     const newSet = new Set(selectedQuestions);
-    // Remove both first
-    newSet.delete("brand-new");
-    newSet.delete("redesign");
-    // Then add the selected one
-    newSet.add(type);
+    // If clicking the same one that's already selected, deselect it
+    if (newSet.has(type)) {
+      newSet.delete(type);
+    } else {
+      // Otherwise, remove both and add the new one
+      newSet.delete("brand-new");
+      newSet.delete("redesign");
+      newSet.add(type);
+    }
     setSelectedQuestions(newSet);
   };
 
-  // Toggle domain ownership (mutually exclusive: own-domain OR know-domain)
+  // Toggle domain ownership (mutually exclusive: own-domain OR know-domain, but can also be unselected)
   const toggleDomainOwnership = (type: "own-domain" | "know-domain") => {
     const newSet = new Set(selectedQuestions);
-    // Remove both first
-    newSet.delete("own-domain");
-    newSet.delete("know-domain");
-    // Then add the selected one
-    newSet.add(type);
+    // If clicking the same one that's already selected, deselect it
+    if (newSet.has(type)) {
+      newSet.delete(type);
+    } else {
+      // Otherwise, remove both and add the new one
+      newSet.delete("own-domain");
+      newSet.delete("know-domain");
+      newSet.add(type);
+    }
     setSelectedQuestions(newSet);
   };
 
