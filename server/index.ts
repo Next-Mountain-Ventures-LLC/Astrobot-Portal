@@ -49,7 +49,12 @@ export function createServer() {
   // Fix for serverless-http (Netlify Functions) which may pass body as Buffer
   app.use((req, res, next) => {
     if (Buffer.isBuffer(req.body)) {
-      req.body = JSON.parse(req.body.toString("utf8"));
+      const bodyStr = req.body.toString("utf8");
+      if (bodyStr) {
+        req.body = JSON.parse(bodyStr);
+      } else {
+        req.body = undefined;
+      }
     }
     next();
   });
