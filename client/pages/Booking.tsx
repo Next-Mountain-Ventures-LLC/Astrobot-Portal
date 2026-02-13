@@ -482,7 +482,7 @@ export default function Booking() {
                         <div className="lg:col-span-1 space-y-6">
                           {/* Your Designer Title */}
                           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide text-center">
-                            Your Designer
+                            Your Designer:
                           </h3>
                           {/* Designer Profile Card */}
                           <div className="flex flex-col items-center space-y-4 p-4 rounded-lg bg-primary/10 border border-primary/40">
@@ -499,19 +499,19 @@ export default function Booking() {
                             </div>
                           </div>
 
-                          <div className="border-t border-border pt-6">
+                          <div className="border-t border-border pt-6 w-full flex flex-col items-center">
                             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">
-                              Your schedule
+                              Your appointments:
                             </h3>
 
                             {/* Date Cards Container with more spacing */}
-                            <div className="space-y-8">
+                            <div className="space-y-8 flex flex-col items-center">
                               {/* Design Meeting Calendar Card */}
                               <button
                                 onClick={() => setStep("select")}
                                 className="flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                               >
-                                <div className="relative w-28 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                                <div className="relative w-36 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
                                   <div className="text-xs font-bold text-primary uppercase whitespace-normal">
                                     Design
                                   </div>
@@ -537,7 +537,7 @@ export default function Booking() {
                                 onClick={() => setStep("select")}
                                 className="flex flex-col items-center gap-3 p-2 rounded-lg border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all cursor-pointer group"
                               >
-                                <div className="relative w-28 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
+                                <div className="relative w-36 h-32 bg-primary/10 group-hover:bg-primary/20 border-2 border-primary rounded-lg p-3 flex flex-col justify-between transition-all">
                                   <div className="text-xs font-bold text-primary uppercase whitespace-normal">
                                     Launch
                                   </div>
