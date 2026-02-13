@@ -7,13 +7,32 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle } from "lucide-react";
 
+/**
+ * IMPORTANT: All fields in this form are captured and passed to Acuity appointment notes.
+ *
+ * When users submit this form, their data is compiled and sent to the appointment notes
+ * in Acuity Scheduling, where it's visible to designers and team members when they
+ * receive appointment notifications.
+ *
+ * WHEN ADDING NEW FORM FIELDS:
+ * 1. Add field to this schema
+ * 2. Add form input in the JSX below
+ * 3. Update Booking.tsx to capture the new field in state
+ * 4. Add the field to designNotesContent compilation in the appointment mutation
+ * 5. The data will automatically flow through to Acuity
+ *
+ * Do NOT add fields unless you also update the appointment notes compilation.
+ * All form data must be passed to appointments to ensure designers have full context.
+ */
+
 // Validation schema
 const bookingFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().regex(/^\d{10,}$/, "Phone must be at least 10 digits"),
-  notes: z.string().optional(),
+  notes: z.string().optional(), // Additional notes from user - passed to appointment
+  // ADD NEW FORM FIELDS HERE - must also be added to appointment notes compilation
 });
 
 type BookingFormData = z.infer<typeof bookingFormSchema>;

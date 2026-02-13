@@ -17,12 +17,27 @@ import Stripe from "stripe";
 // Validation schemas
 const getAvailabilityDatesSchema = z.object({
   month: z.string().regex(/^\d{4}-\d{2}$/, "Month must be YYYY-MM format"),
+  appointmentTypeId: z.string().optional(),
 });
 
 const getAvailabilityTimesSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be YYYY-MM-DD format"),
+  appointmentTypeId: z.string().optional(),
 });
 
+/**
+ * IMPORTANT: All form data from the booking flow is passed through in the notes field.
+ *
+ * The client compiles all form responses (questions, integrations, interests, domain, notes)
+ * into a formatted notes string. This schema validates the appointment data, but the actual
+ * form field details are passed as a compiled string in the notes field.
+ *
+ * WHEN MODIFYING THE BOOKING FORM:
+ * 1. Update the client-side label mappings (getQuestionLabel, getIntegrationLabel, getInterestLabel)
+ * 2. Add the new data to the designNotesContent array in the appointment mutation
+ * 3. The notes field will automatically include all collected data
+ * 4. No changes to this schema are needed unless modifying the appointment structure itself
+ */
 const createAppointmentSchema = z.object({
   datetime: z.string().min(1, "Datetime is required").regex(/^\d{4}-\d{2}-\d{2}T/, "Invalid datetime format - must be ISO 8601"),
   firstName: z.string().min(1, "First name is required"),
@@ -30,7 +45,8 @@ const createAppointmentSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z.string().regex(/^\d{10,}$/, "Phone must be at least 10 digits"),
   timezone: z.string().min(1, "Timezone is required"),
-  notes: z.string().optional(),
+  notes: z.string().optional(), // Contains compiled form responses in format: "Section ~ value1, value2..."
+  appointmentTypeId: z.string().optional(),
 });
 
 /**
@@ -160,9 +176,9 @@ export const handleGetAppointmentTypeDetails: RequestHandler = async (
 export const handleGetAvailabilityDates: RequestHandler = async (req, res) => {
   try {
     // Validate query params
-    const { month } = getAvailabilityDatesSchema.parse(req.query);
+    const { month, appointmentTypeId: queryAppointmentTypeId } = getAvailabilityDatesSchema.parse(req.query);
 
-    const appointmentTypeId = process.env.ACUITY_APPOINTMENT_TYPE_ID;
+    const appointmentTypeId = queryAppointmentTypeId || process.env.ACUITY_APPOINTMENT_TYPE_ID;
     const timezone = process.env.ACUITY_TIMEZONE;
     const calendarId = process.env.ACUITY_CALENDAR_ID;
     const userId = process.env.ACUITY_USER_ID;
@@ -252,9 +268,9 @@ export const handleGetAvailabilityDates: RequestHandler = async (req, res) => {
 export const handleGetAvailabilityTimes: RequestHandler = async (req, res) => {
   try {
     // Validate query params
-    const { date } = getAvailabilityTimesSchema.parse(req.query);
+    const { date, appointmentTypeId: queryAppointmentTypeId } = getAvailabilityTimesSchema.parse(req.query);
 
-    const appointmentTypeId = process.env.ACUITY_APPOINTMENT_TYPE_ID;
+    const appointmentTypeId = queryAppointmentTypeId || process.env.ACUITY_APPOINTMENT_TYPE_ID;
     const timezone = process.env.ACUITY_TIMEZONE;
     const calendarId = process.env.ACUITY_CALENDAR_ID;
 
@@ -366,7 +382,8 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
     // Validate request body
     const bookingData = createAppointmentSchema.parse(req.body);
 
-    const appointmentTypeId = process.env.ACUITY_APPOINTMENT_TYPE_ID;
+    // Use provided appointmentTypeId or fall back to environment variable
+    const appointmentTypeId = bookingData.appointmentTypeId || process.env.ACUITY_APPOINTMENT_TYPE_ID;
     const calendarId = process.env.ACUITY_CALENDAR_ID;
 
     if (!appointmentTypeId || !calendarId) {

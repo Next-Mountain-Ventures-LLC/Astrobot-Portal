@@ -185,39 +185,119 @@ export default function Booking() {
     setSelectedAddons(newSet);
   };
 
+  /**
+   * IMPORTANT: Form Data to Appointment Notes Pattern
+   *
+   * All form data collected in this booking flow is passed through to the appointment
+   * notes in Acuity Scheduling. This ensures designers and team members have complete
+   * context when they receive appointment notifications.
+   *
+   * WHEN ADDING NEW FORM FIELDS:
+   * 1. Add the new field to the appropriate state (selectedQuestions, selectedCurrentIntegrations, or selectedAddons)
+   * 2. Add a corresponding label mapping in the appropriate getLabel function below
+   * 3. Update the designNotesContent compilation in the createAppointmentMutation to include the new field
+   * 4. The system will automatically capture and pass the data through to Acuity
+   *
+   * This pattern ensures no data is lost and all information flows to the appointment notes
+   * without requiring manual updates to multiple locations.
+   */
+
+  // Label mappings for questions, integrations, and interests
+  // IMPORTANT: Keep these in sync with form fields and add new selections here
+  const getQuestionLabel = (key: string): string => {
+    const labels: Record<string, string> = {
+      "brand-new": "Brand New Website",
+      "redesign": "Website Redesign",
+      "own-domain": "I own the domain already",
+      "know-domain": "I know the domain I want",
+      "seo": "I need Search Engine Optimization Services",
+      // ADD NEW QUESTION SELECTIONS HERE
+    };
+    return labels[key] || key;
+  };
+
+  const getIntegrationLabel = (key: string): string => {
+    const labels: Record<string, string> = {
+      "ecommerce": "E-commerce",
+      "scheduling": "Scheduling",
+      "foodmenu": "Food Menu",
+      "fooddelivery": "Food Delivery",
+      "payments": "Payments",
+      "crm": "CRM",
+      "email": "Email Newsletter",
+      "inventory": "Inventory",
+      "reservations": "Reservations",
+      "social": "Social Media",
+      // ADD NEW INTEGRATION SELECTIONS HERE
+    };
+    return labels[key] || key;
+  };
+
+  const getInterestLabel = (key: string): string => {
+    const labels: Record<string, string> = {
+      "analytics": "Advanced Analytics",
+      "email": "Email Marketing",
+      "livechat": "Live Chat",
+      "support": "Premium Support",
+      "seo": "SEO Services",
+      "branding": "Advanced Branding",
+      "training": "Staff Training",
+      // ADD NEW INTEREST SELECTIONS HERE
+    };
+    return labels[key] || key;
+  };
+
   // Mutation for creating appointment
   const createAppointmentMutation = useMutation({
     mutationFn: async (data: BookingFormData & { datetime: string; launchDateTime: string }) => {
       const startTime = performance.now();
 
-      // Build notes from gathered information
-      const selectedQuestionsArray = Array.from(selectedQuestions);
-      const selectedIntegrationsArray = Array.from(selectedCurrentIntegrations);
-      const selectedAddonsArray = Array.from(selectedAddons);
+      // Convert selected items to display labels using the mapping functions
+      // This ensures all form data is passed through with human-readable labels
+      const questionsWithLabels = Array.from(selectedQuestions).map((q) => getQuestionLabel(q)).filter(Boolean);
+      const integrationsWithLabels = Array.from(selectedCurrentIntegrations).map((i) => getIntegrationLabel(i)).filter(Boolean);
+      const interestsWithLabels = Array.from(selectedAddons).map((a) => getInterestLabel(a)).filter(Boolean);
 
-      const notesContent = [
-        "=== BOOKING INFORMATION ===",
+      /**
+       * Build design meeting appointment notes with all collected information.
+       *
+       * IMPORTANT: ALL FORM DATA MUST BE PASSED HERE
+       * Every field users fill out in this booking flow should be included in these notes.
+       * This ensures designers and team members receive complete context when Acuity sends notifications.
+       *
+       * NOTE: Uses ~ as separator instead of : to prevent JSON parsing issues in API requests
+       *
+       * WHEN ADDING NEW FORM FIELDS:
+       * 1. Collect the field data into state (like selectedQuestions, selectedCurrentIntegrations, etc.)
+       * 2. Create or update a label mapping function (getQuestionLabel, getIntegrationLabel, etc.)
+       * 3. Add a line here that includes the field data in designNotesContent array
+       * 4. Follow the format: `[Section Name] ~ ${values.join(", ")}`
+       * 5. The data will automatically flow through to the Acuity appointment
+       */
+      const designNotesContent = [
+        data.notes ? `Additional Notes ~ ${data.notes}` : "Additional Notes ~ None provided",
         "",
-        "--- Design Preferences ---",
-        ...selectedQuestionsArray.map((q) => `• ${q}`),
+        questionsWithLabels.length > 0
+          ? `Questions From Designer ~ ${questionsWithLabels.join(", ")}`
+          : "Questions From Designer ~ None selected",
         "",
-        "--- Current Integrations ---",
-        ...selectedIntegrationsArray.map((i) => `• ${i}`),
+        integrationsWithLabels.length > 0
+          ? `Current Website or Business Integrations ~ ${integrationsWithLabels.join(", ")}`
+          : "Current Website or Business Integrations ~ None selected",
         "",
-        "--- Selected Add-ons ---",
-        ...selectedAddonsArray.map((a) => `• ${a}`),
-        ...(domain ? ["", `--- Domain Information ---`, `Domain: ${domain}`] : []),
-        "",
-        "--- Additional Notes ---",
-        data.notes || "No additional notes",
+        interestsWithLabels.length > 0
+          ? `Possibly Interested In ~ ${interestsWithLabels.join(", ")}`
+          : "Possibly Interested In ~ None selected",
+        ...(domain ? ["", `Domain ~ ${domain}`] : []),
+        // ADD NEW FORM FIELDS HERE - follow the pattern above
       ].join("\n");
 
-      // Create design meeting appointment
+      // Create design meeting appointment (uses ACUITY_APPOINTMENT_TYPE_ID from env)
       const designAppointmentData = {
         ...data,
         datetime: data.datetime,
         timezone: "America/Chicago",
-        notes: notesContent,
+        notes: designNotesContent,
       };
 
       const designLogId = logRequest("POST", "/api/booking/appointments", designAppointmentData);
@@ -242,7 +322,7 @@ export default function Booking() {
         const designAppointment = (await designRes.json()) as BookingConfirmationResponse;
         logResponse(designLogId, designRes.status, designRes.statusText, designAppointment, designDuration);
 
-        // Create launch meeting appointment
+        // Create launch meeting appointment (uses appointment type 89122426)
         const launchAppointmentData = {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -250,7 +330,8 @@ export default function Booking() {
           phone: data.phone,
           datetime: data.launchDateTime,
           timezone: "America/Chicago",
-          notes: "Launch week meeting - prepared for go-live discussion",
+          appointmentTypeId: "89122426",
+          notes: "Launch week meeting ~ prepared for go-live discussion",
         };
 
         launchLogId = logRequest("POST", "/api/booking/appointments", launchAppointmentData);
@@ -1067,15 +1148,15 @@ export default function Booking() {
                       </div>
                     )}
 
-                    {/* Page 3: Add-ons */}
+                    {/* Page 3: Possibly Interested In */}
                     {websitePage === "page3" && (
                       <div className="space-y-8">
                         <div className="text-center space-y-3">
                           <h2 className="text-3xl font-bold text-foreground">
-                            Add-ons
+                            Possibly Interested In
                           </h2>
                           <p className="text-muted-foreground max-w-md mx-auto">
-                            Select any additional services you'd like to include
+                            Select things you might be interested in exploring
                           </p>
                         </div>
 

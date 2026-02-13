@@ -10,12 +10,14 @@ interface TimeSlotsProps {
   selectedDate: string;
   onTimeSelect: (datetime: string) => void;
   onError?: (error: string) => void;
+  appointmentTypeId?: string;
 }
 
 export function TimeSlotSelector({
   selectedDate,
   onTimeSelect,
   onError,
+  appointmentTypeId,
 }: TimeSlotsProps) {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const { logRequest, logResponse, logError } = useApiLog();
@@ -27,10 +29,14 @@ export function TimeSlotSelector({
     error,
     refetch,
   } = useQuery({
-    queryKey: ["availability-times", selectedDate],
+    queryKey: ["availability-times", selectedDate, appointmentTypeId],
     queryFn: async () => {
       const startTime = performance.now();
-      const url = `/api/booking/availability/times?date=${selectedDate}`;
+      const params = new URLSearchParams({ date: selectedDate });
+      if (appointmentTypeId) {
+        params.append("appointmentTypeId", appointmentTypeId);
+      }
+      const url = `/api/booking/availability/times?${params.toString()}`;
       const logId = logRequest("GET", url);
 
       try {

@@ -14,6 +14,7 @@ interface BookingCalendarProps {
   disableDatesBeforeThan?: Date | null; // Disable dates before this date (for 7-day constraint)
   title?: string; // Custom title for the calendar
   initialMonth?: Date; // Auto-advance calendar to this month (useful for launch calendar)
+  appointmentTypeId?: string; // Optional appointment type ID for launch meetings
 }
 
 export function BookingCalendar({
@@ -23,6 +24,7 @@ export function BookingCalendar({
   disableDatesBeforeThan,
   title,
   initialMonth,
+  appointmentTypeId,
 }: BookingCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState<Date>(initialMonth || new Date());
   const { logRequest, logResponse, logError } = useApiLog();
@@ -36,7 +38,7 @@ export function BookingCalendar({
 
   const monthString = format(currentMonth, "yyyy-MM");
 
-  console.log("[BookingCalendar] Current month:", { monthString, currentMonth });
+  console.log("[BookingCalendar] Current month:", { monthString, currentMonth, appointmentTypeId });
 
   // Fetch available dates for the current month
   const {
@@ -45,11 +47,15 @@ export function BookingCalendar({
     error,
     refetch,
   } = useQuery({
-    queryKey: ["availability-dates", monthString],
+    queryKey: ["availability-dates", monthString, appointmentTypeId],
     queryFn: async () => {
       console.log("[BookingCalendar] Starting fetch for month:", monthString);
       const startTime = performance.now();
-      const url = `/api/booking/availability/dates?month=${monthString}`;
+      const params = new URLSearchParams({ month: monthString });
+      if (appointmentTypeId) {
+        params.append("appointmentTypeId", appointmentTypeId);
+      }
+      const url = `/api/booking/availability/dates?${params.toString()}`;
       const logId = logRequest("GET", url);
 
       try {

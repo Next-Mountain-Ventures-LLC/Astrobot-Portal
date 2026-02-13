@@ -154,6 +154,32 @@ const data: MyRouteResponse = await response.json();
 - **Binary**: Self-contained executables (Linux, macOS, Windows)
 - **Cloud Deployment**: Use either Netlify or Vercel via their MCP integrations for easy deployment. Both providers work well with this starter template.
 
+## Booking System - Form Data to Appointment Notes Pattern
+
+**IMPORTANT PATTERN**: All form data collected in the booking flow is automatically passed to Acuity Scheduling appointment notes. This ensures designers and team members have complete context when they receive appointment notifications.
+
+### How It Works
+1. **Form Collection** → State stored in `client/pages/Booking.tsx` (selectedQuestions, selectedCurrentIntegrations, selectedAddons, etc.)
+2. **Label Mapping** → Each selection gets human-readable label via getQuestionLabel(), getIntegrationLabel(), getInterestLabel()
+3. **Notes Compilation** → In createAppointmentMutation, all form data is compiled into designNotesContent
+4. **Appointment Submission** → Notes are sent to Acuity with the design meeting appointment
+
+### When Adding New Form Fields
+1. Add field to form component (e.g., `client/components/BookingForm.tsx`)
+2. Create state to capture selections (e.g., `selectedNewField`)
+3. Add label mapping function or extend existing one
+4. Add field to designNotesContent array in the appointment mutation with format: `[Section Name] ~ ${values.join(", ")}`
+5. Use `~` as separator (not `:`) to prevent JSON issues
+
+### Key Files Involved
+- `client/pages/Booking.tsx` - Main orchestration, label mappings, appointment creation
+- `client/components/BookingForm.tsx` - User-facing form fields
+- `server/routes/booking.ts` - Appointment submission to Acuity
+- Acuity notes field - Where all data ultimately appears
+
+### No Data Should Be Lost
+Every toggle, selection, and input the user makes must flow through to the appointment notes. The system is designed so developers only need to update three places when adding new fields, and everything else happens automatically.
+
 ## Architecture Notes
 
 - Single-port development with Vite + Express integration
