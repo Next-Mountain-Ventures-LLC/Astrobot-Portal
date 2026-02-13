@@ -40,8 +40,15 @@ export function TimeSlotSelector({
       const logId = logRequest("GET", url);
 
       try {
-        const res = await fetch(url);
+        console.log("[TimeSlotSelector] Attempting fetch to:", { url, selectedDate, appointmentTypeId });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
         const duration = Math.round(performance.now() - startTime);
+
+        console.log("[TimeSlotSelector] Fetch completed:", { status: res.status, duration, url });
 
         if (!res.ok) {
           let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
@@ -56,12 +63,25 @@ export function TimeSlotSelector({
         }
 
         const data = await res.json();
+        console.log("[TimeSlotSelector] Response data:", { count: data.times?.length || 0 });
         logResponse(logId, res.status, res.statusText, data, duration);
         return data as AvailabilityTimesResponse;
       } catch (err: any) {
         const duration = Math.round(performance.now() - startTime);
-        logError(logId, err.message || "Failed to fetch", duration);
-        throw err;
+        const errorMsg = err.name === "AbortError"
+          ? "Request timeout - server not responding"
+          : err.message || "Failed to fetch";
+        console.error("[TimeSlotSelector] Fetch error:", { url, error: errorMsg, duration, errorName: err.name });
+        logError(logId, errorMsg, duration);
+
+        // Provide helpful error message based on error type
+        const userMessage = err.name === "AbortError"
+          ? "Server is not responding. Please check your internet connection or try again later."
+          : err.message.includes("Failed to fetch")
+            ? "Cannot connect to server. Please check your internet connection."
+            : `Unable to load times: ${errorMsg}`;
+
+        throw new Error(userMessage);
       }
     },
     enabled: !!selectedDate,

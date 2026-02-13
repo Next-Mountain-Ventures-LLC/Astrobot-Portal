@@ -59,10 +59,15 @@ export function BookingCalendar({
       const logId = logRequest("GET", url);
 
       try {
-        const res = await fetch(url);
+        console.log("[BookingCalendar] Attempting fetch to:", { url, appointmentTypeId, monthString });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
         const duration = Math.round(performance.now() - startTime);
 
-        console.log("[BookingCalendar] Fetch completed:", { status: res.status, duration });
+        console.log("[BookingCalendar] Fetch completed:", { status: res.status, duration, url });
 
         if (!res.ok) {
           let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
@@ -77,14 +82,25 @@ export function BookingCalendar({
         }
 
         const data = await res.json();
-        console.log("[BookingCalendar] Response data:", data);
+        console.log("[BookingCalendar] Response data:", { count: data.dates?.length || 0 });
         logResponse(logId, res.status, res.statusText, data, duration);
         return data as AvailabilityDatesResponse;
       } catch (err: any) {
         const duration = Math.round(performance.now() - startTime);
-        console.error("[BookingCalendar] Fetch error:", err);
-        logError(logId, err.message || "Failed to fetch", duration);
-        throw err;
+        const errorMsg = err.name === "AbortError"
+          ? "Request timeout - server not responding"
+          : err.message || "Failed to fetch";
+        console.error("[BookingCalendar] Fetch error:", { url, error: errorMsg, duration, errorName: err.name });
+        logError(logId, errorMsg, duration);
+
+        // Provide helpful error message based on error type
+        const userMessage = err.name === "AbortError"
+          ? "Server is not responding. Please check your internet connection or try again later."
+          : err.message.includes("Failed to fetch")
+            ? "Cannot connect to server. Please check your internet connection."
+            : `Unable to load calendar: ${errorMsg}`;
+
+        throw new Error(userMessage);
       }
     },
     retry: 3,
