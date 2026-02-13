@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, LogOut, Settings, HelpCircle, LayoutDashboard } from "lucide-react";
+import { Menu, X, LogOut, Settings, HelpCircle, LayoutDashboard, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface LayoutProps {
@@ -17,6 +17,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
   const navItems = [
     { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { path: "/booking", label: "Booking", icon: Calendar },
     { path: "/account", label: "Account Settings", icon: Settings },
     { path: "/support", label: "Support", icon: HelpCircle },
   ];
