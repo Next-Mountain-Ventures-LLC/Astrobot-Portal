@@ -165,11 +165,26 @@ export const handleGetAvailabilityDates: RequestHandler = async (req, res) => {
     const appointmentTypeId = process.env.ACUITY_APPOINTMENT_TYPE_ID;
     const timezone = process.env.ACUITY_TIMEZONE;
     const calendarId = process.env.ACUITY_CALENDAR_ID;
+    const userId = process.env.ACUITY_USER_ID;
+    const apiKey = process.env.ACUITY_API_KEY;
+
+    console.log("[Booking] Availability dates request - Config check:", {
+      appointmentTypeId: appointmentTypeId ? "SET" : "MISSING",
+      timezone: timezone ? "SET" : "MISSING",
+      calendarId: calendarId ? "SET" : "MISSING",
+      userId: userId ? "SET" : "MISSING",
+      apiKey: apiKey ? "SET" : "MISSING",
+    });
 
     if (!appointmentTypeId || !timezone || !calendarId) {
       return res.status(500).json({
         error: "Server configuration error",
         message: "Acuity configuration incomplete",
+        received: {
+          appointmentTypeId: appointmentTypeId ? "SET" : "MISSING",
+          timezone: timezone ? "SET" : "MISSING",
+          calendarId: calendarId ? "SET" : "MISSING",
+        },
       });
     }
 
