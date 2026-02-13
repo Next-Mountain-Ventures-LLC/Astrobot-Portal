@@ -5,7 +5,6 @@
 
 
 [functions]
-  external_node_modules = ["express", "@supabase/supabase-js", "zod", "stripe", "serverless-http", "cors", "dotenv"]
   node_bundler = "esbuild"
   
 [[redirects]]
