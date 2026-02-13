@@ -45,6 +45,15 @@ export function createServer() {
 
   // Middleware
   app.use(cors());
+
+  // Fix for serverless-http (Netlify Functions) which may pass body as Buffer
+  app.use((req, res, next) => {
+    if (Buffer.isBuffer(req.body)) {
+      req.body = JSON.parse(req.body.toString("utf8"));
+    }
+    next();
+  });
+
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
