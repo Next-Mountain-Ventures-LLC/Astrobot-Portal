@@ -165,6 +165,21 @@ export default function Booking() {
     setSelectedQuestions(newSet);
   };
 
+  // Toggle SEO approach (mutually exclusive: seo OR traffic, but can also be unselected)
+  const toggleSeoApproach = (type: "seo" | "traffic") => {
+    const newSet = new Set(selectedQuestions);
+    // If clicking the same one that's already selected, deselect it
+    if (newSet.has(type)) {
+      newSet.delete(type);
+    } else {
+      // Otherwise, remove both and add the new one
+      newSet.delete("seo");
+      newSet.delete("traffic");
+      newSet.add(type);
+    }
+    setSelectedQuestions(newSet);
+  };
+
   const toggleCurrentIntegration = (integration: string) => {
     const newSet = new Set(selectedCurrentIntegrations);
     if (newSet.has(integration)) {
@@ -211,6 +226,7 @@ export default function Booking() {
       "own-domain": "I own the domain already",
       "know-domain": "I know the domain I want",
       "seo": "I need Search Engine Optimization Services",
+      "traffic": "I already know where my traffic will be coming from",
       // ADD NEW QUESTION SELECTIONS HERE
     };
     return labels[key] || key;
@@ -863,7 +879,7 @@ export default function Booking() {
 
                             {/* SEO Services */}
                             <button
-                              onClick={() => toggleQuestion("seo")}
+                              onClick={() => toggleSeoApproach("seo")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("seo")
                                   ? "border-accent bg-accent/10"
@@ -882,7 +898,7 @@ export default function Booking() {
 
                             {/* Traffic source */}
                             <button
-                              onClick={() => toggleQuestion("traffic")}
+                              onClick={() => toggleSeoApproach("traffic")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("traffic")
                                   ? "border-accent bg-accent/10"
