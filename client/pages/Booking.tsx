@@ -961,7 +961,7 @@ export default function Booking() {
                                     onClick={() => toggleCurrentIntegration(option.id)}
                                     onMouseEnter={() => setHoveredIntegration(option.id)}
                                     onMouseLeave={() => setHoveredIntegration(null)}
-                                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative w-40 flex-shrink-0 min-h-48 ${
+                                    className={`flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all relative w-40 h-40 flex-shrink-0 ${
                                       selectedCurrentIntegrations.has(option.id)
                                         ? "border-accent bg-accent/10"
                                         : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -977,7 +977,7 @@ export default function Booking() {
                                     <span className="text-xs font-medium text-foreground text-center">
                                       {getIntegrationLabel(option.id)}
                                     </span>
-                                    <p className={`text-xs text-muted-foreground text-center leading-tight transition-all ${
+                                    <p className={`text-xs text-muted-foreground text-center leading-tight transition-all flex-1 ${
                                       hoveredIntegration === option.id ? "" : "line-clamp-2"
                                     }`}>
                                       {getIntegrationDescription(option.id)}
@@ -994,20 +994,12 @@ export default function Booking() {
                               </div>
                             </div>
                             {/* Scroll indicator arrows */}
-                            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                              <div className="bg-gradient-to-r from-background to-transparent w-12 h-16 flex items-center justify-start pl-2">
-                                <svg className="w-5 h-5 text-primary/40 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                              </div>
-                            </div>
-                            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                              <div className="bg-gradient-to-l from-background to-transparent w-12 h-16 flex items-center justify-end pr-2">
-                                <svg className="w-5 h-5 text-primary/40 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                              </div>
-                            </div>
+                            <svg className="absolute -left-8 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary/50 animate-pulse pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                            <svg className="absolute -right-8 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary/50 animate-pulse pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
                           </div>
 
                           {/* Row 2: Customer Engagement & Communication */}
@@ -1020,7 +1012,7 @@ export default function Booking() {
                                     onClick={() => toggleCurrentIntegration(option.id)}
                                     onMouseEnter={() => setHoveredIntegration(option.id)}
                                     onMouseLeave={() => setHoveredIntegration(null)}
-                                    className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative w-40 flex-shrink-0 min-h-48 ${
+                                    className={`flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all relative w-40 h-40 flex-shrink-0 ${
                                       selectedCurrentIntegrations.has(option.id)
                                         ? "border-accent bg-accent/10"
                                         : "border-primary/20 hover:border-primary hover:bg-primary/5"
@@ -1036,7 +1028,7 @@ export default function Booking() {
                                     <span className="text-xs font-medium text-foreground text-center">
                                       {getIntegrationLabel(option.id)}
                                     </span>
-                                    <p className={`text-xs text-muted-foreground text-center leading-tight transition-all ${
+                                    <p className={`text-xs text-muted-foreground text-center leading-tight transition-all flex-1 ${
                                       hoveredIntegration === option.id ? "" : "line-clamp-2"
                                     }`}>
                                       {getIntegrationDescription(option.id)}
@@ -1053,20 +1045,12 @@ export default function Booking() {
                               </div>
                             </div>
                             {/* Scroll indicator arrows */}
-                            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                              <div className="bg-gradient-to-r from-background to-transparent w-12 h-16 flex items-center justify-start pl-2">
-                                <svg className="w-5 h-5 text-primary/40 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                </svg>
-                              </div>
-                            </div>
-                            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                              <div className="bg-gradient-to-l from-background to-transparent w-12 h-16 flex items-center justify-end pr-2">
-                                <svg className="w-5 h-5 text-primary/40 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                </svg>
-                              </div>
-                            </div>
+                            <svg className="absolute -left-8 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary/50 animate-pulse pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                            <svg className="absolute -right-8 top-1/2 transform -translate-y-1/2 w-5 h-5 text-primary/50 animate-pulse pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
                           </div>
                         </div>
                       </div>
