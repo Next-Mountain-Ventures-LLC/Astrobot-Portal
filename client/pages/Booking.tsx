@@ -927,10 +927,10 @@ export default function Booking() {
                       <div className="space-y-8">
                         <div className="text-center space-y-3">
                           <h2 className="text-3xl font-bold text-foreground">
-                            {getPage2Subtitle().includes("current") ? "About your current website" : "About your brand"}
+                            What do you want your website to do?
                           </h2>
                           <p className="text-muted-foreground max-w-md mx-auto">
-                            Tell us about any of the integrations you're currently using
+                            Select the features and integrations you'll need
                           </p>
                         </div>
 
