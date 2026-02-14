@@ -7,7 +7,7 @@ import { BookingConfirmation } from "@/components/BookingConfirmation";
 import { useApiLog } from "@/hooks/use-api-log";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, CheckCircle2, Calendar, User } from "lucide-react";
+import { AlertCircle, CheckCircle2, Calendar, User, CreditCard, Share2, Users } from "lucide-react";
 import { BookingConfirmationResponse } from "@shared/api";
 
 type Step = "select" | "website" | "confirm";
@@ -289,11 +289,11 @@ export default function Booking() {
 
     switch (id) {
       case "payments":
-        return <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>;
+        return <CreditCard className={iconClass} />;
       case "leadforms":
         return <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>;
       case "social":
-        return <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
+        return <Share2 className={iconClass} />;
       case "email":
         return <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
       case "scheduling":
@@ -301,7 +301,7 @@ export default function Booking() {
       case "ecommerce":
         return <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>;
       case "crm":
-        return <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 10a3 3 0 11-6 0 3 3 0 016 0zM6 20v-2a9 9 0 0118 0v2" /></svg>;
+        return <Users className={iconClass} />;
       case "events":
         return <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>;
       case "reservations":
