@@ -209,7 +209,7 @@ export default function Booking() {
       "brand-new": "Brand New Website",
       "redesign": "Website Redesign",
       "own-domain": "I own the domain already",
-      "know-domain": "I know the domain I want",
+      "know-domain": "I know the domain I need to buy",
       "seo": "I need Search Engine Optimization Services",
       "traffic": "I already know where my traffic will be coming from",
       // ADD NEW QUESTION SELECTIONS HERE
@@ -852,7 +852,7 @@ export default function Booking() {
                                   : "border-primary/20 hover:border-primary hover:bg-primary/5"
                               }`}
                             >
-                              <span className="text-sm font-medium text-foreground flex-1 text-left">I know the domain I want.</span>
+                              <span className="text-sm font-medium text-foreground flex-1 text-left">I know the domain I need to buy.</span>
                               {selectedQuestions.has("know-domain") && (
                                 <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
                                   <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
