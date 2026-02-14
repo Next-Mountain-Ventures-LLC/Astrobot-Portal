@@ -780,7 +780,7 @@ export default function Booking() {
                             Your designer has a few questions about what you are building together. Are you excited? We are!
                           </p>
                           <p className="text-muted-foreground max-w-2xl mx-auto">
-                            Tell us about the website we're about to build together <span className="text-sm">(select all that apply)</span>
+                            Tell us about you <span className="text-sm">(select all that apply)</span>
                           </p>
                         </div>
 
