@@ -257,21 +257,29 @@ export default function Booking() {
     return descriptions[key] || "";
   };
 
-  // Integration options data - ordered for display
-  const integrationOptions = [
-    { id: "payments", label: "Payments" },
-    { id: "leadforms", label: "Lead Forms" },
-    { id: "social", label: "Social Media" },
-    { id: "email", label: "Email Newsletter" },
-    { id: "scheduling", label: "Scheduling" },
+  // State for hover tooltip
+  const [hoveredIntegration, setHoveredIntegration] = useState<string | null>(null);
+
+  // Integration options data - organized into two rows for better visual balance
+  // Row 1: Commerce & Transactions (e-commerce, payments, subscriptions, food, inventory, reservations)
+  // Row 2: Customer Engagement (scheduling, lead forms, email, social, CRM, events, automation)
+  const integrationRow1 = [
     { id: "ecommerce", label: "E-commerce" },
-    { id: "crm", label: "CRM" },
-    { id: "events", label: "Events / Event Calendar" },
-    { id: "reservations", label: "Reservations" },
+    { id: "payments", label: "Payments" },
     { id: "subscriptions", label: "Subscriptions / Memberships" },
-    { id: "inventory", label: "Inventory" },
     { id: "foodmenu", label: "Food Menu" },
     { id: "fooddelivery", label: "Food Delivery" },
+    { id: "inventory", label: "Inventory" },
+    { id: "reservations", label: "Reservations" },
+  ];
+
+  const integrationRow2 = [
+    { id: "scheduling", label: "Scheduling" },
+    { id: "leadforms", label: "Lead Forms" },
+    { id: "email", label: "Email Newsletter" },
+    { id: "social", label: "Social Media" },
+    { id: "crm", label: "CRM" },
+    { id: "events", label: "Events / Event Calendar" },
     { id: "automation", label: "Automation Workflows" },
   ];
 
@@ -942,40 +950,95 @@ export default function Booking() {
                           </div>
                         )}
 
-                        <div className="space-y-4">
+                        <div className="space-y-6">
+                          {/* Row 1: Commerce & Transactions */}
                           <div className="pb-4 overflow-x-auto">
                             <div className="flex gap-4 min-w-max px-4 justify-center">
-                              {integrationOptions.map((option) => (
-                                <button
-                                  key={option.id}
-                                  onClick={() => toggleCurrentIntegration(option.id)}
-                                  className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 transition-all relative w-40 flex-shrink-0 ${
-                                    selectedCurrentIntegrations.has(option.id)
-                                      ? "border-accent bg-accent/10"
-                                      : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                                  }`}
-                                >
-                                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                                    selectedCurrentIntegrations.has(option.id)
-                                      ? "bg-accent/20"
-                                      : "bg-primary/10"
-                                  }`}>
-                                    {renderIntegrationIcon(option.id, selectedCurrentIntegrations.has(option.id))}
-                                  </div>
-                                  <span className="text-xs font-medium text-foreground text-center line-clamp-2">
-                                    {getIntegrationLabel(option.id)}
-                                  </span>
-                                  <p className="text-xs text-muted-foreground text-center leading-tight line-clamp-2">
-                                    {getIntegrationDescription(option.id)}
-                                  </p>
-                                  {selectedCurrentIntegrations.has(option.id) && (
-                                    <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                      </svg>
+                              {integrationRow1.map((option) => (
+                                <div key={option.id} className="flex flex-col items-center">
+                                  <button
+                                    onClick={() => toggleCurrentIntegration(option.id)}
+                                    onMouseEnter={() => setHoveredIntegration(option.id)}
+                                    onMouseLeave={() => setHoveredIntegration(null)}
+                                    className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 transition-all relative w-40 flex-shrink-0 ${
+                                      selectedCurrentIntegrations.has(option.id)
+                                        ? "border-accent bg-accent/10"
+                                        : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                    }`}
+                                  >
+                                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                      selectedCurrentIntegrations.has(option.id)
+                                        ? "bg-accent/20"
+                                        : "bg-primary/10"
+                                    }`}>
+                                      {renderIntegrationIcon(option.id, selectedCurrentIntegrations.has(option.id))}
                                     </div>
+                                    <span className="text-xs font-medium text-foreground text-center line-clamp-2">
+                                      {getIntegrationLabel(option.id)}
+                                    </span>
+                                    <p className="text-xs text-muted-foreground text-center leading-tight line-clamp-2">
+                                      {getIntegrationDescription(option.id)}
+                                    </p>
+                                    {selectedCurrentIntegrations.has(option.id) && (
+                                      <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                        </svg>
+                                      </div>
+                                    )}
+                                  </button>
+                                  {hoveredIntegration === option.id && (
+                                    <p className="text-xs text-muted-foreground text-center leading-snug mt-2 w-40 px-1">
+                                      {getIntegrationDescription(option.id)}
+                                    </p>
                                   )}
-                                </button>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Row 2: Customer Engagement & Communication */}
+                          <div className="pb-4 overflow-x-auto">
+                            <div className="flex gap-4 min-w-max px-4 justify-center">
+                              {integrationRow2.map((option) => (
+                                <div key={option.id} className="flex flex-col items-center">
+                                  <button
+                                    onClick={() => toggleCurrentIntegration(option.id)}
+                                    onMouseEnter={() => setHoveredIntegration(option.id)}
+                                    onMouseLeave={() => setHoveredIntegration(null)}
+                                    className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 transition-all relative w-40 flex-shrink-0 ${
+                                      selectedCurrentIntegrations.has(option.id)
+                                        ? "border-accent bg-accent/10"
+                                        : "border-primary/20 hover:border-primary hover:bg-primary/5"
+                                    }`}
+                                  >
+                                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
+                                      selectedCurrentIntegrations.has(option.id)
+                                        ? "bg-accent/20"
+                                        : "bg-primary/10"
+                                    }`}>
+                                      {renderIntegrationIcon(option.id, selectedCurrentIntegrations.has(option.id))}
+                                    </div>
+                                    <span className="text-xs font-medium text-foreground text-center line-clamp-2">
+                                      {getIntegrationLabel(option.id)}
+                                    </span>
+                                    <p className="text-xs text-muted-foreground text-center leading-tight line-clamp-2">
+                                      {getIntegrationDescription(option.id)}
+                                    </p>
+                                    {selectedCurrentIntegrations.has(option.id) && (
+                                      <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
+                                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                        </svg>
+                                      </div>
+                                    )}
+                                  </button>
+                                  {hoveredIntegration === option.id && (
+                                    <p className="text-xs text-muted-foreground text-center leading-snug mt-2 w-40 px-1">
+                                      {getIntegrationDescription(option.id)}
+                                    </p>
+                                  )}
+                                </div>
                               ))}
                             </div>
                           </div>
