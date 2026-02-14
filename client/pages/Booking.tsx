@@ -930,7 +930,7 @@ export default function Booking() {
                             Your new website
                           </h2>
                           <p className="text-muted-foreground max-w-md mx-auto">
-                            Select the features and integrations you'll need
+                            What will it need to do?
                           </p>
                         </div>
 
