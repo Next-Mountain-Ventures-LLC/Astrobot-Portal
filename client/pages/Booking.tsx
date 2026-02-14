@@ -165,21 +165,6 @@ export default function Booking() {
     setSelectedQuestions(newSet);
   };
 
-  // Toggle SEO approach (mutually exclusive: seo OR traffic, but can also be unselected)
-  const toggleSeoApproach = (type: "seo" | "traffic") => {
-    const newSet = new Set(selectedQuestions);
-    // If clicking the same one that's already selected, deselect it
-    if (newSet.has(type)) {
-      newSet.delete(type);
-    } else {
-      // Otherwise, remove both and add the new one
-      newSet.delete("seo");
-      newSet.delete("traffic");
-      newSet.add(type);
-    }
-    setSelectedQuestions(newSet);
-  };
-
   const toggleCurrentIntegration = (integration: string) => {
     const newSet = new Set(selectedCurrentIntegrations);
     if (newSet.has(integration)) {
@@ -879,7 +864,7 @@ export default function Booking() {
 
                             {/* SEO Services */}
                             <button
-                              onClick={() => toggleSeoApproach("seo")}
+                              onClick={() => toggleQuestion("seo")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("seo")
                                   ? "border-accent bg-accent/10"
@@ -898,7 +883,7 @@ export default function Booking() {
 
                             {/* Traffic source */}
                             <button
-                              onClick={() => toggleSeoApproach("traffic")}
+                              onClick={() => toggleQuestion("traffic")}
                               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all relative ${
                                 selectedQuestions.has("traffic")
                                   ? "border-accent bg-accent/10"
