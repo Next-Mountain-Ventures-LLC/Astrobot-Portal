@@ -130,24 +130,15 @@ export function BookingConfirmation({
         </div>
 
         {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-4">
-          {onNewBooking && (
-            <Button
-              onClick={onNewBooking}
-              variant="outline"
-              className="flex-1 border-border text-foreground hover:bg-background"
-            >
-              Schedule Another
-            </Button>
-          )}
-          {onClose && (
-            <Button
-              onClick={onClose}
-              className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
-            >
-              Close
-            </Button>
-          )}
+        <div className="pt-4">
+          <a
+            href="https://astrobot.design"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium py-2 px-4 rounded-lg transition-colors"
+          >
+            Continue to Astrobot.design
+          </a>
         </div>
       </div>
     </Card>

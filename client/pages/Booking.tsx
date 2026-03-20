@@ -12,7 +12,7 @@ import { BookingConfirmationResponse } from "@shared/api";
 
 type Step = "select" | "website" | "confirm";
 
-type WebsitePage = "page1" | "page2" | "page3";
+type WebsitePage = "page1" | "page2";
 
 export default function Booking() {
   const [step, setStep] = useState<Step>("select");
@@ -476,8 +476,6 @@ export default function Booking() {
     if (websitePage === "page1") {
       setWebsitePage("page2");
     } else if (websitePage === "page2") {
-      setWebsitePage("page3");
-    } else if (websitePage === "page3") {
       setStep("confirm");
     }
     setError(null);
@@ -486,8 +484,6 @@ export default function Booking() {
   const handleWebsitePageBack = () => {
     if (websitePage === "page2") {
       setWebsitePage("page1");
-    } else if (websitePage === "page3") {
-      setWebsitePage("page2");
     }
   };
 
@@ -1038,137 +1034,6 @@ export default function Booking() {
                       </div>
                     )}
 
-                    {/* Page 3: Possibly Interested In */}
-                    {websitePage === "page3" && (
-                      <div className="space-y-8">
-                        <div className="text-center space-y-3">
-                          <h2 className="text-3xl font-bold text-foreground">
-                            Possibly Interested In
-                          </h2>
-                          <p className="text-muted-foreground max-w-md mx-auto">
-                            Select things you might be interested in exploring
-                          </p>
-                        </div>
-
-                        <div className="space-y-4">
-                          <div className="overflow-x-auto pb-4">
-                            <div className="flex gap-4 min-w-max px-1 justify-center">
-                              {/* Advanced Analytics */}
-                              <button
-                                onClick={() => toggleAddon("analytics")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
-                                  selectedAddons.has("analytics")
-                                    ? "border-accent bg-accent/10"
-                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                                }`}
-                              >
-                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                                  selectedAddons.has("analytics")
-                                    ? "bg-accent/20"
-                                    : "bg-primary/10"
-                                }`}>
-                                  <svg className={`w-6 h-6 ${selectedAddons.has("analytics") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                  </svg>
-                                </div>
-                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Analytics</span>
-                                {selectedAddons.has("analytics") && (
-                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                    </svg>
-                                  </div>
-                                )}
-                              </button>
-
-                              {/* Email Marketing */}
-                              <button
-                                onClick={() => toggleAddon("email")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
-                                  selectedAddons.has("email")
-                                    ? "border-accent bg-accent/10"
-                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                                }`}
-                              >
-                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                                  selectedAddons.has("email")
-                                    ? "bg-accent/20"
-                                    : "bg-primary/10"
-                                }`}>
-                                  <svg className={`w-6 h-6 ${selectedAddons.has("email") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                  </svg>
-                                </div>
-                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Email Marketing</span>
-                                {selectedAddons.has("email") && (
-                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                    </svg>
-                                  </div>
-                                )}
-                              </button>
-
-                              {/* Live Chat */}
-                              <button
-                                onClick={() => toggleAddon("livechat")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
-                                  selectedAddons.has("livechat")
-                                    ? "border-accent bg-accent/10"
-                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                                }`}
-                              >
-                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                                  selectedAddons.has("livechat")
-                                    ? "bg-accent/20"
-                                    : "bg-primary/10"
-                                }`}>
-                                  <svg className={`w-6 h-6 ${selectedAddons.has("livechat") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                                  </svg>
-                                </div>
-                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Live Chat</span>
-                                {selectedAddons.has("livechat") && (
-                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                    </svg>
-                                  </div>
-                                )}
-                              </button>
-
-                              {/* Premium Support */}
-                              <button
-                                onClick={() => toggleAddon("support")}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all relative ${
-                                  selectedAddons.has("support")
-                                    ? "border-accent bg-accent/10"
-                                    : "border-primary/20 hover:border-primary hover:bg-primary/5"
-                                }`}
-                              >
-                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all ${
-                                  selectedAddons.has("support")
-                                    ? "bg-accent/20"
-                                    : "bg-primary/10"
-                                }`}>
-                                  <svg className={`w-6 h-6 ${selectedAddons.has("support") ? "text-accent" : "text-primary"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                                  </svg>
-                                </div>
-                                <span className="text-xs font-medium text-foreground whitespace-nowrap">Premium Support</span>
-                                {selectedAddons.has("support") && (
-                                  <div className="absolute top-1 right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                    </svg>
-                                  </div>
-                                )}
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
 
                     {/* Continue Button */}
                     <div className="pt-4 border-t border-border">
@@ -1176,7 +1041,7 @@ export default function Booking() {
                         onClick={handleWebsitePageContinue}
                         className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                       >
-                        {websitePage === "page3" ? "Continue to Confirm →" : "Continue →"}
+                        Continue to Confirm →
                       </Button>
                     </div>
                   </div>
