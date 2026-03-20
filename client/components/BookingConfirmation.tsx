@@ -133,9 +133,7 @@ export function BookingConfirmation({
         <div className="pt-4">
           <a
             href="https://astrobot.design"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium py-2 px-4 rounded-lg transition-colors"
+            className="inline-block w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium py-2 px-4 rounded-lg transition-colors text-center"
           >
             Continue to Astrobot.design
           </a>
