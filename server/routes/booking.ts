@@ -406,7 +406,8 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
     }
 
     // Prepare request body for Acuity API
-    const acuityBody = {
+    // Try multiple field names for notes as Acuity may use different naming
+    const acuityBody: any = {
       datetime: bookingData.datetime,
       appointmentTypeID: parseInt(appointmentTypeId),
       calendarID: parseInt(calendarId),
@@ -415,8 +416,13 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
       email: bookingData.email,
       phone: bookingData.phone,
       timezone: bookingData.timezone,
-      ...(bookingData.notes && { notes: bookingData.notes }),
     };
+
+    // Add notes using multiple field name variations to ensure Acuity receives it
+    if (bookingData.notes) {
+      acuityBody.notes = bookingData.notes;
+      acuityBody.clientNotes = bookingData.notes;
+    }
 
     console.log("[Booking] Prepared Acuity request body:", {
       firstName: acuityBody.firstName,
@@ -444,9 +450,13 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
 
     console.log("[Booking] Acuity appointment created:", {
       appointmentId: appointment.id,
-      hasNotesInResponse: !!appointment.notes,
-      notesFromAcuity: appointment.notes ? appointment.notes.substring(0, 100) : "NO NOTES IN RESPONSE",
+      hasNotesField: !!appointment.notes,
+      hasClientNotesField: !!appointment.clientNotes,
+      notesFromAcuity: appointment.notes ? appointment.notes.substring(0, 100) : "NO NOTES FIELD",
+      clientNotesFromAcuity: appointment.clientNotes ? appointment.clientNotes.substring(0, 100) : "NO CLIENTNOTES FIELD",
     });
+
+    console.log("[Booking] COMPLETE ACUITY RESPONSE:", JSON.stringify(appointment, null, 2));
 
     const response: BookingConfirmationResponse = {
       appointmentId: appointment.id,
