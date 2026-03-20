@@ -406,23 +406,20 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
     }
 
     // Prepare request body for Acuity API
-    // Try multiple field names for notes as Acuity may use different naming
+    // Based on Acuity documentation: https://acuityscheduling.com/api.html
+    // Required fields: datetime, appointmentTypeID, firstName, lastName
+    // Optional: email, phone, notes
     const acuityBody: any = {
       datetime: bookingData.datetime,
       appointmentTypeID: parseInt(appointmentTypeId),
-      calendarID: parseInt(calendarId),
       firstName: bookingData.firstName,
       lastName: bookingData.lastName,
-      email: bookingData.email,
-      phone: bookingData.phone,
-      timezone: bookingData.timezone,
     };
 
-    // Add notes using multiple field name variations to ensure Acuity receives it
-    if (bookingData.notes) {
-      acuityBody.notes = bookingData.notes;
-      acuityBody.clientNotes = bookingData.notes;
-    }
+    // Add optional fields
+    if (bookingData.email) acuityBody.email = bookingData.email;
+    if (bookingData.phone) acuityBody.phone = bookingData.phone;
+    if (bookingData.notes) acuityBody.notes = bookingData.notes;
 
     console.log("[Booking] Prepared Acuity request body:", {
       firstName: acuityBody.firstName,
@@ -443,8 +440,10 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
     console.log(JSON.stringify(acuityBody, null, 2));
 
     // Call Acuity API to create appointment
+    // NOTE: admin=true parameter is required to properly create appointments with notes
     const appointment = await makeAcuityRequest("/appointments", {
       method: "POST",
+      params: { admin: true },
       body: acuityBody,
     });
 
