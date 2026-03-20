@@ -379,6 +379,18 @@ export const handleGetAvailabilityTimes: RequestHandler = async (req, res) => {
  */
 export const handleCreateAppointment: RequestHandler = async (req, res) => {
   try {
+    // Log incoming request data
+    console.log("[Booking] Incoming appointment request:", {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phone: req.body.phone,
+      datetime: req.body.datetime,
+      hasNotes: !!req.body.notes,
+      notesLength: req.body.notes?.length || 0,
+      notesPreview: req.body.notes?.substring(0, 100),
+    });
+
     // Validate request body
     const bookingData = createAppointmentSchema.parse(req.body);
 
@@ -405,6 +417,11 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
       timezone: bookingData.timezone,
       ...(bookingData.notes && { notes: bookingData.notes }),
     };
+
+    console.log("[Booking] Prepared Acuity request body:", {
+      hasNotes: !!acuityBody.notes,
+      notesLength: acuityBody.notes?.length || 0,
+    });
 
     // Call Acuity API to create appointment
     const appointment = await makeAcuityRequest("/appointments", {

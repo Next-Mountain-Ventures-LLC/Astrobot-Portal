@@ -381,6 +381,17 @@ export default function Booking() {
         // ADD NEW FORM FIELDS HERE - follow the pattern above
       ].join("\n");
 
+      console.log("[Booking] Compiled appointment notes:", {
+        selectedQuestionsRaw: Array.from(selectedQuestions),
+        questionsWithLabels,
+        selectedIntegrationsRaw: Array.from(selectedCurrentIntegrations),
+        integrationsWithLabels,
+        selectedAddonsRaw: Array.from(selectedAddons),
+        interestsWithLabels,
+        domain,
+        notesContent: designNotesContent,
+      });
+
       // Create design meeting appointment (uses ACUITY_APPOINTMENT_TYPE_ID from env)
       const designAppointmentData = {
         ...data,
