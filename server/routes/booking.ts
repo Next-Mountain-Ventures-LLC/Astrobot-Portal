@@ -419,8 +419,17 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
     };
 
     console.log("[Booking] Prepared Acuity request body:", {
+      firstName: acuityBody.firstName,
+      lastName: acuityBody.lastName,
+      email: acuityBody.email,
+      phone: acuityBody.phone,
+      datetime: acuityBody.datetime,
       hasNotes: !!acuityBody.notes,
       notesLength: acuityBody.notes?.length || 0,
+      notesContent: acuityBody.notes ? acuityBody.notes.substring(0, 150) : "NO NOTES",
+      appointmentTypeID: acuityBody.appointmentTypeID,
+      calendarID: acuityBody.calendarID,
+      timezone: acuityBody.timezone,
     });
 
     // Call Acuity API to create appointment
