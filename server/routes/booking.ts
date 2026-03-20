@@ -426,7 +426,7 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
       datetime: acuityBody.datetime,
       hasNotes: !!acuityBody.notes,
       notesLength: acuityBody.notes?.length || 0,
-      notesContent: acuityBody.notes ? acuityBody.notes.substring(0, 150) : "NO NOTES",
+      fullNotes: acuityBody.notes || "NO NOTES",
       appointmentTypeID: acuityBody.appointmentTypeID,
       calendarID: acuityBody.calendarID,
       timezone: acuityBody.timezone,
@@ -436,6 +436,12 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
     const appointment = await makeAcuityRequest("/appointments", {
       method: "POST",
       body: acuityBody,
+    });
+
+    console.log("[Booking] Acuity appointment created:", {
+      appointmentId: appointment.id,
+      hasNotesInResponse: !!appointment.notes,
+      notesFromAcuity: appointment.notes ? appointment.notes.substring(0, 100) : "NO NOTES IN RESPONSE",
     });
 
     const response: BookingConfirmationResponse = {
