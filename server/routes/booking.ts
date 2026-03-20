@@ -432,6 +432,10 @@ export const handleCreateAppointment: RequestHandler = async (req, res) => {
       timezone: acuityBody.timezone,
     });
 
+    // Log the complete payload JSON
+    console.log("[Booking] COMPLETE PAYLOAD BEING SENT TO ACUITY:");
+    console.log(JSON.stringify(acuityBody, null, 2));
+
     // Call Acuity API to create appointment
     const appointment = await makeAcuityRequest("/appointments", {
       method: "POST",
