@@ -15,6 +15,8 @@ export const Layout = ({ children }: LayoutProps) => {
     return location.pathname === path;
   };
 
+  const isBookingPage = location.pathname === "/" || location.pathname === "/booking";
+
   const navItems = [
     { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { path: "/booking", label: "Booking", icon: Calendar },
@@ -24,8 +26,8 @@ export const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border bg-card">
+      {/* Header - Hidden on booking page */}
+      {!isBookingPage && <header className="sticky top-0 z-40 border-b border-border bg-card">
         <div className="container flex h-16 max-w-7xl items-center justify-between px-4 mx-auto">
           <Link to="/dashboard" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
@@ -108,21 +110,21 @@ export const Layout = ({ children }: LayoutProps) => {
             </div>
           </nav>
         )}
-      </header>
+      </header>}
 
       {/* Main Content */}
       <main className="flex-1">
-        <div className="container max-w-7xl mx-auto px-4 py-8">
+        <div className={isBookingPage ? "w-full" : "container max-w-7xl mx-auto px-4 py-8"}>
           {children}
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-card text-center py-6 mt-12">
+      {/* Footer - Hidden on booking page */}
+      {!isBookingPage && <footer className="border-t border-border bg-card text-center py-6 mt-12">
         <p className="text-sm text-muted-foreground">
           © 2024 Astrobot.design. All rights reserved. | Built for AI-powered web development.
         </p>
-      </footer>
+      </footer>}
     </div>
   );
 };
