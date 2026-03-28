@@ -58,14 +58,22 @@ export default function Reschedule() {
         const response = await fetch(`/api/booking/appointments/${appointmentId}`);
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            errorData.message || `Failed to fetch appointment: ${response.statusText}`
-          );
+          let errorMessage = `Failed to fetch appointment (${response.status})`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+          } catch (e) {
+            console.warn("[Reschedule] Could not parse error response:", e);
+          }
+          throw new Error(errorMessage);
         }
 
         const appointment: AcuityAppointment = await response.json();
         console.log("[Reschedule] Fetched appointment:", appointment);
+
+        if (!appointment.id) {
+          throw new Error("Invalid appointment data returned from server");
+        }
 
         setCurrentAppointment(appointment);
 
@@ -89,6 +97,8 @@ export default function Reschedule() {
                 setLaunchAppointment(launch);
                 console.log("[Reschedule] Found associated launch appointment:", launch);
               }
+            } else {
+              console.warn("[Reschedule] Failed to fetch appointments by email:", byEmailResponse.status);
             }
           } catch (err) {
             console.warn("[Reschedule] Could not fetch other appointments:", err);
@@ -99,7 +109,7 @@ export default function Reschedule() {
         setState("view-current");
       } catch (err: any) {
         console.error("[Reschedule] Error fetching appointment:", err);
-        setError(err.message || "Failed to load appointment");
+        setError(err.message || "Failed to load appointment. Please check the appointment ID and try again.");
         setState("error");
       }
     };

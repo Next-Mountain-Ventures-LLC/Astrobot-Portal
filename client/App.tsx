@@ -100,4 +100,27 @@ const App = () => (
   </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+let appRoot: ReturnType<typeof createRoot> | null = null;
+
+function initializeApp() {
+  const rootElement = document.getElementById("root");
+  if (!rootElement) {
+    console.error("[App] Root element not found");
+    return;
+  }
+
+  if (!appRoot) {
+    appRoot = createRoot(rootElement);
+  }
+
+  appRoot.render(<App />);
+}
+
+initializeApp();
+
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    console.log("[App] Hot module reload detected");
+    initializeApp();
+  });
+}

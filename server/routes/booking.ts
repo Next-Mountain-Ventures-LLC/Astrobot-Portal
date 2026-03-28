@@ -541,7 +541,9 @@ export const handleGetAppointmentDetails: RequestHandler = async (req, res) => {
       email: appointment.email,
       phone: appointment.phone,
       timezone: appointment.timezone,
+      appointmentTypeID: appointment.appointmentTypeID,
       appointmentTypeName: appointment.appointmentTypeName,
+      calendarID: appointment.calendarID,
       status: appointment.status,
     });
   } catch (error: any) {
