@@ -99,9 +99,9 @@ export default function Reschedule() {
         setCurrentAppointment(appointment);
 
         // If this is a design appointment, check for launch appointment
-        // Use environment variable for appointment type ID to avoid hardcoding secrets
-        const DESIGN_APPOINTMENT_TYPE_ID = Number(import.meta.env.VITE_ACUITY_DESIGN_APPOINTMENT_TYPE_ID);
-        if (appointment.appointmentTypeID === DESIGN_APPOINTMENT_TYPE_ID) {
+        // Compare by appointment type name instead of hardcoding IDs to avoid exposing secrets in bundle
+        const isDesignAppointment = appointment.type?.toLowerCase().includes("design");
+        if (isDesignAppointment) {
           try {
             const byEmailResponse = await fetch(
               `/api/booking/appointments/by-email/${encodeURIComponent(appointment.email)}`
@@ -111,11 +111,9 @@ export default function Reschedule() {
               const byEmailData: AppointmentsByEmailResponse = await byEmailResponse.json();
               console.log("[Reschedule] Fetched appointments by email:", byEmailData);
 
-              // Find the launch appointment
-              // Use environment variable for appointment type ID to avoid hardcoding secrets
-              const LAUNCH_APPOINTMENT_TYPE_ID = Number(import.meta.env.VITE_ACUITY_LAUNCH_APPOINTMENT_TYPE_ID);
+              // Find the launch appointment by type name
               const launch = byEmailData.appointments.find(
-                (appt) => appt.appointmentTypeID === LAUNCH_APPOINTMENT_TYPE_ID
+                (appt) => appt.type?.toLowerCase().includes("launch")
               );
 
               if (launch) {
