@@ -23,7 +23,7 @@ export function RescheduleForm({
   const formattedTime = format(appointmentDate, "h:mm a");
 
   // Use the actual appointment type name from Acuity API
-  const appointmentTypeLabel = appointment.appointmentTypeName || "Appointment";
+  const appointmentTypeLabel = appointment.type || "Appointment";
 
   return (
     <div className="space-y-6">

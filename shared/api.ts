@@ -183,7 +183,7 @@ export interface AcuityAppointment {
   email: string;
   phone: string;
   appointmentTypeID: number;
-  appointmentTypeName?: string;
+  type?: string;
   calendarID: number;
   timezone: string;
   notes?: string;
@@ -231,7 +231,7 @@ export interface RescheduleAppointmentResponse {
   id: number;
   datetime: string;
   appointmentTypeID: number;
-  appointmentTypeName: string;
+  type: string;
   firstName: string;
   lastName: string;
   email: string;
