@@ -296,7 +296,7 @@ export default function Reschedule() {
               Your appointment{needsDualReschedule ? "s have" : " has"} been successfully
               rescheduled. You should receive a confirmation email shortly.
             </p>
-            <Button onClick={() => window.location.href = "/"} className="mt-4">
+            <Button onClick={() => window.location.href = "https://www.astrobot.design"} className="mt-4">
               Return Home
             </Button>
           </div>
