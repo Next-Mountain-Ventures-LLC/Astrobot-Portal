@@ -20,9 +20,6 @@ type RescheduleState =
   | "success"
   | "error";
 
-const DESIGN_APPOINTMENT_TYPE_ID = 87852183;
-const LAUNCH_APPOINTMENT_TYPE_ID = 89122426;
-
 export default function Reschedule() {
   const [searchParams] = useSearchParams();
   const appointmentId = searchParams.get("appointmentId");
@@ -102,7 +99,7 @@ export default function Reschedule() {
         setCurrentAppointment(appointment);
 
         // If this is a design appointment, check for launch appointment
-        if (appointment.appointmentTypeID === DESIGN_APPOINTMENT_TYPE_ID) {
+        if (appointment.appointmentTypeID === 87852183) {
           try {
             const byEmailResponse = await fetch(
               `/api/booking/appointments/by-email/${encodeURIComponent(appointment.email)}`
@@ -114,7 +111,7 @@ export default function Reschedule() {
 
               // Find the launch appointment
               const launch = byEmailData.appointments.find(
-                (appt) => appt.appointmentTypeID === LAUNCH_APPOINTMENT_TYPE_ID
+                (appt) => appt.appointmentTypeID === 89122426
               );
 
               if (launch) {
