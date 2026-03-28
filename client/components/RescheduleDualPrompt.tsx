@@ -37,22 +37,22 @@ export function RescheduleDualPrompt({
   return (
     <div className="space-y-6">
       {/* Warning Card */}
-      <Card className="p-6 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-800">
+      <Card className="p-6 bg-destructive/10 border border-destructive/30">
         <div className="flex gap-4">
           <div className="flex-shrink-0 pt-0.5">
-            <AlertCircle className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
+            <AlertCircle className="w-6 h-6 text-destructive" />
           </div>
           <div className="flex-1">
-            <h2 className="text-lg font-semibold text-yellow-900 dark:text-yellow-100 mb-2">
+            <h2 className="text-lg font-semibold text-destructive mb-2">
               Launch Meeting Conflict
             </h2>
-            <p className="text-yellow-800 dark:text-yellow-200 mb-2">
+            <p className="text-destructive/90 mb-2">
               Your new design meeting is now scheduled{" "}
               <span className="font-semibold">{daysUntilLaunch} days</span> before your launch
               meeting. According to your requirements, both appointments must be at least 7 days
               apart.
             </p>
-            <p className="text-sm text-yellow-700 dark:text-yellow-300">
+            <p className="text-sm text-destructive/80">
               Please reschedule your launch meeting to maintain the required time gap.
             </p>
           </div>
@@ -62,53 +62,53 @@ export function RescheduleDualPrompt({
       {/* Appointment Comparison */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Design Meeting */}
-        <Card className="p-5 border-2 border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950">
+        <Card className="p-5 border-2 border-primary/30 bg-primary/5">
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100">
+            <h3 className="text-lg font-semibold text-primary">
               Design Meeting (New)
             </h3>
 
             <div className="flex items-center gap-2 text-sm">
-              <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span className="text-blue-800 dark:text-blue-200">{designFormattedDate}</span>
+              <Calendar className="w-4 h-4 text-primary" />
+              <span className="text-foreground">{designFormattedDate}</span>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span className="text-blue-800 dark:text-blue-200">{designFormattedTime}</span>
+              <Clock className="w-4 h-4 text-primary" />
+              <span className="text-foreground">{designFormattedTime}</span>
             </div>
           </div>
         </Card>
 
         {/* Launch Meeting */}
-        <Card className="p-5 border-2 border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950">
+        <Card className="p-5 border-2 border-accent/30 bg-accent/5">
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-orange-900 dark:text-orange-100">
+            <h3 className="text-lg font-semibold text-accent">
               Launch Meeting (Current)
             </h3>
 
             <div className="flex items-center gap-2 text-sm">
-              <Calendar className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-              <span className="text-orange-800 dark:text-orange-200">
+              <Calendar className="w-4 h-4 text-accent" />
+              <span className="text-foreground">
                 {launchFormattedDate}
               </span>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <Clock className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-              <span className="text-orange-800 dark:text-orange-200">{launchFormattedTime}</span>
+              <Clock className="w-4 h-4 text-accent" />
+              <span className="text-foreground">{launchFormattedTime}</span>
             </div>
           </div>
         </Card>
       </div>
 
       {/* Required Gap Info */}
-      <Card className="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+      <Card className="p-4 bg-muted border border-border">
         <div className="space-y-2">
-          <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+          <p className="text-sm font-medium text-foreground">
             Required time gap: At least 7 days
           </p>
-          <p className="text-xs text-slate-600 dark:text-slate-400">
+          <p className="text-xs text-muted-foreground">
             The launch meeting must be scheduled 7 or more days after the design meeting.
           </p>
         </div>
@@ -119,7 +119,7 @@ export function RescheduleDualPrompt({
         <Button
           onClick={onSelectLaunchDate}
           disabled={isLoading}
-          className="flex-1 bg-orange-600 hover:bg-orange-700 text-white"
+          className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
         >
           {isLoading ? "Processing..." : "Select New Launch Date"}
         </Button>

@@ -211,10 +211,10 @@ export default function Reschedule() {
   // Render different states
   if (state === "loading") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="p-8 text-center max-w-sm">
-          <Loader2 className="w-12 h-12 animate-spin text-blue-600 dark:text-blue-400 mx-auto mb-4" />
-          <p className="text-lg font-medium text-slate-900 dark:text-white">
+          <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
+          <p className="text-lg font-medium text-foreground">
             Loading appointment details...
           </p>
         </Card>
@@ -224,14 +224,14 @@ export default function Reschedule() {
 
   if (state === "error") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center py-12 px-4">
+      <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
         <Card className="p-8 max-w-sm w-full">
           <div className="flex flex-col items-center text-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
-              <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
+            <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
+              <AlertCircle className="w-8 h-8 text-red-500" />
             </div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Error</h1>
-            <p className="text-slate-600 dark:text-slate-300">{error}</p>
+            <h1 className="text-2xl font-bold text-foreground">Error</h1>
+            <p className="text-muted-foreground">{error}</p>
             <Button onClick={() => window.history.back()} className="mt-4">
               Go Back
             </Button>
@@ -243,14 +243,14 @@ export default function Reschedule() {
 
   if (state === "success") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center py-12 px-4">
+      <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
         <Card className="p-8 max-w-sm w-full">
           <div className="flex flex-col items-center text-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
-              <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
+              <CheckCircle2 className="w-8 h-8 text-green-500" />
             </div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Success!</h1>
-            <p className="text-slate-600 dark:text-slate-300">
+            <h1 className="text-2xl font-bold text-foreground">Success!</h1>
+            <p className="text-muted-foreground">
               Your appointment{needsDualReschedule ? "s have" : " has"} been successfully
               rescheduled. You should receive a confirmation email shortly.
             </p>
@@ -264,7 +264,7 @@ export default function Reschedule() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-12 px-4">
+    <div className="min-h-screen bg-background py-12 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Header - Back button without full navigation */}
         <div className="mb-8 flex items-center gap-4">
@@ -280,10 +280,10 @@ export default function Reschedule() {
         </div>
 
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Reschedule Appointment
           </h1>
-          <p className="text-slate-600 dark:text-slate-300">
+          <p className="text-muted-foreground">
             {state === "view-current" &&
               "Review your current appointment details below"}
             {state === "select-new-date" &&
@@ -299,10 +299,10 @@ export default function Reschedule() {
 
         {/* Error banner */}
         {error && state !== "error" && (
-          <Card className="p-4 mb-6 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 flex gap-3">
-            <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
+          <Card className="p-4 mb-6 bg-red-500/10 border border-red-500/30 flex gap-3">
+            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
             <div>
-              <p className="font-medium text-red-900 dark:text-red-100">{error}</p>
+              <p className="font-medium text-red-500">{error}</p>
             </div>
           </Card>
         )}
@@ -351,20 +351,20 @@ export default function Reschedule() {
         )}
 
         {state === "confirming" && currentAppointment && newDesignDateTime && (
-          <Card className="p-6 space-y-6">
+          <Card className="p-6 space-y-6 bg-card border-border">
             <div>
-              <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-xl font-semibold text-foreground mb-4">
                 Confirm Reschedule
               </h2>
 
               {/* Design appointment change */}
-              <div className="space-y-3 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
-                <p className="font-medium text-slate-900 dark:text-white">
+              <div className="space-y-3 mb-6 pb-6 border-b border-border">
+                <p className="font-medium text-foreground">
                   Design Meeting
                 </p>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
+                <p className="text-sm text-muted-foreground">
                   Currently scheduled for:{" "}
-                  <span className="font-medium text-slate-900 dark:text-white">
+                  <span className="font-medium text-foreground">
                     {new Date(currentAppointment.datetime).toLocaleDateString("en-US", {
                       month: "long",
                       day: "numeric",
@@ -378,7 +378,7 @@ export default function Reschedule() {
                     })}
                   </span>
                 </p>
-                <p className="text-sm text-green-600 dark:text-green-400">
+                <p className="text-sm text-primary">
                   New time:{" "}
                   <span className="font-medium">
                     {new Date(newDesignDateTime).toLocaleDateString("en-US", {
@@ -398,13 +398,13 @@ export default function Reschedule() {
 
               {/* Launch appointment change (if dual reschedule) */}
               {needsDualReschedule && launchAppointment && newLaunchDateTime && (
-                <div className="space-y-3 pb-6 border-b border-slate-200 dark:border-slate-700">
-                  <p className="font-medium text-slate-900 dark:text-white">
+                <div className="space-y-3 pb-6 border-b border-border">
+                  <p className="font-medium text-foreground">
                     Launch Meeting
                   </p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <p className="text-sm text-muted-foreground">
                     Currently scheduled for:{" "}
-                    <span className="font-medium text-slate-900 dark:text-white">
+                    <span className="font-medium text-foreground">
                       {new Date(launchAppointment.datetime).toLocaleDateString("en-US", {
                         month: "long",
                         day: "numeric",
@@ -418,7 +418,7 @@ export default function Reschedule() {
                       })}
                     </span>
                   </p>
-                  <p className="text-sm text-green-600 dark:text-green-400">
+                  <p className="text-sm text-primary">
                     New time:{" "}
                     <span className="font-medium">
                       {new Date(newLaunchDateTime).toLocaleDateString("en-US", {
@@ -443,7 +443,7 @@ export default function Reschedule() {
               <Button
                 onClick={handleConfirmReschedule}
                 disabled={isSubmitting}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
               >
                 {isSubmitting ? "Rescheduling..." : "Confirm Reschedule"}
               </Button>

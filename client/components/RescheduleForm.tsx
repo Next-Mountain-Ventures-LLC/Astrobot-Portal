@@ -33,22 +33,22 @@ export function RescheduleForm({
   return (
     <div className="space-y-6">
       {/* Current Appointment Details */}
-      <Card className="p-6 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 border-slate-200 dark:border-slate-700">
+      <Card className="p-6 bg-card border-border">
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-foreground">
             Current Appointment
           </h2>
 
           {/* Appointment Type */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-              <User className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <User className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
+              <p className="text-sm text-muted-foreground">
                 Appointment Type
               </p>
-              <p className="font-medium text-slate-900 dark:text-white">
+              <p className="font-medium text-foreground">
                 {appointmentTypeLabel}
               </p>
             </div>
@@ -56,12 +56,12 @@ export function RescheduleForm({
 
           {/* Date */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center">
-              <Calendar className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+            <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-accent" />
             </div>
             <div>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Date</p>
-              <p className="font-medium text-slate-900 dark:text-white">
+              <p className="text-sm text-muted-foreground">Date</p>
+              <p className="font-medium text-foreground">
                 {formattedDate}
               </p>
             </div>
@@ -69,26 +69,26 @@ export function RescheduleForm({
 
           {/* Time */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
-              <Clock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Clock className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Time</p>
-              <p className="font-medium text-slate-900 dark:text-white">
+              <p className="text-sm text-muted-foreground">Time</p>
+              <p className="font-medium text-foreground">
                 {formattedTime}
               </p>
             </div>
           </div>
 
           {/* Customer Info */}
-          <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
-            <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
+          <div className="pt-2 border-t border-border">
+            <p className="text-xs text-muted-foreground mb-2">
               Customer
             </p>
-            <p className="text-sm font-medium text-slate-900 dark:text-white">
+            <p className="text-sm font-medium text-foreground">
               {appointment.firstName} {appointment.lastName}
             </p>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-muted-foreground">
               {appointment.email}
             </p>
           </div>
@@ -100,7 +100,7 @@ export function RescheduleForm({
         <Button
           onClick={onReschedule}
           disabled={isLoading}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
         >
           {isLoading ? "Processing..." : "Select New Date & Time"}
         </Button>

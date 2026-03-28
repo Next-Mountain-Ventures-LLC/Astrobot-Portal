@@ -69,13 +69,13 @@ export function RescheduleCalendar({
 
       {/* Error message */}
       {error && (
-        <div className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-md">
-          <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+        <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-md">
+          <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
           <div>
-            <p className="text-sm font-medium text-red-600 dark:text-red-400">
+            <p className="text-sm font-medium text-red-500">
               Error loading availability
             </p>
-            <p className="text-sm text-red-600/80 dark:text-red-400/80 mt-1">
+            <p className="text-sm text-red-500/80 mt-1">
               {error}
             </p>
           </div>
@@ -84,12 +84,12 @@ export function RescheduleCalendar({
 
       {/* Selected date/time summary */}
       {selectedDateTime && (
-        <Card className="p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800">
+        <Card className="p-4 bg-primary/10 border border-primary/30">
           <div className="space-y-2">
-            <p className="text-sm font-medium text-green-900 dark:text-green-200">
+            <p className="text-sm font-medium text-primary">
               Selected Date & Time
             </p>
-            <p className="text-base font-semibold text-green-800 dark:text-green-100">
+            <p className="text-base font-semibold text-primary">
               {format(parseISO(selectedDateTime), "MMMM d, yyyy")} at{" "}
               {format(parseISO(selectedDateTime), "h:mm a")}
             </p>
@@ -102,7 +102,7 @@ export function RescheduleCalendar({
         <Button
           onClick={handleConfirm}
           disabled={!hasSelectedBoth || isLoading}
-          className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+          className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
         >
           {isLoading ? "Processing..." : "Confirm New Time"}
         </Button>
