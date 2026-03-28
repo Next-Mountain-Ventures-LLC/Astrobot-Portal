@@ -11,6 +11,9 @@ import {
   AvailabilityTimesResponse,
   BookingConfirmationResponse,
   AcuityAppointmentType,
+  RescheduleAppointmentRequest,
+  RescheduleAppointmentResponse,
+  AppointmentsByEmailResponse,
 } from "@shared/api";
 import Stripe from "stripe";
 
@@ -22,6 +25,11 @@ const getAvailabilityDatesSchema = z.object({
 
 const getAvailabilityTimesSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be YYYY-MM-DD format"),
+  appointmentTypeId: z.string().optional(),
+});
+
+const rescheduleAppointmentSchema = z.object({
+  datetime: z.string().min(1, "Datetime is required").regex(/^\d{4}-\d{2}-\d{2}T/, "Invalid datetime format - must be ISO 8601"),
   appointmentTypeId: z.string().optional(),
 });
 
@@ -646,6 +654,191 @@ export const handleGetStripeSession: RequestHandler = async (req, res) => {
     res.status(error.statusCode || 500).json({
       error: "Failed to retrieve Stripe session",
       message: error.message || "An error occurred while retrieving session details",
+    });
+  }
+};
+
+/**
+ * GET /api/booking/appointments/by-email/:email
+ * Fetch all appointments for a customer by email
+ * Used to find the launch appointment when rescheduling a design appointment
+ */
+export const handleGetAppointmentsByEmail: RequestHandler = async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    if (!email || typeof email !== "string") {
+      return res.status(400).json({
+        error: "Invalid request",
+        message: "Email parameter is required",
+      });
+    }
+
+    console.log("[Booking] Fetching appointments for email:", { email });
+
+    // Call Acuity API to get all appointments for this email
+    const appointments = await makeAcuityRequest("/appointments", {
+      params: { email },
+    });
+
+    // Ensure we have an array of appointments
+    const appointmentList = Array.isArray(appointments) ? appointments : [];
+
+    console.log("[Booking] Found appointments:", {
+      email,
+      count: appointmentList.length,
+      appointmentIds: appointmentList.map((a: any) => a.id),
+    });
+
+    const response: AppointmentsByEmailResponse = {
+      appointments: appointmentList.map((appt: any) => ({
+        id: appt.id,
+        datetime: appt.datetime,
+        firstName: appt.firstName,
+        lastName: appt.lastName,
+        email: appt.email,
+        phone: appt.phone,
+        appointmentTypeID: appt.appointmentTypeID,
+        calendarID: appt.calendarID,
+        timezone: appt.timezone,
+        notes: appt.notes,
+        status: appt.status,
+      })),
+    };
+
+    res.json(response);
+  } catch (error: any) {
+    console.error("[Booking] Error fetching appointments by email:", error);
+
+    if (error.statusCode === 401) {
+      return res.status(401).json({
+        error: "Authentication failed",
+        message: "Unable to authenticate with Acuity API",
+      });
+    }
+
+    if (error.statusCode === 404) {
+      return res.status(404).json({
+        error: "No appointments found",
+        message: "No appointments found for the provided email",
+        appointments: [],
+      });
+    }
+
+    res.status(error.statusCode || 500).json({
+      error: "Failed to fetch appointments",
+      message: error.message || "An error occurred",
+    });
+  }
+};
+
+/**
+ * PUT /api/booking/appointments/:id
+ * Reschedule an existing appointment
+ * Calls Acuity PATCH endpoint to update the appointment datetime
+ */
+export const handleRescheduleAppointment: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id || !/^\d+$/.test(id)) {
+      return res.status(400).json({
+        error: "Invalid request",
+        message: "Appointment ID must be a number",
+      });
+    }
+
+    // Validate request body
+    const rescheduleData = rescheduleAppointmentSchema.parse(req.body);
+
+    console.log("[Booking] Incoming reschedule request:", {
+      appointmentId: id,
+      datetime: rescheduleData.datetime,
+      appointmentTypeId: rescheduleData.appointmentTypeId,
+    });
+
+    // Prepare request body for Acuity API
+    // PATCH /appointments/:id endpoint
+    const acuityBody: any = {
+      datetime: rescheduleData.datetime,
+    };
+
+    console.log("[Booking] Prepared Acuity reschedule request body:", {
+      appointmentId: id,
+      datetime: acuityBody.datetime,
+    });
+
+    // Call Acuity API to reschedule appointment
+    // NOTE: admin=true parameter is required for rescheduling
+    const updatedAppointment = await makeAcuityRequest(
+      `/appointments/${id}`,
+      {
+        method: "PATCH",
+        params: { admin: true },
+        body: acuityBody,
+      }
+    );
+
+    console.log("[Booking] Acuity appointment rescheduled:", {
+      appointmentId: updatedAppointment.id,
+      newDatetime: updatedAppointment.datetime,
+    });
+
+    const response: RescheduleAppointmentResponse = {
+      id: updatedAppointment.id,
+      datetime: updatedAppointment.datetime,
+      appointmentTypeID: updatedAppointment.appointmentTypeID,
+      appointmentTypeName: updatedAppointment.appointmentTypeName,
+      firstName: updatedAppointment.firstName,
+      lastName: updatedAppointment.lastName,
+      email: updatedAppointment.email,
+      phone: updatedAppointment.phone,
+      timezone: updatedAppointment.timezone,
+      status: updatedAppointment.status,
+    };
+
+    res.json(response);
+  } catch (error: any) {
+    console.error("[Booking] Error rescheduling appointment:", error);
+
+    if (error.statusCode === 401) {
+      return res.status(401).json({
+        error: "Authentication failed",
+        message: "Unable to authenticate with Acuity API",
+      });
+    }
+
+    if (error.statusCode === 404) {
+      return res.status(404).json({
+        error: "Appointment not found",
+        message: "The requested appointment could not be found",
+      });
+    }
+
+    if (error.statusCode === 400 || error instanceof z.ZodError) {
+      const message =
+        error instanceof z.ZodError
+          ? error.errors[0]?.message || "Invalid request data"
+          : error.message || "Invalid reschedule request";
+
+      return res.status(400).json({
+        error: "Invalid reschedule request",
+        message,
+      });
+    }
+
+    if (error.statusCode === 422) {
+      return res.status(422).json({
+        error: "Time slot unavailable",
+        message:
+          error.message ||
+          "The selected time slot is no longer available. Please select another time.",
+      });
+    }
+
+    res.status(error.statusCode || 500).json({
+      error: "Failed to reschedule appointment",
+      message: error.message || "An error occurred while rescheduling",
     });
   }
 };

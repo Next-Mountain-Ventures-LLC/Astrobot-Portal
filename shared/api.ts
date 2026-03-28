@@ -183,6 +183,7 @@ export interface AcuityAppointment {
   email: string;
   phone: string;
   appointmentTypeID: number;
+  appointmentTypeName?: string;
   calendarID: number;
   timezone: string;
   notes?: string;
@@ -216,4 +217,29 @@ export interface ApiErrorResponse {
   error: string;
   message: string;
   statusCode?: number;
+}
+
+/**
+ * Reschedule Appointment Types
+ */
+export interface RescheduleAppointmentRequest {
+  datetime: string; // ISO 8601 format
+  appointmentTypeId?: string;
+}
+
+export interface RescheduleAppointmentResponse {
+  id: number;
+  datetime: string;
+  appointmentTypeID: number;
+  appointmentTypeName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  timezone: string;
+  status?: string;
+}
+
+export interface AppointmentsByEmailResponse {
+  appointments: AcuityAppointment[];
 }

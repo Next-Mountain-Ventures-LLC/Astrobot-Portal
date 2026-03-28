@@ -7,7 +7,7 @@
 const ACUITY_BASE_URL = "https://acuityscheduling.com/api/v1";
 
 interface AcuityRequestOptions {
-  method?: "GET" | "POST" | "PUT" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   params?: Record<string, string | number | boolean>;
   body?: Record<string, any>;
 }
@@ -57,8 +57,8 @@ export async function makeAcuityRequest(
     },
   };
 
-  // Add request body for POST/PUT requests
-  if (body && (method === "POST" || method === "PUT")) {
+  // Add request body for POST/PUT/PATCH requests
+  if (body && (method === "POST" || method === "PUT" || method === "PATCH")) {
     fetchOptions.body = JSON.stringify(body);
   }
 

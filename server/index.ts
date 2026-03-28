@@ -25,6 +25,8 @@ import {
   handleCreateAppointment,
   handleGetAppointmentDetails,
   handleGetStripeSession,
+  handleGetAppointmentsByEmail,
+  handleRescheduleAppointment,
 } from "./routes/booking";
 
 export async function initializeServer() {
@@ -116,7 +118,9 @@ export function createServer() {
   app.get("/api/booking/availability/dates", handleGetAvailabilityDates);
   app.get("/api/booking/availability/times", handleGetAvailabilityTimes);
   app.post("/api/booking/appointments", handleCreateAppointment);
+  app.get("/api/booking/appointments/by-email/:email", handleGetAppointmentsByEmail);
   app.get("/api/booking/appointments/:id", handleGetAppointmentDetails);
+  app.put("/api/booking/appointments/:id", handleRescheduleAppointment);
   app.get("/api/booking/stripe-session/:sessionId", handleGetStripeSession);
 
   return app;

@@ -16,6 +16,7 @@ import SubmitChanges from "./pages/SubmitChanges";
 import AccountSettings from "./pages/AccountSettings";
 import Support from "./pages/Support";
 import Booking from "./pages/Booking";
+import Reschedule from "./pages/Reschedule";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Booking />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/reschedule" element={<Reschedule />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"
