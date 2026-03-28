@@ -99,7 +99,9 @@ export default function Reschedule() {
         setCurrentAppointment(appointment);
 
         // If this is a design appointment, check for launch appointment
-        if (appointment.appointmentTypeID === 87852183) {
+        // Use environment variable for appointment type ID to avoid hardcoding secrets
+        const DESIGN_APPOINTMENT_TYPE_ID = Number(import.meta.env.VITE_ACUITY_DESIGN_APPOINTMENT_TYPE_ID);
+        if (appointment.appointmentTypeID === DESIGN_APPOINTMENT_TYPE_ID) {
           try {
             const byEmailResponse = await fetch(
               `/api/booking/appointments/by-email/${encodeURIComponent(appointment.email)}`
@@ -110,8 +112,10 @@ export default function Reschedule() {
               console.log("[Reschedule] Fetched appointments by email:", byEmailData);
 
               // Find the launch appointment
+              // Use environment variable for appointment type ID to avoid hardcoding secrets
+              const LAUNCH_APPOINTMENT_TYPE_ID = Number(import.meta.env.VITE_ACUITY_LAUNCH_APPOINTMENT_TYPE_ID);
               const launch = byEmailData.appointments.find(
-                (appt) => appt.appointmentTypeID === 89122426
+                (appt) => appt.appointmentTypeID === LAUNCH_APPOINTMENT_TYPE_ID
               );
 
               if (launch) {
