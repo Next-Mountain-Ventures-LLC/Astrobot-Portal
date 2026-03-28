@@ -772,11 +772,12 @@ export const handleRescheduleAppointment: RequestHandler = async (req, res) => {
     });
 
     // Call Acuity API to reschedule appointment
+    // According to Acuity docs: PUT /appointments/{id}/reschedule
     // NOTE: admin=true parameter is required for rescheduling
     const updatedAppointment = await makeAcuityRequest(
-      `/appointments/${id}`,
+      `/appointments/${id}/reschedule`,
       {
-        method: "PATCH",
+        method: "PUT",
         params: { admin: true },
         body: acuityBody,
       }
