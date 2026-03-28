@@ -803,7 +803,12 @@ export const handleRescheduleAppointment: RequestHandler = async (req, res) => {
 
     res.json(response);
   } catch (error: any) {
-    console.error("[Booking] Error rescheduling appointment:", error);
+    console.error("[Booking] Error rescheduling appointment:", {
+      message: error.message,
+      statusCode: error.statusCode,
+      errorDetails: error.error,
+      fullError: JSON.stringify(error, null, 2),
+    });
 
     if (error.statusCode === 401) {
       return res.status(401).json({

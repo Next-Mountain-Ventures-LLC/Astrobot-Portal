@@ -197,8 +197,15 @@ export default function Reschedule() {
       });
 
       if (!designResponse.ok) {
-        const errorData = await designResponse.json();
-        throw new Error(errorData.message || "Failed to reschedule design appointment");
+        let errorMessage = `Design appointment reschedule failed (${designResponse.status})`;
+        try {
+          const errorData = await designResponse.json();
+          errorMessage = errorData.message || errorMessage;
+          console.error("[Reschedule] Design response error:", errorData);
+        } catch (e) {
+          console.warn("[Reschedule] Could not parse design error response");
+        }
+        throw new Error(errorMessage);
       }
 
       console.log("[Reschedule] Design appointment rescheduled successfully");
@@ -216,8 +223,15 @@ export default function Reschedule() {
         });
 
         if (!launchResponse.ok) {
-          const errorData = await launchResponse.json();
-          throw new Error(errorData.message || "Failed to reschedule launch appointment");
+          let errorMessage = `Launch appointment reschedule failed (${launchResponse.status})`;
+          try {
+            const errorData = await launchResponse.json();
+            errorMessage = errorData.message || errorMessage;
+            console.error("[Reschedule] Launch response error:", errorData);
+          } catch (e) {
+            console.warn("[Reschedule] Could not parse launch error response");
+          }
+          throw new Error(errorMessage);
         }
 
         console.log("[Reschedule] Launch appointment rescheduled successfully");
@@ -225,8 +239,11 @@ export default function Reschedule() {
 
       setState("success");
     } catch (err: any) {
-      console.error("[Reschedule] Error rescheduling appointment:", err);
-      setError(err.message || "Failed to reschedule appointment");
+      console.error("[Reschedule] Error rescheduling appointment:", {
+        message: err.message,
+        stack: err.stack,
+      });
+      setError(err.message || "Failed to reschedule appointment. Please try again.");
       setState("error");
     } finally {
       setIsSubmitting(false);
