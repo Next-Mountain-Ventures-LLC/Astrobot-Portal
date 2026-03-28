@@ -192,7 +192,7 @@ export default function Reschedule() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           datetime: newDesignDateTime,
-          appointmentTypeId: currentAppointment.appointmentTypeID,
+          appointmentTypeId: currentAppointment.appointmentTypeID.toString(),
         }),
       });
 
@@ -211,7 +211,7 @@ export default function Reschedule() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             datetime: newLaunchDateTime,
-            appointmentTypeId: launchAppointment.appointmentTypeID,
+            appointmentTypeId: launchAppointment.appointmentTypeID.toString(),
           }),
         });
 
