@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Layout } from "@/components/Layout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Loader2, CheckCircle2, ArrowLeft, Calendar } from "lucide-react";
@@ -251,212 +252,167 @@ export default function Reschedule() {
   // Render different states
   if (state === "loading") {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Card className="p-8 text-center max-w-sm">
-          <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-          <p className="text-lg font-medium text-foreground">
-            Loading appointment details...
-          </p>
-        </Card>
-      </div>
+      <Layout>
+        <div className="min-h-screen bg-background flex items-center justify-center">
+          <Card className="p-8 text-center max-w-sm">
+            <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
+            <p className="text-lg font-medium text-foreground">
+              Loading appointment details...
+            </p>
+          </Card>
+        </div>
+      </Layout>
     );
   }
 
   if (state === "error") {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
-        <Card className="p-8 max-w-sm w-full">
-          <div className="flex flex-col items-center text-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
-              <AlertCircle className="w-8 h-8 text-red-500" />
+      <Layout>
+        <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
+          <Card className="p-8 max-w-sm w-full">
+            <div className="flex flex-col items-center text-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
+                <AlertCircle className="w-8 h-8 text-red-500" />
+              </div>
+              <h1 className="text-2xl font-bold text-foreground">Error</h1>
+              <p className="text-muted-foreground">{error}</p>
+              <Button onClick={() => window.history.back()} className="mt-4">
+                Go Back
+              </Button>
             </div>
-            <h1 className="text-2xl font-bold text-foreground">Error</h1>
-            <p className="text-muted-foreground">{error}</p>
-            <Button onClick={() => window.history.back()} className="mt-4">
-              Go Back
-            </Button>
-          </div>
-        </Card>
-      </div>
+          </Card>
+        </div>
+      </Layout>
     );
   }
 
   if (state === "success") {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
-        <Card className="p-8 max-w-sm w-full">
-          <div className="flex flex-col items-center text-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
-              <CheckCircle2 className="w-8 h-8 text-green-500" />
+      <Layout>
+        <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
+          <Card className="p-8 max-w-sm w-full">
+            <div className="flex flex-col items-center text-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
+                <CheckCircle2 className="w-8 h-8 text-green-500" />
+              </div>
+              <h1 className="text-2xl font-bold text-foreground">Success!</h1>
+              <p className="text-muted-foreground">
+                Your appointment{needsDualReschedule ? "s have" : " has"} been successfully
+                rescheduled. You should receive a confirmation email shortly.
+              </p>
+              <Button onClick={() => window.location.href = "https://www.astrobot.design"} className="mt-4">
+                Return Home
+              </Button>
             </div>
-            <h1 className="text-2xl font-bold text-foreground">Success!</h1>
-            <p className="text-muted-foreground">
-              Your appointment{needsDualReschedule ? "s have" : " has"} been successfully
-              rescheduled. You should receive a confirmation email shortly.
-            </p>
-            <Button onClick={() => window.location.href = "https://www.astrobot.design"} className="mt-4">
-              Return Home
-            </Button>
-          </div>
-        </Card>
-      </div>
+          </Card>
+        </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        {/* Header - Back button without full navigation (hidden on first load) */}
-        {state !== "view-current" && (
-          <div className="mb-8 flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleBack}
-              className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back
-            </Button>
+    <Layout>
+      <div className="min-h-screen bg-background py-12 px-4">
+        <div className="max-w-2xl mx-auto">
+          {/* Header - Back button without full navigation (hidden on first load) */}
+          {state !== "view-current" && (
+            <div className="mb-8 flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleBack}
+                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back
+              </Button>
+            </div>
+          )}
+
+          <div className="mb-8 text-center">
+            <h1 className="text-4xl font-bold text-foreground mb-2">
+              Reschedule Appointment
+            </h1>
+            <p className="text-muted-foreground">
+              {state === "view-current" &&
+                "Review your current appointment details below"}
+              {state === "select-new-date" &&
+                "Select a new date and time for your design meeting"}
+              {state === "check-launch" &&
+                "Your design meeting needs to be at least 7 days before your launch meeting"}
+              {state === "select-launch-date" &&
+                "Select a new date and time for your launch meeting"}
+              {state === "confirming" &&
+                "Review your changes before confirming"}
+            </p>
           </div>
-        )}
 
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-2">
-            Reschedule Appointment
-          </h1>
-          <p className="text-muted-foreground">
-            {state === "view-current" &&
-              "Review your current appointment details below"}
-            {state === "select-new-date" &&
-              "Select a new date and time for your design meeting"}
-            {state === "check-launch" &&
-              "Your design meeting needs to be at least 7 days before your launch meeting"}
-            {state === "select-launch-date" &&
-              "Select a new date and time for your launch meeting"}
-            {state === "confirming" &&
-              "Review your changes before confirming"}
-          </p>
-        </div>
-
-        {/* Error banner */}
-        {error && state !== "error" && (
-          <Card className="p-4 mb-6 bg-red-500/10 border border-red-500/30 flex gap-3">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-            <div>
-              <p className="font-medium text-red-500">{error}</p>
-            </div>
-          </Card>
-        )}
-
-        {/* Content based on state */}
-        {state === "view-current" && currentAppointment && (
-          <RescheduleForm
-            appointment={currentAppointment}
-            onReschedule={() => setState("select-new-date")}
-            onCancel={() => {
-              // Navigate back to the original source
-              const previousPage = document.referrer || "/";
-              window.location.href = previousPage;
-            }}
-          />
-        )}
-
-        {state === "select-new-date" && currentAppointment && (
-          <RescheduleCalendar
-            onDateTimeSelect={handleDesignDateSelected}
-            onCancel={() => setState("view-current")}
-            isLoading={isSubmitting}
-            appointmentTypeId={currentAppointment.appointmentTypeID.toString()}
-          />
-        )}
-
-        {state === "check-launch" && launchAppointment && newDesignDateTime && (
-          <RescheduleDualPrompt
-            launchAppointment={launchAppointment}
-            newDesignDateTime={newDesignDateTime}
-            onSelectLaunchDate={() => {
-              // Calculate minimum date for launch (7 days after new design date)
-              const designDate = parseISO(newDesignDateTime);
-              const minLaunchDate = addDays(designDate, 7);
-              setState("select-launch-date");
-            }}
-            onCancel={() => setState("select-new-date")}
-            isLoading={isSubmitting}
-          />
-        )}
-
-        {state === "select-launch-date" && launchAppointment && newDesignDateTime && (
-          <RescheduleCalendar
-            onDateTimeSelect={handleLaunchDateSelected}
-            onCancel={() => setState("check-launch")}
-            isLoading={isSubmitting}
-            disableDatesBeforeThan={addDays(parseISO(newDesignDateTime), 7)}
-            appointmentTypeId={launchAppointment.appointmentTypeID.toString()}
-          />
-        )}
-
-        {state === "confirming" && currentAppointment && newDesignDateTime && (
-          <Card className="p-6 space-y-6 bg-card border-border">
-            <h2 className="text-xl font-semibold text-foreground">
-              Confirm Reschedule
-            </h2>
-
-            {/* Design appointment change */}
-            <div className="bg-background rounded-lg border border-border p-6 space-y-4">
-              <h3 className="font-semibold text-foreground">Design Meeting</h3>
-
-              {/* Current time with calendar icon */}
-              <div className="flex items-start gap-3">
-                <Calendar className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">Current Date & Time</p>
-                  <p className="text-foreground font-medium">
-                    {new Date(currentAppointment.datetime).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <p className="text-foreground font-medium">
-                    {new Date(currentAppointment.datetime).toLocaleTimeString("en-US", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
-                  </p>
-                </div>
+          {/* Error banner */}
+          {error && state !== "error" && (
+            <Card className="p-4 mb-6 bg-red-500/10 border border-red-500/30 flex gap-3">
+              <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+              <div>
+                <p className="font-medium text-red-500">{error}</p>
               </div>
+            </Card>
+          )}
 
-              {/* New time with calendar icon */}
-              <div className="flex items-start gap-3 pt-2 border-t border-border">
-                <Calendar className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">New Date & Time</p>
-                  <p className="text-foreground font-medium">
-                    {new Date(newDesignDateTime).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <p className="text-foreground font-medium">
-                    {new Date(newDesignDateTime).toLocaleTimeString("en-US", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                      hour12: true,
-                    })}
-                  </p>
-                </div>
-              </div>
-            </div>
+          {/* Content based on state */}
+          {state === "view-current" && currentAppointment && (
+            <RescheduleForm
+              appointment={currentAppointment}
+              onReschedule={() => setState("select-new-date")}
+              onCancel={() => {
+                // Navigate back to the original source
+                const previousPage = document.referrer || "/";
+                window.location.href = previousPage;
+              }}
+            />
+          )}
 
-            {/* Launch appointment change (if dual reschedule) */}
-            {needsDualReschedule && launchAppointment && newLaunchDateTime && (
+          {state === "select-new-date" && currentAppointment && (
+            <RescheduleCalendar
+              onDateTimeSelect={handleDesignDateSelected}
+              onCancel={() => setState("view-current")}
+              isLoading={isSubmitting}
+              appointmentTypeId={currentAppointment.appointmentTypeID.toString()}
+            />
+          )}
+
+          {state === "check-launch" && launchAppointment && newDesignDateTime && (
+            <RescheduleDualPrompt
+              launchAppointment={launchAppointment}
+              newDesignDateTime={newDesignDateTime}
+              onSelectLaunchDate={() => {
+                // Calculate minimum date for launch (7 days after new design date)
+                const designDate = parseISO(newDesignDateTime);
+                const minLaunchDate = addDays(designDate, 7);
+                setState("select-launch-date");
+              }}
+              onCancel={() => setState("select-new-date")}
+              isLoading={isSubmitting}
+            />
+          )}
+
+          {state === "select-launch-date" && launchAppointment && newDesignDateTime && (
+            <RescheduleCalendar
+              onDateTimeSelect={handleLaunchDateSelected}
+              onCancel={() => setState("check-launch")}
+              isLoading={isSubmitting}
+              disableDatesBeforeThan={addDays(parseISO(newDesignDateTime), 7)}
+              appointmentTypeId={launchAppointment.appointmentTypeID.toString()}
+            />
+          )}
+
+          {state === "confirming" && currentAppointment && newDesignDateTime && (
+            <Card className="p-6 space-y-6 bg-card border-border">
+              <h2 className="text-xl font-semibold text-foreground">
+                Confirm Reschedule
+              </h2>
+
+              {/* Design appointment change */}
               <div className="bg-background rounded-lg border border-border p-6 space-y-4">
-                <h3 className="font-semibold text-foreground">Launch Meeting</h3>
+                <h3 className="font-semibold text-foreground">Design Meeting</h3>
 
                 {/* Current time with calendar icon */}
                 <div className="flex items-start gap-3">
@@ -464,7 +420,7 @@ export default function Reschedule() {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Current Date & Time</p>
                     <p className="text-foreground font-medium">
-                      {new Date(launchAppointment.datetime).toLocaleDateString("en-US", {
+                      {new Date(currentAppointment.datetime).toLocaleDateString("en-US", {
                         weekday: "long",
                         year: "numeric",
                         month: "long",
@@ -472,7 +428,7 @@ export default function Reschedule() {
                       })}
                     </p>
                     <p className="text-foreground font-medium">
-                      {new Date(launchAppointment.datetime).toLocaleTimeString("en-US", {
+                      {new Date(currentAppointment.datetime).toLocaleTimeString("en-US", {
                         hour: "numeric",
                         minute: "2-digit",
                         hour12: true,
@@ -487,7 +443,7 @@ export default function Reschedule() {
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">New Date & Time</p>
                     <p className="text-foreground font-medium">
-                      {new Date(newLaunchDateTime).toLocaleDateString("en-US", {
+                      {new Date(newDesignDateTime).toLocaleDateString("en-US", {
                         weekday: "long",
                         year: "numeric",
                         month: "long",
@@ -495,7 +451,7 @@ export default function Reschedule() {
                       })}
                     </p>
                     <p className="text-foreground font-medium">
-                      {new Date(newLaunchDateTime).toLocaleTimeString("en-US", {
+                      {new Date(newDesignDateTime).toLocaleTimeString("en-US", {
                         hour: "numeric",
                         minute: "2-digit",
                         hour12: true,
@@ -504,29 +460,82 @@ export default function Reschedule() {
                   </div>
                 </div>
               </div>
-            )}
 
-            {/* Action buttons */}
-            <div className="flex gap-3">
-              <Button
-                onClick={handleConfirmReschedule}
-                disabled={isSubmitting}
-                className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
-              >
-                {isSubmitting ? "Rescheduling..." : "Confirm Reschedule"}
-              </Button>
-              <Button
-                onClick={() => setState("view-current")}
-                disabled={isSubmitting}
-                variant="outline"
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-            </div>
-          </Card>
-        )}
+              {/* Launch appointment change (if dual reschedule) */}
+              {needsDualReschedule && launchAppointment && newLaunchDateTime && (
+                <div className="bg-background rounded-lg border border-border p-6 space-y-4">
+                  <h3 className="font-semibold text-foreground">Launch Meeting</h3>
+
+                  {/* Current time with calendar icon */}
+                  <div className="flex items-start gap-3">
+                    <Calendar className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Current Date & Time</p>
+                      <p className="text-foreground font-medium">
+                        {new Date(launchAppointment.datetime).toLocaleDateString("en-US", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                      <p className="text-foreground font-medium">
+                        {new Date(launchAppointment.datetime).toLocaleTimeString("en-US", {
+                          hour: "numeric",
+                          minute: "2-digit",
+                          hour12: true,
+                        })}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* New time with calendar icon */}
+                  <div className="flex items-start gap-3 pt-2 border-t border-border">
+                    <Calendar className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">New Date & Time</p>
+                      <p className="text-foreground font-medium">
+                        {new Date(newLaunchDateTime).toLocaleDateString("en-US", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                      <p className="text-foreground font-medium">
+                        {new Date(newLaunchDateTime).toLocaleTimeString("en-US", {
+                          hour: "numeric",
+                          minute: "2-digit",
+                          hour12: true,
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Action buttons */}
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleConfirmReschedule}
+                  disabled={isSubmitting}
+                  className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
+                >
+                  {isSubmitting ? "Rescheduling..." : "Confirm Reschedule"}
+                </Button>
+                <Button
+                  onClick={() => setState("view-current")}
+                  disabled={isSubmitting}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Card>
+          )}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }

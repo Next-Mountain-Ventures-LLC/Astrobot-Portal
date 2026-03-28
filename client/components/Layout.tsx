@@ -15,7 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
     return location.pathname === path;
   };
 
-  const isBookingPage = location.pathname === "/" || location.pathname === "/booking";
+  const isBookingPage = location.pathname === "/" || location.pathname === "/booking" || location.pathname === "/reschedule";
 
   const navItems = [
     { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
