@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Loader2, CheckCircle2, ArrowLeft } from "lucide-react";
+import { AlertCircle, Loader2, CheckCircle2, ArrowLeft, Calendar } from "lucide-react";
 import { RescheduleForm } from "@/components/RescheduleForm";
 import { RescheduleCalendar } from "@/components/RescheduleCalendar";
 import { RescheduleDualPrompt } from "@/components/RescheduleDualPrompt";
@@ -43,6 +43,31 @@ export default function Reschedule() {
 
   // Loading states
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Handle back navigation based on current state
+  const handleBack = () => {
+    switch (state) {
+      case "select-new-date":
+        setState("view-current");
+        break;
+      case "check-launch":
+        setState("select-new-date");
+        break;
+      case "select-launch-date":
+        setState("check-launch");
+        break;
+      case "confirming":
+        // Go back to appropriate state based on what was being rescheduled
+        if (needsDualReschedule) {
+          setState("select-launch-date");
+        } else {
+          setState("select-new-date");
+        }
+        break;
+      default:
+        window.history.back();
+    }
+  };
 
   // Fetch current appointment on load
   useEffect(() => {
@@ -272,7 +297,7 @@ export default function Reschedule() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => window.history.back()}
+              onClick={handleBack}
               className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -314,7 +339,11 @@ export default function Reschedule() {
           <RescheduleForm
             appointment={currentAppointment}
             onReschedule={() => setState("select-new-date")}
-            onCancel={() => window.history.back()}
+            onCancel={() => {
+              // Navigate back to the original source
+              const previousPage = document.referrer || "/";
+              window.location.href = previousPage;
+            }}
           />
         )}
 
@@ -354,91 +383,113 @@ export default function Reschedule() {
 
         {state === "confirming" && currentAppointment && newDesignDateTime && (
           <Card className="p-6 space-y-6 bg-card border-border">
-            <div>
-              <h2 className="text-xl font-semibold text-foreground mb-4">
-                Confirm Reschedule
-              </h2>
+            <h2 className="text-xl font-semibold text-foreground">
+              Confirm Reschedule
+            </h2>
 
-              {/* Design appointment change */}
-              <div className="space-y-3 mb-6 pb-6 border-b border-border">
-                <p className="font-medium text-foreground">
-                  Design Meeting
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Currently scheduled for:{" "}
-                  <span className="font-medium text-foreground">
+            {/* Design appointment change */}
+            <div className="bg-background rounded-lg border border-border p-6 space-y-4">
+              <h3 className="font-semibold text-foreground">Design Meeting</h3>
+
+              {/* Current time with calendar icon */}
+              <div className="flex items-start gap-3">
+                <Calendar className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Current Date & Time</p>
+                  <p className="text-foreground font-medium">
                     {new Date(currentAppointment.datetime).toLocaleDateString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
                       month: "long",
                       day: "numeric",
-                      year: "numeric",
-                    })}{" "}
-                    at{" "}
+                    })}
+                  </p>
+                  <p className="text-foreground font-medium">
                     {new Date(currentAppointment.datetime).toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "2-digit",
                       hour12: true,
                     })}
-                  </span>
-                </p>
-                <p className="text-sm text-primary">
-                  New time:{" "}
-                  <span className="font-medium">
+                  </p>
+                </div>
+              </div>
+
+              {/* New time with calendar icon */}
+              <div className="flex items-start gap-3 pt-2 border-t border-border">
+                <Calendar className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">New Date & Time</p>
+                  <p className="text-foreground font-medium">
                     {new Date(newDesignDateTime).toLocaleDateString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
                       month: "long",
                       day: "numeric",
-                      year: "numeric",
-                    })}{" "}
-                    at{" "}
+                    })}
+                  </p>
+                  <p className="text-foreground font-medium">
                     {new Date(newDesignDateTime).toLocaleTimeString("en-US", {
                       hour: "numeric",
                       minute: "2-digit",
                       hour12: true,
                     })}
-                  </span>
-                </p>
-              </div>
-
-              {/* Launch appointment change (if dual reschedule) */}
-              {needsDualReschedule && launchAppointment && newLaunchDateTime && (
-                <div className="space-y-3 pb-6 border-b border-border">
-                  <p className="font-medium text-foreground">
-                    Launch Meeting
                   </p>
-                  <p className="text-sm text-muted-foreground">
-                    Currently scheduled for:{" "}
-                    <span className="font-medium text-foreground">
+                </div>
+              </div>
+            </div>
+
+            {/* Launch appointment change (if dual reschedule) */}
+            {needsDualReschedule && launchAppointment && newLaunchDateTime && (
+              <div className="bg-background rounded-lg border border-border p-6 space-y-4">
+                <h3 className="font-semibold text-foreground">Launch Meeting</h3>
+
+                {/* Current time with calendar icon */}
+                <div className="flex items-start gap-3">
+                  <Calendar className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">Current Date & Time</p>
+                    <p className="text-foreground font-medium">
                       {new Date(launchAppointment.datetime).toLocaleDateString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
                         month: "long",
                         day: "numeric",
-                        year: "numeric",
-                      })}{" "}
-                      at{" "}
+                      })}
+                    </p>
+                    <p className="text-foreground font-medium">
                       {new Date(launchAppointment.datetime).toLocaleTimeString("en-US", {
                         hour: "numeric",
                         minute: "2-digit",
                         hour12: true,
                       })}
-                    </span>
-                  </p>
-                  <p className="text-sm text-primary">
-                    New time:{" "}
-                    <span className="font-medium">
+                    </p>
+                  </div>
+                </div>
+
+                {/* New time with calendar icon */}
+                <div className="flex items-start gap-3 pt-2 border-t border-border">
+                  <Calendar className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-1">New Date & Time</p>
+                    <p className="text-foreground font-medium">
                       {new Date(newLaunchDateTime).toLocaleDateString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
                         month: "long",
                         day: "numeric",
-                        year: "numeric",
-                      })}{" "}
-                      at{" "}
+                      })}
+                    </p>
+                    <p className="text-foreground font-medium">
                       {new Date(newLaunchDateTime).toLocaleTimeString("en-US", {
                         hour: "numeric",
                         minute: "2-digit",
                         hour12: true,
                       })}
-                    </span>
-                  </p>
+                    </p>
+                  </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Action buttons */}
             <div className="flex gap-3">
