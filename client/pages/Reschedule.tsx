@@ -22,11 +22,10 @@ type RescheduleState =
 
 const DESIGN_APPOINTMENT_TYPE_ID = 87852183;
 const LAUNCH_APPOINTMENT_TYPE_ID = 89122426;
-const TEST_APPOINTMENT_ID = "1678324456"; // Test appointment ID for development
 
 export default function Reschedule() {
   const [searchParams] = useSearchParams();
-  const appointmentId = searchParams.get("appointmentId") || TEST_APPOINTMENT_ID;
+  const appointmentId = searchParams.get("appointmentId");
 
   // State machine
   const [state, setState] = useState<RescheduleState>("loading");
