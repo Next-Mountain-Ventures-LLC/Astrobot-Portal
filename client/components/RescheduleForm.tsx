@@ -22,29 +22,20 @@ export function RescheduleForm({
   const formattedDate = format(appointmentDate, "MMMM d, yyyy");
   const formattedTime = format(appointmentDate, "h:mm a");
 
-  // Determine appointment type label - Use friendly names for known types, fall back to Acuity API name
-  const appointmentTypeLabel = (() => {
-    if (appointment.appointmentTypeID === 87852183) {
-      return "Design Meeting";
-    }
-    if (appointment.appointmentTypeID === 89122426) {
-      return "Launch Meeting";
-    }
-    // Fall back to the appointment type name from Acuity API
-    return appointment.appointmentTypeName || "Appointment";
-  })();
+  // Use the actual appointment type name from Acuity API
+  const appointmentTypeLabel = appointment.appointmentTypeName || "Appointment";
 
   return (
     <div className="space-y-6">
       {/* Current Appointment Details */}
       <Card className="p-6 bg-card border-border">
-        <div className="space-y-4 flex flex-col items-center text-center">
+        <div className="space-y-4">
           <h2 className="text-xl font-semibold text-foreground">
             Current Appointment
           </h2>
 
           {/* Appointment Type */}
-          <div className="flex flex-col items-center gap-2 w-full">
+          <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <User className="w-5 h-5 text-primary" />
             </div>
@@ -59,7 +50,7 @@ export function RescheduleForm({
           </div>
 
           {/* Date */}
-          <div className="flex flex-col items-center gap-2 w-full">
+          <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
               <Calendar className="w-5 h-5 text-accent" />
             </div>
@@ -72,7 +63,7 @@ export function RescheduleForm({
           </div>
 
           {/* Time */}
-          <div className="flex flex-col items-center gap-2 w-full">
+          <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Clock className="w-5 h-5 text-primary" />
             </div>
@@ -85,7 +76,7 @@ export function RescheduleForm({
           </div>
 
           {/* Customer Info */}
-          <div className="pt-2 border-t border-border w-full">
+          <div className="pt-2 border-t border-border">
             <p className="text-xs text-muted-foreground mb-2">
               Customer
             </p>
